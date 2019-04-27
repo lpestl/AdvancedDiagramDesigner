@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DiagramDesigner
+namespace DiagramDesigner.Functionality
 {
     public interface IGroupable
     {

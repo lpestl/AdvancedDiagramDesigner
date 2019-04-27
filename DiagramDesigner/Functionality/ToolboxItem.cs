@@ -5,7 +5,7 @@ using System.Windows.Input;
 using System.Windows.Markup;
 using System.Windows.Media;
 
-namespace DiagramDesigner
+namespace DiagramDesigner.Functionality
 {
     // Represents a selectable item in the Toolbox/>.
     public class ToolboxItem : ContentControl

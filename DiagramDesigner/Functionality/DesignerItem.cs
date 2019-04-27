@@ -5,7 +5,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using DiagramDesigner.Controls;
 
-namespace DiagramDesigner
+namespace DiagramDesigner.Functionality
 {
     //These attributes identify the types of the named parts that are used for templating
     [TemplatePart(Name = "PART_DragThumb", Type = typeof(DragThumb))]
@@ -132,7 +132,7 @@ namespace DiagramDesigner
         protected override void OnPreviewMouseDown(MouseButtonEventArgs e)
         {
             base.OnPreviewMouseDown(e);
-            DesignerCanvas designer = VisualTreeHelper.GetParent(this) as DesignerCanvas;
+            Functionality.DesignerCanvas designer = VisualTreeHelper.GetParent(this) as Functionality.DesignerCanvas;
 
             // update selection
             if (designer != null)

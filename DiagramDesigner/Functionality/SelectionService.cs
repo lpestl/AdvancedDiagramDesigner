@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DiagramDesigner
+namespace DiagramDesigner.Functionality
 {
     internal class SelectionService
     {
-        private DesignerCanvas designerCanvas;
+        private Functionality.DesignerCanvas designerCanvas;
 
         private List<ISelectable> currentSelection;
         internal List<ISelectable> CurrentSelection
@@ -20,7 +20,7 @@ namespace DiagramDesigner
             }
         }
 
-        public SelectionService(DesignerCanvas canvas)
+        public SelectionService(Functionality.DesignerCanvas canvas)
         {
             this.designerCanvas = canvas;
         }

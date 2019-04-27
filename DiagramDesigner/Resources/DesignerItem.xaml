@@ -2,7 +2,8 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib"
                     xmlns:s="clr-namespace:DiagramDesigner"
-                    xmlns:c="clr-namespace:DiagramDesigner.Controls">
+                    xmlns:c="clr-namespace:DiagramDesigner.Controls"
+                    xmlns:functionality="clr-namespace:DiagramDesigner.Functionality">
 
     <ContextMenu x:Key="DesignerItemContextMenu">
         <MenuItem Header="Cut" Command="{x:Static ApplicationCommands.Cut}">
@@ -27,34 +28,34 @@
         </MenuItem>
         <Separator/>
         <MenuItem Header="Grouping">
-            <MenuItem Header="Group" Command="{x:Static s:DesignerCanvas.Group}">
+            <MenuItem Header="Group" Command="{x:Static functionality:DesignerCanvas.Group}">
                 <MenuItem.Icon>
                     <Image Source="Images/Group.png" Width="16"/>
                 </MenuItem.Icon>
             </MenuItem>
-            <MenuItem Header="Ungroup" Command="{x:Static s:DesignerCanvas.Ungroup}">
+            <MenuItem Header="Ungroup" Command="{x:Static functionality:DesignerCanvas.Ungroup}">
                 <MenuItem.Icon>
                     <Image Source="Images/Ungroup.png" Width="16"/>
                 </MenuItem.Icon>
             </MenuItem>
         </MenuItem>
         <MenuItem Header="Order">
-            <MenuItem Header="Bring Forward" Command="{x:Static s:DesignerCanvas.BringForward}">
+            <MenuItem Header="Bring Forward" Command="{x:Static functionality:DesignerCanvas.BringForward}">
                 <MenuItem.Icon>
                     <Image Source="Images/BringForward.png" Width="16"/>
                 </MenuItem.Icon>
             </MenuItem>
-            <MenuItem Header="Bring To Front" Command="{x:Static s:DesignerCanvas.BringToFront}">
+            <MenuItem Header="Bring To Front" Command="{x:Static functionality:DesignerCanvas.BringToFront}">
                 <MenuItem.Icon>
                     <Image Source="Images/BringToFront.png" Width="16"/>
                 </MenuItem.Icon>
             </MenuItem>
-            <MenuItem Header="Send Backward" Command="{x:Static s:DesignerCanvas.SendBackward}">
+            <MenuItem Header="Send Backward" Command="{x:Static functionality:DesignerCanvas.SendBackward}">
                 <MenuItem.Icon>
                     <Image Source="Images/SendBackward.png" Width="16"/>
                 </MenuItem.Icon>
             </MenuItem>
-            <MenuItem Header="Send To Back" Command="{x:Static s:DesignerCanvas.SendToBack}">
+            <MenuItem Header="Send To Back" Command="{x:Static functionality:DesignerCanvas.SendToBack}">
                 <MenuItem.Icon>
                     <Image Source="Images/SendToBack.png" Width="16"/>
                 </MenuItem.Icon>
@@ -63,14 +64,14 @@
     </ContextMenu>
 
     <!-- Connector Style -->
-    <Style TargetType="{x:Type s:Connector}">
+    <Style TargetType="{x:Type functionality:Connector}">
         <Setter Property="Width" Value="8"/>
         <Setter Property="Height" Value="8"/>
         <Setter Property="Cursor" Value="Cross"/>
         <Setter Property="SnapsToDevicePixels" Value="true"/>
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type s:Connector}">
+                <ControlTemplate TargetType="{x:Type functionality:Connector}">
                     <Grid>
                         <!-- transparent extra space makes connector easier to hit -->
                         <Rectangle Fill="Transparent" Margin="-2"/>
@@ -84,10 +85,10 @@
     <!-- ConnectorDecoratorTemplate Default Template -->
     <ControlTemplate x:Key="ConnectorDecoratorTemplate" TargetType="{x:Type Control}">
         <Grid Margin="-5">
-            <s:Connector x:Name="Left" Orientation="Left" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-            <s:Connector x:Name="Top" Orientation="Top" VerticalAlignment="Top" HorizontalAlignment="Center"/>
-            <s:Connector x:Name="Right" Orientation="Right" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-            <s:Connector x:Name="Bottom" Orientation="Bottom" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+            <functionality:Connector x:Name="Left" Orientation="Left" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+            <functionality:Connector x:Name="Top" Orientation="Top" VerticalAlignment="Top" HorizontalAlignment="Center"/>
+            <functionality:Connector x:Name="Right" Orientation="Right" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+            <functionality:Connector x:Name="Bottom" Orientation="Bottom" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
         </Grid>
     </ControlTemplate>
 
@@ -125,13 +126,13 @@
     </Style>
 
     <!-- DesignerItem Style -->
-    <Style TargetType="{x:Type s:DesignerItem}">
+    <Style TargetType="{x:Type functionality:DesignerItem}">
         <Setter Property="MinWidth" Value="10"/>
         <Setter Property="MinHeight" Value="10"/>
         <Setter Property="SnapsToDevicePixels" Value="True"/>        
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type s:DesignerItem}">
+                <ControlTemplate TargetType="{x:Type functionality:DesignerItem}">
                     <Grid DataContext="{Binding RelativeSource={RelativeSource TemplatedParent}}"
                           ContextMenu="{StaticResource DesignerItemContextMenu}">
                         <!-- PART_DragThumb -->
