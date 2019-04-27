@@ -1,7 +1,8 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:s="clr-namespace:DiagramDesigner"
-                    xmlns:c="clr-namespace:DiagramDesigner.Controls">
+                    xmlns:c="clr-namespace:DiagramDesigner.Controls"
+                    xmlns:functionality="clr-namespace:DiagramDesigner.Functionality">
 
   <Brush x:Key="ItemStroke">#FFD69436</Brush>
   <LinearGradientBrush x:Key="ItemBrush" StartPoint="0,0" EndPoint="0,1">
@@ -270,230 +271,230 @@
     <Setter Property="Stroke" Value="Transparent"/>
   </Style>
 
-  <s:Toolbox x:Key="FlowChartStencils" ItemSize="60,50" SnapsToDevicePixels="True"
+  <functionality:Toolbox x:Key="FlowChartStencils" ItemSize="60,50" SnapsToDevicePixels="True"
              ScrollViewer.HorizontalScrollBarVisibility="Disabled">
     <ItemsControl.Items>
 
       <Path Style="{StaticResource Process}" ToolTip="Process">
-        <s:DesignerItem.DragThumbTemplate>
+        <functionality:DesignerItem.DragThumbTemplate>
           <ControlTemplate>
             <Path Style="{StaticResource Process_DragThumb}"/>
           </ControlTemplate>
-        </s:DesignerItem.DragThumbTemplate>
+        </functionality:DesignerItem.DragThumbTemplate>
       </Path>
 
       <Path Style="{StaticResource Decision}" ToolTip="Decision">
-        <s:DesignerItem.DragThumbTemplate>
+        <functionality:DesignerItem.DragThumbTemplate>
           <ControlTemplate>
             <Path Style="{StaticResource Decision_DragThumb}"/>
           </ControlTemplate>
-        </s:DesignerItem.DragThumbTemplate>
+        </functionality:DesignerItem.DragThumbTemplate>
       </Path>
 
       <Path Style="{StaticResource Document}" ToolTip="Document">
-        <s:DesignerItem.DragThumbTemplate>
+        <functionality:DesignerItem.DragThumbTemplate>
           <ControlTemplate>
             <Path Style="{StaticResource Document_DragThumb}"/>
           </ControlTemplate>
-        </s:DesignerItem.DragThumbTemplate>
-        <s:DesignerItem.ConnectorDecoratorTemplate>
+        </functionality:DesignerItem.DragThumbTemplate>
+        <functionality:DesignerItem.ConnectorDecoratorTemplate>
           <ControlTemplate>
             <c:RelativePositionPanel Margin="-4">
-              <s:Connector x:Name="Top" Orientation="Top" c:RelativePositionPanel.RelativePosition="0.5,0"/>
-              <s:Connector x:Name="Left" Orientation="Left" c:RelativePositionPanel.RelativePosition="0,0.5"/>
-              <s:Connector x:Name="Right" Orientation="Right" c:RelativePositionPanel.RelativePosition="1,0.5"/>
-              <s:Connector x:Name="Bottom" Orientation="Bottom" c:RelativePositionPanel.RelativePosition="0.5,0.93"/>
+              <functionality:Connector x:Name="Top" Orientation="Top" c:RelativePositionPanel.RelativePosition="0.5,0"/>
+              <functionality:Connector x:Name="Left" Orientation="Left" c:RelativePositionPanel.RelativePosition="0,0.5"/>
+              <functionality:Connector x:Name="Right" Orientation="Right" c:RelativePositionPanel.RelativePosition="1,0.5"/>
+              <functionality:Connector x:Name="Bottom" Orientation="Bottom" c:RelativePositionPanel.RelativePosition="0.5,0.93"/>
             </c:RelativePositionPanel>
           </ControlTemplate>
-        </s:DesignerItem.ConnectorDecoratorTemplate>
+        </functionality:DesignerItem.ConnectorDecoratorTemplate>
       </Path>
 
       <Path Style="{StaticResource Data}" ToolTip="Data">
-        <s:DesignerItem.DragThumbTemplate>
+        <functionality:DesignerItem.DragThumbTemplate>
           <ControlTemplate>
             <Path Style="{StaticResource Data_DragThumb}"/>
           </ControlTemplate>
-        </s:DesignerItem.DragThumbTemplate>
-        <s:DesignerItem.ConnectorDecoratorTemplate>
+        </functionality:DesignerItem.DragThumbTemplate>
+        <functionality:DesignerItem.ConnectorDecoratorTemplate>
           <ControlTemplate>
             <c:RelativePositionPanel Margin="-4">
-              <s:Connector x:Name="Top" Orientation="Top" c:RelativePositionPanel.RelativePosition="0.5,0"/>
-              <s:Connector x:Name="Left" Orientation="Left" c:RelativePositionPanel.RelativePosition="0.09,0.5"/>
-              <s:Connector x:Name="Right" Orientation="Right" c:RelativePositionPanel.RelativePosition="0.91,0.5"/>
-              <s:Connector x:Name="Bottom" Orientation="Bottom" c:RelativePositionPanel.RelativePosition="0.5,1"/>
+              <functionality:Connector x:Name="Top" Orientation="Top" c:RelativePositionPanel.RelativePosition="0.5,0"/>
+              <functionality:Connector x:Name="Left" Orientation="Left" c:RelativePositionPanel.RelativePosition="0.09,0.5"/>
+              <functionality:Connector x:Name="Right" Orientation="Right" c:RelativePositionPanel.RelativePosition="0.91,0.5"/>
+              <functionality:Connector x:Name="Bottom" Orientation="Bottom" c:RelativePositionPanel.RelativePosition="0.5,1"/>
             </c:RelativePositionPanel>
           </ControlTemplate>
-        </s:DesignerItem.ConnectorDecoratorTemplate>
+        </functionality:DesignerItem.ConnectorDecoratorTemplate>
       </Path>
 
       <Path Style="{StaticResource Start}" ToolTip="Start">
-        <s:DesignerItem.DragThumbTemplate>
+        <functionality:DesignerItem.DragThumbTemplate>
           <ControlTemplate>
             <Path Style="{StaticResource Start_DragThumb}"/>
           </ControlTemplate>
-        </s:DesignerItem.DragThumbTemplate>
+        </functionality:DesignerItem.DragThumbTemplate>
       </Path>
 
       <Path Style="{StaticResource PaperTape}" ToolTip="Paper Tape">
-        <s:DesignerItem.DragThumbTemplate>
+        <functionality:DesignerItem.DragThumbTemplate>
           <ControlTemplate>
             <Path Style="{StaticResource PaperTape_DragThumb}"/>
           </ControlTemplate>
-        </s:DesignerItem.DragThumbTemplate>
-        <s:DesignerItem.ConnectorDecoratorTemplate>
+        </functionality:DesignerItem.DragThumbTemplate>
+        <functionality:DesignerItem.ConnectorDecoratorTemplate>
           <ControlTemplate>
             <c:RelativePositionPanel Margin="-4">
-              <s:Connector x:Name="Top" Orientation="Top" c:RelativePositionPanel.RelativePosition="0.5,0.07"/>
-              <s:Connector x:Name="Left" Orientation="Left" c:RelativePositionPanel.RelativePosition="0,0.5"/>
-              <s:Connector x:Name="Right" Orientation="Right" c:RelativePositionPanel.RelativePosition="1,0.5"/>
-              <s:Connector x:Name="Bottom" Orientation="Bottom" c:RelativePositionPanel.RelativePosition="0.5,0.93"/>
+              <functionality:Connector x:Name="Top" Orientation="Top" c:RelativePositionPanel.RelativePosition="0.5,0.07"/>
+              <functionality:Connector x:Name="Left" Orientation="Left" c:RelativePositionPanel.RelativePosition="0,0.5"/>
+              <functionality:Connector x:Name="Right" Orientation="Right" c:RelativePositionPanel.RelativePosition="1,0.5"/>
+              <functionality:Connector x:Name="Bottom" Orientation="Bottom" c:RelativePositionPanel.RelativePosition="0.5,0.93"/>
             </c:RelativePositionPanel>
           </ControlTemplate>
-        </s:DesignerItem.ConnectorDecoratorTemplate>
+        </functionality:DesignerItem.ConnectorDecoratorTemplate>
       </Path>
 
       <Path Style="{StaticResource Predefined}" ToolTip="Predefined">
-        <s:DesignerItem.DragThumbTemplate>
+        <functionality:DesignerItem.DragThumbTemplate>
           <ControlTemplate>
             <Path Style="{StaticResource Predefined_DragThumb}"/>
           </ControlTemplate>
-        </s:DesignerItem.DragThumbTemplate>
+        </functionality:DesignerItem.DragThumbTemplate>
       </Path>
 
       <Path Style="{StaticResource StoredData}" ToolTip="Stored Data">
-        <s:DesignerItem.DragThumbTemplate>
+        <functionality:DesignerItem.DragThumbTemplate>
           <ControlTemplate>
             <Path Style="{StaticResource StoredData_DragThumb}"/>
           </ControlTemplate>
-        </s:DesignerItem.DragThumbTemplate>
-        <s:DesignerItem.ConnectorDecoratorTemplate>
+        </functionality:DesignerItem.DragThumbTemplate>
+        <functionality:DesignerItem.ConnectorDecoratorTemplate>
           <ControlTemplate>
             <c:RelativePositionPanel Margin="-4">
-              <s:Connector x:Name="Top" Orientation="Top" c:RelativePositionPanel.RelativePosition="0.5,0"/>
-              <s:Connector x:Name="Left" Orientation="Left" c:RelativePositionPanel.RelativePosition="0,0.5"/>
-              <s:Connector x:Name="Right" Orientation="Right" c:RelativePositionPanel.RelativePosition="0.9,0.5"/>
-              <s:Connector x:Name="Bottom" Orientation="Bottom" c:RelativePositionPanel.RelativePosition="0.5,1"/>
+              <functionality:Connector x:Name="Top" Orientation="Top" c:RelativePositionPanel.RelativePosition="0.5,0"/>
+              <functionality:Connector x:Name="Left" Orientation="Left" c:RelativePositionPanel.RelativePosition="0,0.5"/>
+              <functionality:Connector x:Name="Right" Orientation="Right" c:RelativePositionPanel.RelativePosition="0.9,0.5"/>
+              <functionality:Connector x:Name="Bottom" Orientation="Bottom" c:RelativePositionPanel.RelativePosition="0.5,1"/>
             </c:RelativePositionPanel>
           </ControlTemplate>
-        </s:DesignerItem.ConnectorDecoratorTemplate>
+        </functionality:DesignerItem.ConnectorDecoratorTemplate>
       </Path>
 
       <Path Style="{StaticResource InternalStorage}" ToolTip="Internal Storage">
-        <s:DesignerItem.DragThumbTemplate>
+        <functionality:DesignerItem.DragThumbTemplate>
           <ControlTemplate>
             <Path Style="{StaticResource InternalStorage_DragThumb}"/>
           </ControlTemplate>
-        </s:DesignerItem.DragThumbTemplate>
+        </functionality:DesignerItem.DragThumbTemplate>
       </Path>
 
       <Path Style="{StaticResource SequentialData}" ToolTip="Sequential Data">
-        <s:DesignerItem.DragThumbTemplate>
+        <functionality:DesignerItem.DragThumbTemplate>
           <ControlTemplate>
             <Path Style="{StaticResource SequentialData_DragThumb}"/>
           </ControlTemplate>
-        </s:DesignerItem.DragThumbTemplate>
+        </functionality:DesignerItem.DragThumbTemplate>
       </Path>
 
       <Path Style="{StaticResource DirectData}" ToolTip="Direct Data">
-        <s:DesignerItem.DragThumbTemplate>
+        <functionality:DesignerItem.DragThumbTemplate>
           <ControlTemplate>
             <Path Style="{StaticResource DirectData_DragThumb}"/>
           </ControlTemplate>
-        </s:DesignerItem.DragThumbTemplate>
+        </functionality:DesignerItem.DragThumbTemplate>
       </Path>
 
       <Path Style="{StaticResource ManualInput}" ToolTip="Manual Input">
-        <s:DesignerItem.DragThumbTemplate>
+        <functionality:DesignerItem.DragThumbTemplate>
           <ControlTemplate>
             <Path Style="{StaticResource ManualInput_DragThumb}"/>
           </ControlTemplate>
-        </s:DesignerItem.DragThumbTemplate>
-        <s:DesignerItem.ConnectorDecoratorTemplate>
+        </functionality:DesignerItem.DragThumbTemplate>
+        <functionality:DesignerItem.ConnectorDecoratorTemplate>
           <ControlTemplate>
             <c:RelativePositionPanel Margin="-4">
-              <s:Connector x:Name="Top" Orientation="Top" c:RelativePositionPanel.RelativePosition="0.5,0.12"/>
-              <s:Connector x:Name="Left" Orientation="Left" c:RelativePositionPanel.RelativePosition="0,0.5"/>
-              <s:Connector x:Name="Right" Orientation="Right" c:RelativePositionPanel.RelativePosition="1,0.5"/>
-              <s:Connector x:Name="Bottom" Orientation="Bottom" c:RelativePositionPanel.RelativePosition="0.5,1"/>
+              <functionality:Connector x:Name="Top" Orientation="Top" c:RelativePositionPanel.RelativePosition="0.5,0.12"/>
+              <functionality:Connector x:Name="Left" Orientation="Left" c:RelativePositionPanel.RelativePosition="0,0.5"/>
+              <functionality:Connector x:Name="Right" Orientation="Right" c:RelativePositionPanel.RelativePosition="1,0.5"/>
+              <functionality:Connector x:Name="Bottom" Orientation="Bottom" c:RelativePositionPanel.RelativePosition="0.5,1"/>
             </c:RelativePositionPanel>
           </ControlTemplate>
-        </s:DesignerItem.ConnectorDecoratorTemplate>
+        </functionality:DesignerItem.ConnectorDecoratorTemplate>
       </Path>
 
       <Path Style="{StaticResource Card}" ToolTip="Card">
-        <s:DesignerItem.DragThumbTemplate>
+        <functionality:DesignerItem.DragThumbTemplate>
           <ControlTemplate>
             <Path Style="{StaticResource Card_DragThumb}"/>
           </ControlTemplate>
-        </s:DesignerItem.DragThumbTemplate>
+        </functionality:DesignerItem.DragThumbTemplate>
       </Path>
 
       <Path Style="{StaticResource Delay}" ToolTip="Delay">
-        <s:DesignerItem.DragThumbTemplate>
+        <functionality:DesignerItem.DragThumbTemplate>
           <ControlTemplate>
             <Path Style="{StaticResource Delay_DragThumb}"/>
           </ControlTemplate>
-        </s:DesignerItem.DragThumbTemplate>
+        </functionality:DesignerItem.DragThumbTemplate>
       </Path>
 
       <Path Style="{StaticResource Terminator}" ToolTip="Terminator">
-        <s:DesignerItem.DragThumbTemplate>
+        <functionality:DesignerItem.DragThumbTemplate>
           <ControlTemplate>
             <Path Style="{StaticResource Terminator_DragThumb}"/>
           </ControlTemplate>
-        </s:DesignerItem.DragThumbTemplate>
+        </functionality:DesignerItem.DragThumbTemplate>
       </Path>
 
       <Path Style="{StaticResource Display}" ToolTip="Display">
-        <s:DesignerItem.DragThumbTemplate>
+        <functionality:DesignerItem.DragThumbTemplate>
           <ControlTemplate>
             <Path Style="{StaticResource Display_DragThumb}"/>
           </ControlTemplate>
-        </s:DesignerItem.DragThumbTemplate>
+        </functionality:DesignerItem.DragThumbTemplate>
       </Path>
 
       <Path Style="{StaticResource LoopLimit}" ToolTip="Loop Limit">
-        <s:DesignerItem.DragThumbTemplate>
+        <functionality:DesignerItem.DragThumbTemplate>
           <ControlTemplate>
             <Path Style="{StaticResource LoopLimit_DragThumb}"/>
           </ControlTemplate>
-        </s:DesignerItem.DragThumbTemplate>
+        </functionality:DesignerItem.DragThumbTemplate>
       </Path>
 
       <Path Style="{StaticResource Preparation}" ToolTip="Preparation">
-        <s:DesignerItem.DragThumbTemplate>
+        <functionality:DesignerItem.DragThumbTemplate>
           <ControlTemplate>
             <Path Style="{StaticResource Preparation_DragThumb}"/>
           </ControlTemplate>
-        </s:DesignerItem.DragThumbTemplate>
+        </functionality:DesignerItem.DragThumbTemplate>
       </Path>
 
       <Path Style="{StaticResource ManualOperation}" ToolTip="Manual Operation">
-        <s:DesignerItem.DragThumbTemplate>
+        <functionality:DesignerItem.DragThumbTemplate>
           <ControlTemplate>
             <Path Style="{StaticResource ManualOperation_DragThumb}"/>
           </ControlTemplate>
-        </s:DesignerItem.DragThumbTemplate>
-        <s:DesignerItem.ConnectorDecoratorTemplate>
+        </functionality:DesignerItem.DragThumbTemplate>
+        <functionality:DesignerItem.ConnectorDecoratorTemplate>
           <ControlTemplate>
             <c:RelativePositionPanel Margin="-4">
-              <s:Connector x:Name="Top" Orientation="Top" c:RelativePositionPanel.RelativePosition="0.5,0"/>
-              <s:Connector x:Name="Left" Orientation="Left" c:RelativePositionPanel.RelativePosition="0.1,0.5"/>
-              <s:Connector x:Name="Right" Orientation="Right" c:RelativePositionPanel.RelativePosition="0.9,0.5"/>
-              <s:Connector x:Name="Bottom" Orientation="Bottom" c:RelativePositionPanel.RelativePosition="0.5,1"/>
+              <functionality:Connector x:Name="Top" Orientation="Top" c:RelativePositionPanel.RelativePosition="0.5,0"/>
+              <functionality:Connector x:Name="Left" Orientation="Left" c:RelativePositionPanel.RelativePosition="0.1,0.5"/>
+              <functionality:Connector x:Name="Right" Orientation="Right" c:RelativePositionPanel.RelativePosition="0.9,0.5"/>
+              <functionality:Connector x:Name="Bottom" Orientation="Bottom" c:RelativePositionPanel.RelativePosition="0.5,1"/>
             </c:RelativePositionPanel>
           </ControlTemplate>
-        </s:DesignerItem.ConnectorDecoratorTemplate>
+        </functionality:DesignerItem.ConnectorDecoratorTemplate>
       </Path>
 
       <Path Style="{StaticResource OffPageReference}" ToolTip="Off Page Reference">
-        <s:DesignerItem.DragThumbTemplate>
+        <functionality:DesignerItem.DragThumbTemplate>
           <ControlTemplate>
             <Path Style="{StaticResource OffPageReference_DragThumb}"/>
           </ControlTemplate>
-        </s:DesignerItem.DragThumbTemplate>
+        </functionality:DesignerItem.DragThumbTemplate>
       </Path>
 
     </ItemsControl.Items>
-  </s:Toolbox>
+  </functionality:Toolbox>
 </ResourceDictionary>

@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Media;
+using DiagramDesigner.Functionality;
 
 namespace DiagramDesigner.Controls
 {
@@ -18,7 +19,7 @@ namespace DiagramDesigner.Controls
         void ResizeThumb_DragDelta(object sender, DragDeltaEventArgs e)
         {
             DesignerItem designerItem = this.DataContext as DesignerItem;
-            DesignerCanvas designer = VisualTreeHelper.GetParent(designerItem) as DesignerCanvas;
+            Functionality.DesignerCanvas designer = VisualTreeHelper.GetParent(designerItem) as Functionality.DesignerCanvas;
 
             if (designerItem != null && designer != null && designerItem.IsSelected)
             {

@@ -5,7 +5,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 
-namespace DiagramDesigner
+namespace DiagramDesigner.Functionality
 {
     public class RubberbandAdorner : Adorner
     {
@@ -13,9 +13,9 @@ namespace DiagramDesigner
         private Point? endPoint;
         private Pen rubberbandPen;
 
-        private DesignerCanvas designerCanvas;
+        private Functionality.DesignerCanvas designerCanvas;
 
-        public RubberbandAdorner(DesignerCanvas designerCanvas, Point? dragStartPoint)
+        public RubberbandAdorner(Functionality.DesignerCanvas designerCanvas, Point? dragStartPoint)
             : base(designerCanvas)
         {
             this.designerCanvas = designerCanvas;

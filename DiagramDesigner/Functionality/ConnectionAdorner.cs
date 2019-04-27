@@ -7,7 +7,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 
-namespace DiagramDesigner
+namespace DiagramDesigner.Functionality
 {
     public class ConnectionAdorner : Adorner
     {

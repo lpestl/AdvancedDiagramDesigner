@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Linq;
-using System.Collections.Generic;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -9,7 +7,7 @@ using System.Windows.Input;
 using System.Windows.Markup;
 using System.Xml;
 
-namespace DiagramDesigner
+namespace DiagramDesigner.Functionality
 {
     public partial class DesignerCanvas : Canvas
     {
@@ -92,13 +90,13 @@ namespace DiagramDesigner
                         newItem.Width = desiredSize.Width;
                         newItem.Height = desiredSize.Height;
 
-                        DesignerCanvas.SetLeft(newItem, Math.Max(0, position.X - newItem.Width / 2));
-                        DesignerCanvas.SetTop(newItem, Math.Max(0, position.Y - newItem.Height / 2));
+                        Functionality.DesignerCanvas.SetLeft(newItem, Math.Max(0, position.X - newItem.Width / 2));
+                        Functionality.DesignerCanvas.SetTop(newItem, Math.Max(0, position.Y - newItem.Height / 2));
                     }
                     else
                     {
-                        DesignerCanvas.SetLeft(newItem, Math.Max(0, position.X));
-                        DesignerCanvas.SetTop(newItem, Math.Max(0, position.Y));
+                        Functionality.DesignerCanvas.SetLeft(newItem, Math.Max(0, position.X));
+                        Functionality.DesignerCanvas.SetTop(newItem, Math.Max(0, position.Y));
                     }
 
                     Canvas.SetZIndex(newItem, this.Children.Count);

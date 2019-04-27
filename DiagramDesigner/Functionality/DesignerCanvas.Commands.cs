@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -13,7 +12,7 @@ using System.Xml;
 using System.Xml.Linq;
 using Microsoft.Win32;
 
-namespace DiagramDesigner
+namespace DiagramDesigner.Functionality
 {
     public partial class DesignerCanvas
     {
@@ -121,8 +120,8 @@ namespace DiagramDesigner
 
         private void Save_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            IEnumerable<DesignerItem> designerItems = this.Children.OfType<DesignerItem>();
-            IEnumerable<Connection> connections = this.Children.OfType<Connection>();
+            IEnumerable<DesignerItem> designerItems = Enumerable.OfType<DesignerItem>(this.Children);
+            IEnumerable<Connection> connections = Enumerable.OfType<Connection>(this.Children);
 
             XElement designerItemsXML = SerializeDesignerItems(designerItems);
             XElement connectionsXML = SerializeConnections(connections);
@@ -262,7 +261,7 @@ namespace DiagramDesigner
 
         private void Delete_Enabled(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = this.SelectionService.CurrentSelection.Count() > 0;
+            e.CanExecute = Enumerable.Count<ISelectable>(this.SelectionService.CurrentSelection) > 0;
         }
 
         #endregion
@@ -277,7 +276,7 @@ namespace DiagramDesigner
 
         private void Cut_Enabled(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = this.SelectionService.CurrentSelection.Count() > 0;
+            e.CanExecute = Enumerable.Count<ISelectable>(this.SelectionService.CurrentSelection) > 0;
         }
 
         #endregion
@@ -286,7 +285,7 @@ namespace DiagramDesigner
 
         private void Group_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            var items = from item in this.SelectionService.CurrentSelection.OfType<DesignerItem>()
+            var items = from item in Enumerable.OfType<DesignerItem>(this.SelectionService.CurrentSelection)
                         where item.ParentID == Guid.Empty
                         select item;
 
@@ -372,7 +371,7 @@ namespace DiagramDesigner
                 if (currentIndex != newIndex)
                 {
                     Canvas.SetZIndex(ordered[i], newIndex);
-                    IEnumerable<UIElement> it = this.Children.OfType<UIElement>().Where(item => Canvas.GetZIndex(item) == newIndex);
+                    IEnumerable<UIElement> it = Enumerable.OfType<UIElement>(this.Children).Where(item => Canvas.GetZIndex(item) == newIndex);
 
                     foreach (UIElement elm in it)
                     {
@@ -402,9 +401,9 @@ namespace DiagramDesigner
                                                orderby Canvas.GetZIndex(item as UIElement) ascending
                                                select item as UIElement).ToList();
 
-            List<UIElement> childrenSorted = (from UIElement item in this.Children
-                                              orderby Canvas.GetZIndex(item as UIElement) ascending
-                                              select item as UIElement).ToList();
+            List<UIElement> childrenSorted = Enumerable.ToList<UIElement>((from UIElement item in this.Children
+                orderby Canvas.GetZIndex(item as UIElement) ascending
+                select item as UIElement));
 
             int i = 0;
             int j = 0;
@@ -441,7 +440,7 @@ namespace DiagramDesigner
                 if (currentIndex != newIndex)
                 {
                     Canvas.SetZIndex(ordered[i], newIndex);
-                    IEnumerable<UIElement> it = this.Children.OfType<UIElement>().Where(item => Canvas.GetZIndex(item) == newIndex);
+                    IEnumerable<UIElement> it = Enumerable.OfType<UIElement>(this.Children).Where(item => Canvas.GetZIndex(item) == newIndex);
 
                     foreach (UIElement elm in it)
                     {
@@ -465,9 +464,9 @@ namespace DiagramDesigner
                                                orderby Canvas.GetZIndex(item as UIElement) ascending
                                                select item as UIElement).ToList();
 
-            List<UIElement> childrenSorted = (from UIElement item in this.Children
-                                              orderby Canvas.GetZIndex(item as UIElement) ascending
-                                              select item as UIElement).ToList();
+            List<UIElement> childrenSorted = Enumerable.ToList<UIElement>((from UIElement item in this.Children
+                orderby Canvas.GetZIndex(item as UIElement) ascending
+                select item as UIElement));
             int i = 0;
             int j = 0;
             foreach (UIElement item in childrenSorted)
@@ -863,12 +862,12 @@ namespace DiagramDesigner
         private void CopyCurrentSelection()
         {
             IEnumerable<DesignerItem> selectedDesignerItems =
-                this.SelectionService.CurrentSelection.OfType<DesignerItem>();
+                Enumerable.OfType<DesignerItem>(this.SelectionService.CurrentSelection);
 
             List<Connection> selectedConnections =
-                this.SelectionService.CurrentSelection.OfType<Connection>().ToList();
+                Enumerable.OfType<Connection>(this.SelectionService.CurrentSelection).ToList();
 
-            foreach (Connection connection in this.Children.OfType<Connection>())
+            foreach (Connection connection in Enumerable.OfType<Connection>(this.Children))
             {
                 if (!selectedConnections.Contains(connection))
                 {
@@ -933,9 +932,9 @@ namespace DiagramDesigner
 
         private void UpdateZIndex()
         {
-            List<UIElement> ordered = (from UIElement item in this.Children
-                                       orderby Canvas.GetZIndex(item as UIElement)
-                                       select item as UIElement).ToList();
+            List<UIElement> ordered = Enumerable.ToList<UIElement>((from UIElement item in this.Children
+                orderby Canvas.GetZIndex(item as UIElement)
+                select item as UIElement));
 
             for (int i = 0; i < ordered.Count; i++)
             {
@@ -979,7 +978,7 @@ namespace DiagramDesigner
 
         private Connector GetConnector(Guid itemID, String connectorName)
         {
-            DesignerItem designerItem = (from item in this.Children.OfType<DesignerItem>()
+            DesignerItem designerItem = (from item in Enumerable.OfType<DesignerItem>(this.Children)
                                          where item.ID == itemID
                                          select item).FirstOrDefault();
 

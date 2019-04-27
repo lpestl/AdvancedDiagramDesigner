@@ -111,7 +111,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Window1.xaml">
+    <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -119,25 +119,25 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Window1.xaml.cs">
-      <DependentUpon>Window1.xaml</DependentUpon>
+    <Compile Include="Views\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Connection.cs" />
-    <Compile Include="ConnectionAdorner.cs" />
-    <Compile Include="Connector.cs" />
-    <Compile Include="ConnectorAdorner.cs" />
+    <Compile Include="Functionality\Connection.cs" />
+    <Compile Include="Functionality\ConnectionAdorner.cs" />
+    <Compile Include="Functionality\Connector.cs" />
+    <Compile Include="Functionality\ConnectorAdorner.cs" />
     <Compile Include="Controls\DragThumb.cs" />
     <Compile Include="Controls\RelativePositionPanel.cs" />
     <Compile Include="Controls\ResizeThumb.cs" />
-    <Compile Include="DesignerCanvas.Commands.cs" />
-    <Compile Include="DesignerCanvas.cs" />
-    <Compile Include="DesignerItem.cs" />
-    <Compile Include="IGroupable.cs" />
-    <Compile Include="ISelectable.cs" />
-    <Compile Include="PathFinder.cs" />
+    <Compile Include="Functionality\DesignerCanvas.Commands.cs" />
+    <Compile Include="Functionality\DesignerCanvas.cs" />
+    <Compile Include="Functionality\DesignerItem.cs" />
+    <Compile Include="Functionality\IGroupable.cs" />
+    <Compile Include="Functionality\ISelectable.cs" />
+    <Compile Include="Functionality\PathFinder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -151,10 +151,10 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="RubberbandAdorner.cs" />
-    <Compile Include="SelectionService.cs" />
-    <Compile Include="Toolbox.cs" />
-    <Compile Include="ToolboxItem.cs" />
+    <Compile Include="Functionality\RubberbandAdorner.cs" />
+    <Compile Include="Functionality\SelectionService.cs" />
+    <Compile Include="Functionality\Toolbox.cs" />
+    <Compile Include="Functionality\ToolboxItem.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
