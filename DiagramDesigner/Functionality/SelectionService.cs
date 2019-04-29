@@ -9,16 +9,16 @@ namespace DiagramDesigner.Functionality
         private Functionality.DesignerCanvas designerCanvas;
 
         private List<ISelectable> currentSelection;
-        internal List<ISelectable> CurrentSelection
-        {
-            get
-            {
-                if (currentSelection == null)
-                    currentSelection = new List<ISelectable>();
+        internal List<ISelectable> CurrentSelection { get; } = new List<ISelectable>();
+        //{
+        //    get
+        //    {
+        //        if (currentSelection == null)
+        //            currentSelection = new List<ISelectable>();
 
-                return currentSelection;
-            }
-        }
+        //        return currentSelection;
+        //    }
+        //}
 
         public SelectionService(Functionality.DesignerCanvas canvas)
         {
