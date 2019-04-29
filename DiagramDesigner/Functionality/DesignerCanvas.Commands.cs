@@ -160,7 +160,7 @@ namespace DiagramDesigner.Functionality
 
         private void Copy_Enabled(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = SelectionService.CurrentSelection.Count() > 0;
+            e.CanExecute = SelectionService.CurrentSelection.Any();
         }
 
         #endregion
@@ -261,7 +261,7 @@ namespace DiagramDesigner.Functionality
 
         private void Delete_Enabled(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = Enumerable.Count<ISelectable>(this.SelectionService.CurrentSelection) > 0;
+            e.CanExecute = SelectionService.CurrentSelection.Any();
         }
 
         #endregion
@@ -276,7 +276,7 @@ namespace DiagramDesigner.Functionality
 
         private void Cut_Enabled(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = Enumerable.Count<ISelectable>(this.SelectionService.CurrentSelection) > 0;
+            e.CanExecute = SelectionService.CurrentSelection.Any();
         }
 
         #endregion
@@ -349,7 +349,7 @@ namespace DiagramDesigner.Functionality
                               select item;
 
 
-            e.CanExecute = groupedItem.Count() > 0;
+            e.CanExecute = groupedItem.Any();
         }
 
         #endregion
