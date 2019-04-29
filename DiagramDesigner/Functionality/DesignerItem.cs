@@ -164,16 +164,20 @@ namespace DiagramDesigner.Functionality
                     this.Template.FindName("PART_ContentPresenter", this) as ContentPresenter;
                 if (contentPresenter != null)
                 {
-                    UIElement contentVisual = VisualTreeHelper.GetChild(contentPresenter, 0) as UIElement;
-                    if (contentVisual != null)
+                    // Fix unhandled exception of type 'System.ArgumentOutOfRangeException' occurred in PresentationFramework.dll
+                    if (VisualTreeHelper.GetChildrenCount(contentPresenter) > 0)
                     {
-                        DragThumb thumb = this.Template.FindName("PART_DragThumb", this) as DragThumb;
-                        if (thumb != null)
+                        UIElement contentVisual = VisualTreeHelper.GetChild(contentPresenter, 0) as UIElement;
+                        if (contentVisual != null)
                         {
-                            ControlTemplate template =
-                                DesignerItem.GetDragThumbTemplate(contentVisual) as ControlTemplate;
-                            if (template != null)
-                                thumb.Template = template;
+                            DragThumb thumb = this.Template.FindName("PART_DragThumb", this) as DragThumb;
+                            if (thumb != null)
+                            {
+                                ControlTemplate template =
+                                    DesignerItem.GetDragThumbTemplate(contentVisual) as ControlTemplate;
+                                if (template != null)
+                                    thumb.Template = template;
+                            }
                         }
                     }
                 }

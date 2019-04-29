@@ -8,17 +8,8 @@ namespace DiagramDesigner.Functionality
     {
         private Functionality.DesignerCanvas designerCanvas;
 
-        private List<ISelectable> currentSelection;
+        // UPD: Updated and readable style
         internal List<ISelectable> CurrentSelection { get; } = new List<ISelectable>();
-        //{
-        //    get
-        //    {
-        //        if (currentSelection == null)
-        //            currentSelection = new List<ISelectable>();
-
-        //        return currentSelection;
-        //    }
-        //}
 
         public SelectionService(Functionality.DesignerCanvas canvas)
         {

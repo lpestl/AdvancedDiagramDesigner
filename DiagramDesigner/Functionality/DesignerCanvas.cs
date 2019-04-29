@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -14,17 +15,9 @@ namespace DiagramDesigner.Functionality
         private Point? rubberbandSelectionStartPoint = null;
 
         private SelectionService selectionService;
-        internal SelectionService SelectionService
-        {
-            get
-            {
-                if (selectionService == null)
-                    selectionService = new SelectionService(this);
-
-                return selectionService;
-            }
-        }
-
+        // UPD: Updated and readable style
+        internal SelectionService SelectionService => selectionService ?? (selectionService = new SelectionService(this));
+        
         protected override void OnMouseDown(MouseButtonEventArgs e)
         {
             base.OnMouseDown(e);
@@ -138,7 +131,7 @@ namespace DiagramDesigner.Functionality
             size.Height += 10;
             return size;
         }
-
+        
         private void SetConnectorDecoratorTemplate(DesignerItem item)
         {
             if (item.ApplyTemplate() && item.Content is UIElement)
@@ -149,5 +142,6 @@ namespace DiagramDesigner.Functionality
                     decorator.Template = template;
             }
         }
+
     }
 }
