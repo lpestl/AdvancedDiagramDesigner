@@ -86,7 +86,8 @@
           </Grid>
           <ControlTemplate.Triggers>
             <Trigger Property="IsExpanded" Value="True">
-              <Setter TargetName="ContentRow" Property="Height" Value="{Binding ElementName=Content,Path=DesiredHeight}" />
+                <!--Fix: DesiredHeight binding exception-->
+                <Setter TargetName="ContentRow" Property="Height" Value="{Binding ElementName=Content,Path=Height}" />
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
               <Setter TargetName="Border" Property="Background" Value="{StaticResource DisabledBackgroundBrush}" />
