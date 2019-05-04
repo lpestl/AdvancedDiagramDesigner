@@ -15,44 +15,55 @@ namespace DiagramDesigner.Functionality
     public class DesignerItem : ContentControl, ISelectable, IGroupable
     {
         #region ID
+
         private Guid id;
+
         public Guid ID
         {
             get { return id; }
         }
+
         #endregion
 
         #region ParentID
+
         public Guid ParentID
         {
-            get { return (Guid)GetValue(ParentIDProperty); }
+            get { return (Guid) GetValue(ParentIDProperty); }
             set { SetValue(ParentIDProperty, value); }
         }
-        public static readonly DependencyProperty ParentIDProperty = DependencyProperty.Register("ParentID", typeof(Guid), typeof(DesignerItem));
+
+        public static readonly DependencyProperty ParentIDProperty =
+            DependencyProperty.Register("ParentID", typeof(Guid), typeof(DesignerItem));
+
         #endregion
 
         #region IsGroup
+
         public bool IsGroup
         {
-            get { return (bool)GetValue(IsGroupProperty); }
+            get { return (bool) GetValue(IsGroupProperty); }
             set { SetValue(IsGroupProperty, value); }
         }
+
         public static readonly DependencyProperty IsGroupProperty =
             DependencyProperty.Register("IsGroup", typeof(bool), typeof(DesignerItem));
+
         #endregion
 
         #region IsSelected Property
 
         public bool IsSelected
         {
-            get { return (bool)GetValue(IsSelectedProperty); }
+            get { return (bool) GetValue(IsSelectedProperty); }
             set { SetValue(IsSelectedProperty, value); }
         }
+
         public static readonly DependencyProperty IsSelectedProperty =
-          DependencyProperty.Register("IsSelected",
-                                       typeof(bool),
-                                       typeof(DesignerItem),
-                                       new FrameworkPropertyMetadata(false));
+            DependencyProperty.Register("IsSelected",
+                typeof(bool),
+                typeof(DesignerItem),
+                new FrameworkPropertyMetadata(false));
 
         #endregion
 
@@ -64,7 +75,7 @@ namespace DiagramDesigner.Functionality
 
         public static ControlTemplate GetDragThumbTemplate(UIElement element)
         {
-            return (ControlTemplate)element.GetValue(DragThumbTemplateProperty);
+            return (ControlTemplate) element.GetValue(DragThumbTemplateProperty);
         }
 
         public static void SetDragThumbTemplate(UIElement element, ControlTemplate value)
@@ -78,11 +89,12 @@ namespace DiagramDesigner.Functionality
 
         // can be used to replace the default template for the ConnectorDecorator
         public static readonly DependencyProperty ConnectorDecoratorTemplateProperty =
-            DependencyProperty.RegisterAttached("ConnectorDecoratorTemplate", typeof(ControlTemplate), typeof(DesignerItem));
+            DependencyProperty.RegisterAttached("ConnectorDecoratorTemplate", typeof(ControlTemplate),
+                typeof(DesignerItem));
 
         public static ControlTemplate GetConnectorDecoratorTemplate(UIElement element)
         {
-            return (ControlTemplate)element.GetValue(ConnectorDecoratorTemplateProperty);
+            return (ControlTemplate) element.GetValue(ConnectorDecoratorTemplateProperty);
         }
 
         public static void SetConnectorDecoratorTemplate(UIElement element, ControlTemplate value)
@@ -99,14 +111,15 @@ namespace DiagramDesigner.Functionality
         // to be visible, see template
         public bool IsDragConnectionOver
         {
-            get { return (bool)GetValue(IsDragConnectionOverProperty); }
+            get { return (bool) GetValue(IsDragConnectionOverProperty); }
             set { SetValue(IsDragConnectionOverProperty, value); }
         }
+
         public static readonly DependencyProperty IsDragConnectionOverProperty =
             DependencyProperty.Register("IsDragConnectionOver",
-                                         typeof(bool),
-                                         typeof(DesignerItem),
-                                         new FrameworkPropertyMetadata(false));
+                typeof(bool),
+                typeof(DesignerItem),
+                new FrameworkPropertyMetadata(false));
 
         #endregion
 
@@ -150,6 +163,7 @@ namespace DiagramDesigner.Functionality
                 {
                     designer.SelectionService.SelectItem(this);
                 }
+
                 Focus();
             }
 
@@ -182,6 +196,29 @@ namespace DiagramDesigner.Functionality
                     }
                 }
             }
+        }
+
+        protected override void OnMouseDoubleClick(MouseButtonEventArgs e)
+        {
+            base.OnMouseDoubleClick(e);
+
+            var pathContent = this.Content;
+
+            var nameEditBox = new TextBox
+            {
+                Margin = new Thickness(5),
+                HorizontalContentAlignment = HorizontalAlignment.Center,
+                VerticalContentAlignment = VerticalAlignment.Center
+            };
+
+            this.Content = nameEditBox;
+
+            nameEditBox.LostFocus += NameEditBoxOnLostFocus;
+        }
+
+        private void NameEditBoxOnLostFocus(object sender, RoutedEventArgs routedEventArgs)
+        {
+            this.Content = null;
         }
     }
 }
