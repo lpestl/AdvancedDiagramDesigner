@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Threading;
 using DiagramDesigner.Controls;
 
 namespace DiagramDesigner.Functionality
@@ -22,6 +23,13 @@ namespace DiagramDesigner.Functionality
         {
             get { return id; }
         }
+
+        #endregion
+
+        // UPD: Name property
+        #region Caption
+
+        public string Caption { get; set; } = string.Empty;
 
         #endregion
 
@@ -198,26 +206,109 @@ namespace DiagramDesigner.Functionality
             }
         }
 
+        // UPD: Double click to add block name
         protected override void OnMouseDoubleClick(MouseButtonEventArgs e)
         {
             base.OnMouseDoubleClick(e);
 
-            var pathContent = this.Content;
-
+            var pathContent = GetPathShape();
+            ClearContent();
+            
+            // Creat text box for inputing name
             var nameEditBox = new TextBox
             {
+                Text = string.IsNullOrEmpty(Caption) ? string.Empty : Caption,
                 Margin = new Thickness(5),
                 HorizontalContentAlignment = HorizontalAlignment.Center,
-                VerticalContentAlignment = VerticalAlignment.Center
+                VerticalContentAlignment = VerticalAlignment.Center, 
+                AcceptsReturn = true,
+                TextWrapping = TextWrapping.Wrap,
             };
 
-            this.Content = nameEditBox;
+            // Creat grid with figure (Shape.Path) and nameTextBox
+            var grid = new Grid {Children = {pathContent, nameEditBox}};
 
+            this.Content = grid;
+            
+            // Bind to LostFocus eventHandler
             nameEditBox.LostFocus += NameEditBoxOnLostFocus;
+
+            // Activate keybord cursor
+            Dispatcher.BeginInvoke(DispatcherPriority.Input,
+                new Action(delegate () {
+                    nameEditBox.Focus();         // Set Logical Focus
+                    Keyboard.Focus(nameEditBox); // Set Keyboard Focus
+                    nameEditBox.SelectAll();
+                }));
+        }
+
+        // Find Shape.Path in self content
+        private System.Windows.Shapes.Path GetPathShape()
+        {
+            // We check the block content for an empty figure (without name)
+            System.Windows.Shapes.Path pathContent = this.Content as System.Windows.Shapes.Path;
+
+            // if empty figure not found
+            if (pathContent == null)
+            {
+                // We check the block content for an figure (Shape.Path)
+                var oldGrid = this.Content as Grid;
+                // if content not path and not grid, then return
+                if (oldGrid == null)
+                    return null;
+
+                // Looking for a figure (Shape.Path)
+                foreach (var oldGridChild in oldGrid.Children)
+                {
+                    if (oldGridChild is System.Windows.Shapes.Path temPath)
+                    {
+                        pathContent = temPath;
+                        break;
+                    }
+                }
+            }
+
+            return pathContent;
         }
 
         private void NameEditBoxOnLostFocus(object sender, RoutedEventArgs routedEventArgs)
         {
+            var pathContent = GetPathShape();
+            ClearContent();
+
+            var inputBox = sender as TextBox;
+            if (inputBox == null)
+            {
+                this.Content = pathContent;
+                Caption = string.Empty;
+                return;
+            }
+
+            // UnBind to LostFocus eventHandler
+            inputBox.LostFocus -= NameEditBoxOnLostFocus;
+
+            Caption = inputBox.Text;
+            // Creat TextBlock with Name text
+            var nameTextBlock = new TextBlock
+            {
+                Margin = new Thickness(6),
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Center,
+                TextWrapping = TextWrapping.Wrap, 
+                TextTrimming = TextTrimming.CharacterEllipsis,
+                Text = Caption,
+            };
+
+            // Creat grid with figure (Shape.Path) and nameTextBlock
+            var grid = new Grid { Children = { pathContent, nameTextBlock } };
+
+            this.Content = grid;
+        }
+
+        // Clear content
+        private void ClearContent()
+        {
+            (this.Content as Grid)?.Children.Clear();
             this.Content = null;
         }
     }
