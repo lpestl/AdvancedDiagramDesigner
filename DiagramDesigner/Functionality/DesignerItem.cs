@@ -211,7 +211,7 @@ namespace DiagramDesigner.Functionality
         {
             base.OnMouseDoubleClick(e);
 
-            var pathContent = GetPathShape();
+            var shapeContent = GetShape();
             ClearContent();
             
             // Creat text box for inputing name
@@ -226,7 +226,7 @@ namespace DiagramDesigner.Functionality
             };
 
             // Creat grid with figure (Shape.Path) and nameTextBox
-            var grid = new Grid {Children = {pathContent, nameEditBox}};
+            var grid = new Grid {Children = { shapeContent, nameEditBox}};
 
             this.Content = grid;
             
@@ -243,13 +243,13 @@ namespace DiagramDesigner.Functionality
         }
 
         // Find Shape.Path in self content
-        private System.Windows.Shapes.Path GetPathShape()
+        private System.Windows.Shapes.Shape GetShape()
         {
             // We check the block content for an empty figure (without name)
-            System.Windows.Shapes.Path pathContent = this.Content as System.Windows.Shapes.Path;
+            var shape = this.Content as System.Windows.Shapes.Shape;
 
             // if empty figure not found
-            if (pathContent == null)
+            if (shape == null)
             {
                 // We check the block content for an figure (Shape.Path)
                 var oldGrid = this.Content as Grid;
@@ -260,26 +260,26 @@ namespace DiagramDesigner.Functionality
                 // Looking for a figure (Shape.Path)
                 foreach (var oldGridChild in oldGrid.Children)
                 {
-                    if (oldGridChild is System.Windows.Shapes.Path temPath)
+                    if (oldGridChild is System.Windows.Shapes.Shape tmpShape)
                     {
-                        pathContent = temPath;
+                        shape = tmpShape;
                         break;
                     }
                 }
             }
 
-            return pathContent;
+            return shape;
         }
 
         private void NameEditBoxOnLostFocus(object sender, RoutedEventArgs routedEventArgs)
         {
-            var pathContent = GetPathShape();
+            var shape = GetShape();
             ClearContent();
 
             var inputBox = sender as TextBox;
             if (inputBox == null)
             {
-                this.Content = pathContent;
+                this.Content = shape;
                 Caption = string.Empty;
                 return;
             }
@@ -300,7 +300,7 @@ namespace DiagramDesigner.Functionality
             };
 
             // Creat grid with figure (Shape.Path) and nameTextBlock
-            var grid = new Grid { Children = { pathContent, nameTextBlock } };
+            var grid = new Grid { Children = { shape, nameTextBlock } };
 
             this.Content = grid;
         }
