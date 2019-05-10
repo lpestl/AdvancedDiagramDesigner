@@ -132,8 +132,9 @@ namespace DiagramDesigner.Controls
             foreach (var designerChild in designer.Children)
             {
                 if (designerChild is Connection connection)
-                    if ((connection.Source.ParentDesignerItem == movingDesignerItem && connection.Sink.ParentDesignerItem == nearestItem.Item1) ||
-                        (connection.Source.ParentDesignerItem == nearestItem.Item1 && connection.Sink.ParentDesignerItem == movingDesignerItem))
+                    if (((connection.Source.ParentDesignerItem == movingDesignerItem && connection.Sink.ParentDesignerItem == nearestItem.Item1) ||
+                        (connection.Source.ParentDesignerItem == nearestItem.Item1 && connection.Sink.ParentDesignerItem == movingDesignerItem)) && 
+                        connection.StrokeDashArray == null)
                         return;
             }
 
