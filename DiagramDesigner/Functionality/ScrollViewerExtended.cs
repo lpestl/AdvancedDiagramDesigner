@@ -45,31 +45,31 @@ namespace DiagramDesigner.Functionality
                 var deltaX = (currPosition.X - lastMousePosition.X);
                 var deltaY = (currPosition.Y - lastMousePosition.Y);
 
-                if (Math.Abs(deltaX) < 0.25 && Math.Abs(deltaY) < 0.25)
+                //if (Math.Abs(deltaX) < 0.25 && Math.Abs(deltaY) < 0.25)
                     Cursor = Cursors.ScrollAll;
-                else
-                {
-                    if (Math.Abs(deltaX) < 0.25)
-                    {
-                        if (deltaY > 0)
-                            Cursor = Cursors.ScrollS;
-                        else
-                            Cursor = Cursors.ScrollN;
-                    }
+                //else
+                //{
+                //    if (Math.Abs(deltaX) < 0.25)
+                //    {
+                //        if (deltaY > 0)
+                //            Cursor = Cursors.ScrollS;
+                //        else
+                //            Cursor = Cursors.ScrollN;
+                //    }
 
-                    if (Math.Abs(deltaY) < 0.25)
-                    {
-                        if (deltaX > 0)
-                            Cursor = Cursors.ScrollE;
-                        else
-                            Cursor = Cursors.ScrollW;
-                    }
+                //    if (Math.Abs(deltaY) < 0.25)
+                //    {
+                //        if (deltaX > 0)
+                //            Cursor = Cursors.ScrollE;
+                //        else
+                //            Cursor = Cursors.ScrollW;
+                //    }
 
-                    if (deltaX > 0 && deltaY > 0) Cursor = Cursors.ScrollSE;
-                    else if (deltaX > 0 && deltaY < 0) Cursor = Cursors.ScrollNE;
-                    else if (deltaX < 0 && deltaY > 0) Cursor = Cursors.ScrollSW;
-                    else if (deltaX < 0 && deltaY < 0) Cursor = Cursors.ScrollNW;
-                }
+                //    if (deltaX > 0 && deltaY > 0) Cursor = Cursors.ScrollSE;
+                //    else if (deltaX > 0 && deltaY < 0) Cursor = Cursors.ScrollNE;
+                //    else if (deltaX < 0 && deltaY > 0) Cursor = Cursors.ScrollSW;
+                //    else if (deltaX < 0 && deltaY < 0) Cursor = Cursors.ScrollNW;
+                //}
 
                 ScrollToHorizontalOffset(HorizontalOffset + deltaX);
                 ScrollToVerticalOffset(VerticalOffset + deltaY);
