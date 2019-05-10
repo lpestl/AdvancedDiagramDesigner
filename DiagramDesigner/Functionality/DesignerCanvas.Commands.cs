@@ -961,7 +961,7 @@ namespace DiagramDesigner.Functionality
             return new Rect(new Point(x1, y1), new Point(x2, y2));
         }
 
-        private void GetConnectors(DependencyObject parent, List<Connector> connectors)
+        public void GetConnectors(DependencyObject parent, List<Connector> connectors)
         {
             int childrenCount = VisualTreeHelper.GetChildrenCount(parent);
             for (int i = 0; i < childrenCount; i++)
