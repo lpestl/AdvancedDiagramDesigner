@@ -26,10 +26,19 @@ namespace DiagramDesigner.Functionality
 
         #endregion
 
+        // TODO: Check this properties when save/load scheme
+
         // UPD: Name property
         #region Caption
 
         public string Caption { get; set; } = string.Empty;
+
+        #endregion
+
+        // UPD: DateTime created property
+        #region DateTimeCreated property
+
+        public DateTime DateTimeCreated { get; set; }
 
         #endregion
 

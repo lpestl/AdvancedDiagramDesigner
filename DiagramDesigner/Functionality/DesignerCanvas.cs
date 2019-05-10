@@ -72,7 +72,7 @@ namespace DiagramDesigner.Functionality
 
                 if (content != null)
                 {
-                    newItem = new DesignerItem();
+                    newItem = new DesignerItem { DateTimeCreated = DateTime.Now };
                     newItem.Content = content;
 
                     Point position = e.GetPosition(this);
@@ -104,7 +104,7 @@ namespace DiagramDesigner.Functionality
                 e.Handled = true;
             }
         }
-
+        
         protected override Size MeasureOverride(Size constraint)
         {
             Size size = new Size();
