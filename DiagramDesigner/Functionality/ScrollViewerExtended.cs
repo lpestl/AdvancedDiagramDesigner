@@ -12,7 +12,6 @@ namespace DiagramDesigner.Functionality
     public class ScrollViewerExtended : ScrollViewer
     {
         private Point lastMousePosition;
-        private Cursor lastCursor;
 
         protected override void OnMouseDown(MouseButtonEventArgs e)
         {
@@ -32,7 +31,7 @@ namespace DiagramDesigner.Functionality
             {
                 Cursor = Cursors.Arrow;
                 ReleaseMouseCapture();
-                e.Handled = true;
+                //e.Handled = true;
             }
         }
         protected override void OnMouseMove(MouseEventArgs e)
