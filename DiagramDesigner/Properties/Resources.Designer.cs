@@ -22,7 +22,7 @@ namespace DiagramDesigner.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace DiagramDesigner.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("DiagramDesigner.Properties.Resources", typeof(Resources).Assembly);
@@ -51,7 +51,7 @@ namespace DiagramDesigner.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace DiagramDesigner.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Aligment.
         /// </summary>
-        internal static string Aligment {
+        public static string Aligment {
             get {
                 return ResourceManager.GetString("Aligment", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace DiagramDesigner.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Arrange.
         /// </summary>
-        internal static string Arrange {
+        public static string Arrange {
             get {
                 return ResourceManager.GetString("Arrange", resourceCulture);
             }
@@ -81,16 +81,34 @@ namespace DiagramDesigner.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Backward.
         /// </summary>
-        internal static string Backward {
+        public static string Backward {
             get {
                 return ResourceManager.GetString("Backward", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bring Forward.
+        /// </summary>
+        public static string BringForward {
+            get {
+                return ResourceManager.GetString("BringForward", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bring To Front.
+        /// </summary>
+        public static string BringToFront {
+            get {
+                return ResourceManager.GetString("BringToFront", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Copy.
         /// </summary>
-        internal static string Copy {
+        public static string Copy {
             get {
                 return ResourceManager.GetString("Copy", resourceCulture);
             }
@@ -99,7 +117,7 @@ namespace DiagramDesigner.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Cut.
         /// </summary>
-        internal static string Cut {
+        public static string Cut {
             get {
                 return ResourceManager.GetString("Cut", resourceCulture);
             }
@@ -108,7 +126,7 @@ namespace DiagramDesigner.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Delete.
         /// </summary>
-        internal static string Delete {
+        public static string Delete {
             get {
                 return ResourceManager.GetString("Delete", resourceCulture);
             }
@@ -117,7 +135,7 @@ namespace DiagramDesigner.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Diagram.
         /// </summary>
-        internal static string Diagram {
+        public static string Diagram {
             get {
                 return ResourceManager.GetString("Diagram", resourceCulture);
             }
@@ -126,7 +144,7 @@ namespace DiagramDesigner.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Diagram Designer.
         /// </summary>
-        internal static string DiagramDesigner {
+        public static string DiagramDesigner {
             get {
                 return ResourceManager.GetString("DiagramDesigner", resourceCulture);
             }
@@ -135,7 +153,7 @@ namespace DiagramDesigner.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Edit.
         /// </summary>
-        internal static string Edit {
+        public static string Edit {
             get {
                 return ResourceManager.GetString("Edit", resourceCulture);
             }
@@ -144,7 +162,7 @@ namespace DiagramDesigner.Properties {
         /// <summary>
         ///   Looks up a localized string similar to File.
         /// </summary>
-        internal static string File {
+        public static string File {
             get {
                 return ResourceManager.GetString("File", resourceCulture);
             }
@@ -153,7 +171,7 @@ namespace DiagramDesigner.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Flow Chart.
         /// </summary>
-        internal static string FlowChart {
+        public static string FlowChart {
             get {
                 return ResourceManager.GetString("FlowChart", resourceCulture);
             }
@@ -162,7 +180,7 @@ namespace DiagramDesigner.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Forward.
         /// </summary>
-        internal static string Forward {
+        public static string Forward {
             get {
                 return ResourceManager.GetString("Forward", resourceCulture);
             }
@@ -171,16 +189,25 @@ namespace DiagramDesigner.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Group.
         /// </summary>
-        internal static string Group {
+        public static string Group {
             get {
                 return ResourceManager.GetString("Group", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Grouping.
+        /// </summary>
+        public static string Grouping {
+            get {
+                return ResourceManager.GetString("Grouping", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Horizontal.
         /// </summary>
-        internal static string Horizontal {
+        public static string Horizontal {
             get {
                 return ResourceManager.GetString("Horizontal", resourceCulture);
             }
@@ -189,7 +216,7 @@ namespace DiagramDesigner.Properties {
         /// <summary>
         ///   Looks up a localized string similar to New.
         /// </summary>
-        internal static string New {
+        public static string New {
             get {
                 return ResourceManager.GetString("New", resourceCulture);
             }
@@ -198,16 +225,25 @@ namespace DiagramDesigner.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Open.
         /// </summary>
-        internal static string Open {
+        public static string Open {
             get {
                 return ResourceManager.GetString("Open", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Order.
+        /// </summary>
+        public static string Order {
+            get {
+                return ResourceManager.GetString("Order", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Paste.
         /// </summary>
-        internal static string Paste {
+        public static string Paste {
             get {
                 return ResourceManager.GetString("Paste", resourceCulture);
             }
@@ -216,7 +252,7 @@ namespace DiagramDesigner.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Print.
         /// </summary>
-        internal static string Print {
+        public static string Print {
             get {
                 return ResourceManager.GetString("Print", resourceCulture);
             }
@@ -225,16 +261,43 @@ namespace DiagramDesigner.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Save.
         /// </summary>
-        internal static string Save {
+        public static string Save {
             get {
                 return ResourceManager.GetString("Save", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select All.
+        /// </summary>
+        public static string SelectAll {
+            get {
+                return ResourceManager.GetString("SelectAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Send Backward.
+        /// </summary>
+        public static string SendBackward {
+            get {
+                return ResourceManager.GetString("SendBackward", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Send To Back.
+        /// </summary>
+        public static string SendToBack {
+            get {
+                return ResourceManager.GetString("SendToBack", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Shapes.
         /// </summary>
-        internal static string Shapes {
+        public static string Shapes {
             get {
                 return ResourceManager.GetString("Shapes", resourceCulture);
             }
@@ -243,7 +306,7 @@ namespace DiagramDesigner.Properties {
         /// <summary>
         ///   Looks up a localized string similar to To Back.
         /// </summary>
-        internal static string ToBack {
+        public static string ToBack {
             get {
                 return ResourceManager.GetString("ToBack", resourceCulture);
             }
@@ -252,7 +315,7 @@ namespace DiagramDesigner.Properties {
         /// <summary>
         ///   Looks up a localized string similar to To Front.
         /// </summary>
-        internal static string ToFront {
+        public static string ToFront {
             get {
                 return ResourceManager.GetString("ToFront", resourceCulture);
             }
@@ -261,7 +324,7 @@ namespace DiagramDesigner.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Ungroup.
         /// </summary>
-        internal static string Ungroup {
+        public static string Ungroup {
             get {
                 return ResourceManager.GetString("Ungroup", resourceCulture);
             }
@@ -270,7 +333,7 @@ namespace DiagramDesigner.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Vertical.
         /// </summary>
-        internal static string Vertical {
+        public static string Vertical {
             get {
                 return ResourceManager.GetString("Vertical", resourceCulture);
             }

@@ -2,32 +2,33 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:s="clr-namespace:DiagramDesigner"
                     xmlns:c="clr-namespace:DiagramDesigner.Controls"
-                    xmlns:functionality="clr-namespace:DiagramDesigner.Functionality">
+                    xmlns:functionality="clr-namespace:DiagramDesigner.Functionality"
+                    xmlns:prop="clr-namespace:DiagramDesigner.Properties">
 
     <ContextMenu x:Key="ConnectionContextMenu">
-        <MenuItem Header="Delete" Command="{x:Static ApplicationCommands.Delete}">
+        <MenuItem Header="{x:Static prop:Resources.Delete}" Command="{x:Static ApplicationCommands.Delete}">
             <MenuItem.Icon>
                 <Image Source="Images/Delete.png" Width="16"/>
             </MenuItem.Icon>
         </MenuItem>
         <Separator/>
-        <MenuItem Header="Order">
-            <MenuItem Header="Bring Forward" Command="{x:Static functionality:DesignerCanvas.BringForward}">
+        <MenuItem Header="{x:Static prop:Resources.Order}">
+            <MenuItem Header="{x:Static prop:Resources.BringForward}" Command="{x:Static functionality:DesignerCanvas.BringForward}">
                 <MenuItem.Icon>
                     <Image Source="Images/BringForward.png" Width="16"/>
                 </MenuItem.Icon>
             </MenuItem>
-            <MenuItem Header="Bring To Front" Command="{x:Static functionality:DesignerCanvas.BringToFront}">
+            <MenuItem Header="{x:Static prop:Resources.BringToFront}" Command="{x:Static functionality:DesignerCanvas.BringToFront}">
                 <MenuItem.Icon>
                     <Image Source="Images/BringToFront.png" Width="16"/>
                 </MenuItem.Icon>
             </MenuItem>
-            <MenuItem Header="Send Backward" Command="{x:Static functionality:DesignerCanvas.SendBackward}">
+            <MenuItem Header="{x:Static prop:Resources.SendBackward}" Command="{x:Static functionality:DesignerCanvas.SendBackward}">
                 <MenuItem.Icon>
                     <Image Source="Images/SendBackward.png" Width="16"/>
                 </MenuItem.Icon>
             </MenuItem>
-            <MenuItem Header="Send To Back" Command="{x:Static functionality:DesignerCanvas.SendToBack}">
+            <MenuItem Header="{x:Static prop:Resources.SendToBack}" Command="{x:Static functionality:DesignerCanvas.SendToBack}">
                 <MenuItem.Icon>
                     <Image Source="Images/SendToBack.png" Width="16"/>
                 </MenuItem.Icon>
