@@ -42,13 +42,13 @@
                     VerticalAlignment="Stretch" HorizontalAlignment="Right"/>
             <!-- Designer -->
             <GroupBox Header="Diagram" Grid.Column="1" Margin="3,0,0,0">
-                <ScrollViewer HorizontalScrollBarVisibility="Auto"
+                <functionality:ScrollViewerExtended HorizontalScrollBarVisibility="Auto"
                       VerticalScrollBarVisibility="Auto">
                     <functionality:DesignerCanvas Focusable="true" x:Name="MyDesigner"
                             Background="{StaticResource WindowBackgroundBrush}"
                             Margin="10" FocusVisualStyle="{x:Null}"
                             ContextMenu="{StaticResource DesignerCanvasContextMenu}"/>
-                </ScrollViewer>
+                </functionality:ScrollViewerExtended>
             </GroupBox>
         </Grid>
     </Grid>

@@ -31,7 +31,7 @@ namespace DiagramDesigner.Functionality
                 // selected items are 'de-selected'
                 SelectionService.ClearSelection();
                 Focus();
-                e.Handled = true;
+                //e.Handled = true;
             }
         }
 
@@ -58,7 +58,7 @@ namespace DiagramDesigner.Functionality
                     }
                 }
             }
-            e.Handled = true;
+            //e.Handled = true;
         }
 
         protected override void OnDrop(DragEventArgs e)
