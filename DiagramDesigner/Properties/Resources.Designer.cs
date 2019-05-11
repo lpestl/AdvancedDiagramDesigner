@@ -223,6 +223,15 @@ namespace DiagramDesigner.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New diagram.
+        /// </summary>
+        public static string NewDiagram {
+            get {
+                return ResourceManager.GetString("NewDiagram", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Open.
         /// </summary>
         public static string Open {

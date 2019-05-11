@@ -171,6 +171,9 @@
   <data name="New" xml:space="preserve">
     <value>New</value>
   </data>
+  <data name="NewDiagram" xml:space="preserve">
+    <value>New diagram</value>
+  </data>
   <data name="Open" xml:space="preserve">
     <value>Open</value>
   </data>

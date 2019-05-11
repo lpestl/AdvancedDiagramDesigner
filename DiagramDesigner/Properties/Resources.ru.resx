@@ -171,6 +171,9 @@
   <data name="New" xml:space="preserve">
     <value>Создать</value>
   </data>
+  <data name="NewDiagram" xml:space="preserve">
+    <value>Новая диаграмма</value>
+  </data>
   <data name="Open" xml:space="preserve">
     <value>Открыть</value>
   </data>
