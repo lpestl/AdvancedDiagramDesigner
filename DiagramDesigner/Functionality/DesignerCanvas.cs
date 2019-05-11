@@ -1,6 +1,8 @@
 ﻿using System;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -10,7 +12,7 @@ using System.Xml;
 
 namespace DiagramDesigner.Functionality
 {
-    public partial class DesignerCanvas : Canvas
+    public partial class DesignerCanvas : Canvas, INotifyPropertyChanged
     {
         private Point? rubberbandSelectionStartPoint = null;
 
@@ -18,6 +20,18 @@ namespace DiagramDesigner.Functionality
         // UPD: Updated and readable style
         internal SelectionService SelectionService => selectionService ?? (selectionService = new SelectionService(this));
         
+        // UPD: Caption for tabItem
+        private string _caption = Properties.Resources.NewDiagram;
+        public string Caption
+        {
+            get => _caption;
+            set
+            {
+                if (_caption != value)
+                    OnPropertyChanged("Caption");
+            }
+        }
+
         protected override void OnMouseDown(MouseButtonEventArgs e)
         {
             base.OnMouseDown(e);
@@ -143,5 +157,11 @@ namespace DiagramDesigner.Functionality
             }
         }
 
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }

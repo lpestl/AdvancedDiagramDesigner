@@ -58,7 +58,7 @@ namespace DiagramDesigner.Functionality
             this.CommandBindings.Add(new CommandBinding(DesignerCanvas.DistributeVertical, DistributeVertical_Executed, Distribute_Enabled));
             this.CommandBindings.Add(new CommandBinding(DesignerCanvas.SelectAll, SelectAll_Executed));
             SelectAll.InputGestures.Add(new KeyGesture(Key.A, ModifierKeys.Control));
-
+            
             this.AllowDrop = true;
             Clipboard.Clear();
         }
