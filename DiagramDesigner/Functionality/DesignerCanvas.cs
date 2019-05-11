@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -14,17 +15,9 @@ namespace DiagramDesigner.Functionality
         private Point? rubberbandSelectionStartPoint = null;
 
         private SelectionService selectionService;
-        internal SelectionService SelectionService
-        {
-            get
-            {
-                if (selectionService == null)
-                    selectionService = new SelectionService(this);
-
-                return selectionService;
-            }
-        }
-
+        // UPD: Updated and readable style
+        internal SelectionService SelectionService => selectionService ?? (selectionService = new SelectionService(this));
+        
         protected override void OnMouseDown(MouseButtonEventArgs e)
         {
             base.OnMouseDown(e);
@@ -38,7 +31,7 @@ namespace DiagramDesigner.Functionality
                 // selected items are 'de-selected'
                 SelectionService.ClearSelection();
                 Focus();
-                e.Handled = true;
+                //e.Handled = true;
             }
         }
 
@@ -65,7 +58,7 @@ namespace DiagramDesigner.Functionality
                     }
                 }
             }
-            e.Handled = true;
+            //e.Handled = true;
         }
 
         protected override void OnDrop(DragEventArgs e)
@@ -79,7 +72,7 @@ namespace DiagramDesigner.Functionality
 
                 if (content != null)
                 {
-                    newItem = new DesignerItem();
+                    newItem = new DesignerItem { DateTimeCreated = DateTime.Now };
                     newItem.Content = content;
 
                     Point position = e.GetPosition(this);
@@ -111,7 +104,7 @@ namespace DiagramDesigner.Functionality
                 e.Handled = true;
             }
         }
-
+        
         protected override Size MeasureOverride(Size constraint)
         {
             Size size = new Size();
@@ -138,7 +131,7 @@ namespace DiagramDesigner.Functionality
             size.Height += 10;
             return size;
         }
-
+        
         private void SetConnectorDecoratorTemplate(DesignerItem item)
         {
             if (item.ApplyTemplate() && item.Content is UIElement)
@@ -149,5 +142,6 @@ namespace DiagramDesigner.Functionality
                     decorator.Template = template;
             }
         }
+
     }
 }

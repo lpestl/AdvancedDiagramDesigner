@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Threading;
 using DiagramDesigner.Controls;
 
 namespace DiagramDesigner.Functionality
@@ -15,44 +16,71 @@ namespace DiagramDesigner.Functionality
     public class DesignerItem : ContentControl, ISelectable, IGroupable
     {
         #region ID
+
         private Guid id;
+
         public Guid ID
         {
             get { return id; }
         }
+
+        #endregion
+
+        // TODO: Check this properties when save/load scheme
+
+        // UPD: Name property
+        #region Caption
+
+        public string Caption { get; set; } = string.Empty;
+
+        #endregion
+
+        // UPD: DateTime created property
+        #region DateTimeCreated property
+
+        public DateTime DateTimeCreated { get; set; }
+
         #endregion
 
         #region ParentID
+
         public Guid ParentID
         {
-            get { return (Guid)GetValue(ParentIDProperty); }
+            get { return (Guid) GetValue(ParentIDProperty); }
             set { SetValue(ParentIDProperty, value); }
         }
-        public static readonly DependencyProperty ParentIDProperty = DependencyProperty.Register("ParentID", typeof(Guid), typeof(DesignerItem));
+
+        public static readonly DependencyProperty ParentIDProperty =
+            DependencyProperty.Register("ParentID", typeof(Guid), typeof(DesignerItem));
+
         #endregion
 
         #region IsGroup
+
         public bool IsGroup
         {
-            get { return (bool)GetValue(IsGroupProperty); }
+            get { return (bool) GetValue(IsGroupProperty); }
             set { SetValue(IsGroupProperty, value); }
         }
+
         public static readonly DependencyProperty IsGroupProperty =
             DependencyProperty.Register("IsGroup", typeof(bool), typeof(DesignerItem));
+
         #endregion
 
         #region IsSelected Property
 
         public bool IsSelected
         {
-            get { return (bool)GetValue(IsSelectedProperty); }
+            get { return (bool) GetValue(IsSelectedProperty); }
             set { SetValue(IsSelectedProperty, value); }
         }
+
         public static readonly DependencyProperty IsSelectedProperty =
-          DependencyProperty.Register("IsSelected",
-                                       typeof(bool),
-                                       typeof(DesignerItem),
-                                       new FrameworkPropertyMetadata(false));
+            DependencyProperty.Register("IsSelected",
+                typeof(bool),
+                typeof(DesignerItem),
+                new FrameworkPropertyMetadata(false));
 
         #endregion
 
@@ -64,7 +92,7 @@ namespace DiagramDesigner.Functionality
 
         public static ControlTemplate GetDragThumbTemplate(UIElement element)
         {
-            return (ControlTemplate)element.GetValue(DragThumbTemplateProperty);
+            return (ControlTemplate) element.GetValue(DragThumbTemplateProperty);
         }
 
         public static void SetDragThumbTemplate(UIElement element, ControlTemplate value)
@@ -78,11 +106,12 @@ namespace DiagramDesigner.Functionality
 
         // can be used to replace the default template for the ConnectorDecorator
         public static readonly DependencyProperty ConnectorDecoratorTemplateProperty =
-            DependencyProperty.RegisterAttached("ConnectorDecoratorTemplate", typeof(ControlTemplate), typeof(DesignerItem));
+            DependencyProperty.RegisterAttached("ConnectorDecoratorTemplate", typeof(ControlTemplate),
+                typeof(DesignerItem));
 
         public static ControlTemplate GetConnectorDecoratorTemplate(UIElement element)
         {
-            return (ControlTemplate)element.GetValue(ConnectorDecoratorTemplateProperty);
+            return (ControlTemplate) element.GetValue(ConnectorDecoratorTemplateProperty);
         }
 
         public static void SetConnectorDecoratorTemplate(UIElement element, ControlTemplate value)
@@ -99,14 +128,15 @@ namespace DiagramDesigner.Functionality
         // to be visible, see template
         public bool IsDragConnectionOver
         {
-            get { return (bool)GetValue(IsDragConnectionOverProperty); }
+            get { return (bool) GetValue(IsDragConnectionOverProperty); }
             set { SetValue(IsDragConnectionOverProperty, value); }
         }
+
         public static readonly DependencyProperty IsDragConnectionOverProperty =
             DependencyProperty.Register("IsDragConnectionOver",
-                                         typeof(bool),
-                                         typeof(DesignerItem),
-                                         new FrameworkPropertyMetadata(false));
+                typeof(bool),
+                typeof(DesignerItem),
+                new FrameworkPropertyMetadata(false));
 
         #endregion
 
@@ -150,6 +180,7 @@ namespace DiagramDesigner.Functionality
                 {
                     designer.SelectionService.SelectItem(this);
                 }
+
                 Focus();
             }
 
@@ -164,20 +195,130 @@ namespace DiagramDesigner.Functionality
                     this.Template.FindName("PART_ContentPresenter", this) as ContentPresenter;
                 if (contentPresenter != null)
                 {
-                    UIElement contentVisual = VisualTreeHelper.GetChild(contentPresenter, 0) as UIElement;
-                    if (contentVisual != null)
+                    // Fix unhandled exception of type 'System.ArgumentOutOfRangeException' occurred in PresentationFramework.dll
+                    if (VisualTreeHelper.GetChildrenCount(contentPresenter) > 0)
                     {
-                        DragThumb thumb = this.Template.FindName("PART_DragThumb", this) as DragThumb;
-                        if (thumb != null)
+                        UIElement contentVisual = VisualTreeHelper.GetChild(contentPresenter, 0) as UIElement;
+                        if (contentVisual != null)
                         {
-                            ControlTemplate template =
-                                DesignerItem.GetDragThumbTemplate(contentVisual) as ControlTemplate;
-                            if (template != null)
-                                thumb.Template = template;
+                            DragThumb thumb = this.Template.FindName("PART_DragThumb", this) as DragThumb;
+                            if (thumb != null)
+                            {
+                                ControlTemplate template =
+                                    DesignerItem.GetDragThumbTemplate(contentVisual) as ControlTemplate;
+                                if (template != null)
+                                    thumb.Template = template;
+                            }
                         }
                     }
                 }
             }
+        }
+
+        // UPD: Double click to add block name
+        protected override void OnMouseDoubleClick(MouseButtonEventArgs e)
+        {
+            base.OnMouseDoubleClick(e);
+
+            var shapeContent = GetShape();
+            ClearContent();
+            
+            // Creat text box for inputing name
+            var nameEditBox = new TextBox
+            {
+                Text = string.IsNullOrEmpty(Caption) ? string.Empty : Caption,
+                Margin = new Thickness(5),
+                HorizontalContentAlignment = HorizontalAlignment.Center,
+                VerticalContentAlignment = VerticalAlignment.Center, 
+                AcceptsReturn = true,
+                TextWrapping = TextWrapping.Wrap,
+            };
+
+            // Creat grid with figure (Shape.Path) and nameTextBox
+            var grid = new Grid {Children = { shapeContent, nameEditBox}};
+
+            this.Content = grid;
+            
+            // Bind to LostFocus eventHandler
+            nameEditBox.LostFocus += NameEditBoxOnLostFocus;
+
+            // Activate keybord cursor
+            Dispatcher.BeginInvoke(DispatcherPriority.Input,
+                new Action(delegate () {
+                    nameEditBox.Focus();         // Set Logical Focus
+                    Keyboard.Focus(nameEditBox); // Set Keyboard Focus
+                    nameEditBox.SelectAll();
+                }));
+        }
+
+        // Find Shape.Path in self content
+        private System.Windows.Shapes.Shape GetShape()
+        {
+            // We check the block content for an empty figure (without name)
+            var shape = this.Content as System.Windows.Shapes.Shape;
+
+            // if empty figure not found
+            if (shape == null)
+            {
+                // We check the block content for an figure (Shape.Path)
+                var oldGrid = this.Content as Grid;
+                // if content not path and not grid, then return
+                if (oldGrid == null)
+                    return null;
+
+                // Looking for a figure (Shape.Path)
+                foreach (var oldGridChild in oldGrid.Children)
+                {
+                    if (oldGridChild is System.Windows.Shapes.Shape tmpShape)
+                    {
+                        shape = tmpShape;
+                        break;
+                    }
+                }
+            }
+
+            return shape;
+        }
+
+        private void NameEditBoxOnLostFocus(object sender, RoutedEventArgs routedEventArgs)
+        {
+            var shape = GetShape();
+            ClearContent();
+
+            var inputBox = sender as TextBox;
+            if (inputBox == null)
+            {
+                this.Content = shape;
+                Caption = string.Empty;
+                return;
+            }
+
+            // UnBind to LostFocus eventHandler
+            inputBox.LostFocus -= NameEditBoxOnLostFocus;
+
+            Caption = inputBox.Text;
+            // Creat TextBlock with Name text
+            var nameTextBlock = new TextBlock
+            {
+                Margin = new Thickness(6),
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Center,
+                TextWrapping = TextWrapping.Wrap, 
+                TextTrimming = TextTrimming.CharacterEllipsis,
+                Text = Caption,
+            };
+
+            // Creat grid with figure (Shape.Path) and nameTextBlock
+            var grid = new Grid { Children = { shape, nameTextBlock } };
+
+            this.Content = grid;
+        }
+
+        // Clear content
+        private void ClearContent()
+        {
+            (this.Content as Grid)?.Children.Clear();
+            this.Content = null;
         }
     }
 }
