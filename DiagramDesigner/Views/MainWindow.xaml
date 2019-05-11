@@ -43,8 +43,8 @@
                     VerticalAlignment="Stretch" HorizontalAlignment="Right"/>
             <!-- Designer -->
             <GroupBox Header="{x:Static prop:Resources.Diagram}" Grid.Column="1" Margin="3,0,0,0">
-                    <TabControl>
-                        <TabItem Header="{x:Static prop:Resources.NewDiagram}" Visibility="Collapsed">
+                <TabControl>
+                    <TabItem Header="{x:Static prop:Resources.NewDiagram}">
                         <functionality:ScrollViewerExtended HorizontalScrollBarVisibility="Auto"
                                                             VerticalScrollBarVisibility="Auto">
                             <functionality:DesignerCanvas Focusable="true" x:Name="MyDesigner"
@@ -53,7 +53,7 @@
                                 ContextMenu="{StaticResource DesignerCanvasContextMenu}"/>
                         </functionality:ScrollViewerExtended>
                     </TabItem>
-                    </TabControl>
+                </TabControl>
             </GroupBox>
         </Grid>
     </Grid>
