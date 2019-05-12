@@ -8,7 +8,9 @@
         <ResourceDictionary Source="Styles/Shared.xaml"/>
         <ResourceDictionary Source="Styles/ToolBar.xaml"/>
     </ResourceDictionary.MergedDictionaries>
-    
+
+    <functionality:CommandHandlerConverter x:Key="CommandHandlerConverter"/>
+
     <ToolBar x:Key="MyToolbar" Height="120">
         <!--File-->
         <GroupBox Header="{x:Static prop:Resources.File}" Style="{StaticResource ToolbarGroup}" Margin="5,3,3,3">
@@ -16,7 +18,7 @@
                 <Button Margin="3" Width="55" Style="{StaticResource ToolBarButtonBaseStyle}"
                         HorizontalContentAlignment="Center"
                         Command="{x:Static ApplicationCommands.New}"
-                        CommandTarget="{Binding ElementName=MyDesigner}">
+                        CommandTarget="{Binding ElementName=DesignersTabControl, Path=SelectedItem, Converter={StaticResource CommandHandlerConverter}}">
                     <Button.Content>
                         <Grid>
                             <Grid.RowDefinitions>
@@ -32,7 +34,7 @@
                     <Button Margin="1" Padding="2" HorizontalContentAlignment="Left"
                             Style="{StaticResource ToolBarButtonBaseStyle}"
                             Command="{x:Static ApplicationCommands.Open}"
-                            CommandTarget="{Binding ElementName=MyDesigner}">
+                            CommandTarget="{Binding ElementName=DesignersTabControl, Path=SelectedItem, Converter={StaticResource CommandHandlerConverter}}">
                         <Button.Content>
                             <Grid>
                                 <Grid.ColumnDefinitions>
@@ -47,7 +49,7 @@
                     <Button Margin="1" Padding="2" HorizontalContentAlignment="Left"
                             Style="{StaticResource ToolBarButtonBaseStyle}"
                             Command="{x:Static ApplicationCommands.Save}"
-                            CommandTarget="{Binding ElementName=MyDesigner}">
+                            CommandTarget="{Binding ElementName=DesignersTabControl, Path=SelectedItem, Converter={StaticResource CommandHandlerConverter}}">
                         <Button.Content>
                             <Grid>
                                 <Grid.ColumnDefinitions>
@@ -62,7 +64,7 @@
                     <Button Margin="1" Padding="2" HorizontalContentAlignment="Left"
                             Style="{StaticResource ToolBarButtonBaseStyle}"
                             Command="{x:Static ApplicationCommands.Print}"
-                            CommandTarget="{Binding ElementName=MyDesigner}">
+                            CommandTarget="{Binding ElementName=DesignersTabControl, Path=SelectedItem, Converter={StaticResource CommandHandlerConverter}}">
                         <Button.Content>
                             <Grid>
                                 <Grid.ColumnDefinitions>
@@ -84,7 +86,7 @@
                 <Button Margin="3" Width="55"
                         Style="{StaticResource ToolBarButtonBaseStyle}"
                         Command="{x:Static ApplicationCommands.Paste}"
-                        CommandTarget="{Binding ElementName=MyDesigner}">
+                        CommandTarget="{Binding ElementName=DesignersTabControl, Path=SelectedItem, Converter={StaticResource CommandHandlerConverter}}">
                     <Button.Content>
                         <Grid>
                             <Grid.RowDefinitions>
@@ -100,7 +102,7 @@
                     <Button Margin="1" Padding="2" HorizontalContentAlignment="Left"
                             Style="{StaticResource ToolBarButtonBaseStyle}"
                             Command="{x:Static ApplicationCommands.Cut}"
-                            CommandTarget="{Binding ElementName=MyDesigner}">
+                            CommandTarget="{Binding ElementName=DesignersTabControl, Path=SelectedItem, Converter={StaticResource CommandHandlerConverter}}">
                         <Button.Content>
                             <Grid>
                                 <Grid.ColumnDefinitions>
@@ -115,7 +117,7 @@
                     <Button Margin="1" Padding="2" HorizontalContentAlignment="Left"
                             Style="{StaticResource ToolBarButtonBaseStyle}"
                             Command="{x:Static ApplicationCommands.Copy}"
-                            CommandTarget="{Binding ElementName=MyDesigner}">
+                            CommandTarget="{Binding ElementName=DesignersTabControl, Path=SelectedItem, Converter={StaticResource CommandHandlerConverter}}">
                         <Button.Content>
                             <Grid>
                                 <Grid.ColumnDefinitions>
@@ -130,7 +132,7 @@
                     <Button Margin="1" Padding="2" HorizontalContentAlignment="Left"
                             Style="{StaticResource ToolBarButtonBaseStyle}"
                             Command="{x:Static ApplicationCommands.Delete}"
-                            CommandTarget="{Binding ElementName=MyDesigner}">
+                            CommandTarget="{Binding ElementName=DesignersTabControl, Path=SelectedItem, Converter={StaticResource CommandHandlerConverter}}">
                         <Button.Content>
                             <Grid>
                                 <Grid.ColumnDefinitions>
@@ -158,21 +160,21 @@
                         <StackPanel Orientation="Horizontal">
                             <Button Padding="5" Style="{StaticResource ToolBarButtonBaseStyle}"
                                     Command="{x:Static functionality:DesignerCanvas.AlignLeft}"
-                                    CommandTarget="{Binding ElementName=MyDesigner}">
+                                    CommandTarget="{Binding ElementName=DesignersTabControl, Path=SelectedItem, Converter={StaticResource CommandHandlerConverter}}">
                                 <Button.Content>
                                     <Image Source="Images/AlignObjectsLeft.png" Width="16"/>
                                 </Button.Content>
                             </Button>
                             <Button Padding="5" Style="{StaticResource ToolBarButtonBaseStyle}"
                                     Command="{x:Static functionality:DesignerCanvas.AlignHorizontalCenters}"
-                                    CommandTarget="{Binding ElementName=MyDesigner}">
+                                    CommandTarget="{Binding ElementName=DesignersTabControl, Path=SelectedItem, Converter={StaticResource CommandHandlerConverter}}">
                                 <Button.Content>
                                     <Image Source="Images/AlignObjectsCenteredHorizontal.png" Width="16"/>
                                 </Button.Content>
                             </Button>
                             <Button Padding="5" Style="{StaticResource ToolBarButtonBaseStyle}"
                                     Command="{x:Static functionality:DesignerCanvas.AlignRight}"
-                                    CommandTarget="{Binding ElementName=MyDesigner}">
+                                    CommandTarget="{Binding ElementName=DesignersTabControl, Path=SelectedItem, Converter={StaticResource CommandHandlerConverter}}">
                                 <Button.Content>
                                     <Image Source="Images/AlignObjectsRight.png" Width="16"/>
                                 </Button.Content>
@@ -183,21 +185,21 @@
                         <StackPanel Orientation="Horizontal">
                             <Button Padding="5" Style="{StaticResource ToolBarButtonBaseStyle}"
                                     Command="{x:Static functionality:DesignerCanvas.AlignTop}"
-                                    CommandTarget="{Binding ElementName=MyDesigner}">
+                                    CommandTarget="{Binding ElementName=DesignersTabControl, Path=SelectedItem, Converter={StaticResource CommandHandlerConverter}}">
                                 <Button.Content>
                                     <Image Source="Images/AlignObjectsTop.png" Width="16"/>
                                 </Button.Content>
                             </Button>
                             <Button Padding="5" Style="{StaticResource ToolBarButtonBaseStyle}"
                                     Command="{x:Static functionality:DesignerCanvas.AlignVerticalCenters}"
-                                    CommandTarget="{Binding ElementName=MyDesigner}">
+                                    CommandTarget="{Binding ElementName=DesignersTabControl, Path=SelectedItem, Converter={StaticResource CommandHandlerConverter}}">
                                 <Button.Content>
                                     <Image Source="Images/AlignObjectsCenteredVertical.png" Width="16"/>
                                 </Button.Content>
                             </Button>
                             <Button Padding="5" Style="{StaticResource ToolBarButtonBaseStyle}"
                                     Command="{x:Static functionality:DesignerCanvas.AlignBottom}"
-                                    CommandTarget="{Binding ElementName=MyDesigner}">
+                                    CommandTarget="{Binding ElementName=DesignersTabControl, Path=SelectedItem, Converter={StaticResource CommandHandlerConverter}}">
                                 <Button.Content>
                                     <Image Source="Images/AlignObjectsBottom.png" Width="16"/>
                                 </Button.Content>
@@ -209,7 +211,7 @@
                     <Button Margin="3" Padding="5" HorizontalContentAlignment="Left"
                             Style="{StaticResource ToolBarButtonBaseStyle}"
                             Command="{x:Static functionality:DesignerCanvas.DistributeHorizontal}"
-                            CommandTarget="{Binding ElementName=MyDesigner}">
+                            CommandTarget="{Binding ElementName=DesignersTabControl, Path=SelectedItem, Converter={StaticResource CommandHandlerConverter}}">
                         <Button.Content>
                             <Grid>
                                 <Grid.ColumnDefinitions>
@@ -224,7 +226,7 @@
                     <Button Margin="3" Padding="5" HorizontalContentAlignment="Left"
                             Style="{StaticResource ToolBarButtonBaseStyle}"
                             Command="{x:Static functionality:DesignerCanvas.DistributeVertical}"
-                            CommandTarget="{Binding ElementName=MyDesigner}">
+                            CommandTarget="{Binding ElementName=DesignersTabControl, Path=SelectedItem, Converter={StaticResource CommandHandlerConverter}}">
                         <Button.Content>
                             <Grid>
                                 <Grid.ColumnDefinitions>
@@ -254,7 +256,7 @@
                     <Button Margin="0,3,0,3" Padding="5" HorizontalContentAlignment="Left"
                             Style="{StaticResource ToolBarButtonBaseStyle}"
                             Command="{x:Static functionality:DesignerCanvas.Group}"
-                            CommandTarget="{Binding ElementName=MyDesigner}">
+                            CommandTarget="{Binding ElementName=DesignersTabControl, Path=SelectedItem, Converter={StaticResource CommandHandlerConverter}}">
                         <Button.Content>
                             <Grid>
                                 <Grid.ColumnDefinitions>
@@ -269,7 +271,7 @@
                     <Button Margin="0,3,0,3" Padding="5" HorizontalContentAlignment="Left"
                             Style="{StaticResource ToolBarButtonBaseStyle}"
                             Command="{x:Static functionality:DesignerCanvas.Ungroup}"
-                            CommandTarget="{Binding ElementName=MyDesigner}">
+                            CommandTarget="{Binding ElementName=DesignersTabControl, Path=SelectedItem, Converter={StaticResource CommandHandlerConverter}}">
                         <Button.Content>
                             <Grid>
                                 <Grid.ColumnDefinitions>
@@ -286,7 +288,7 @@
                     <Button Margin="0,3,0,3" Padding="5" HorizontalContentAlignment="Left"
                             Style="{StaticResource ToolBarButtonBaseStyle}"
                             Command="{x:Static functionality:DesignerCanvas.BringForward}"
-                            CommandTarget="{Binding ElementName=MyDesigner}">
+                            CommandTarget="{Binding ElementName=DesignersTabControl, Path=SelectedItem, Converter={StaticResource CommandHandlerConverter}}">
                         <Button.Content>
                             <Grid>
                                 <Grid.ColumnDefinitions>
@@ -301,7 +303,7 @@
                     <Button Margin="0,3,0,3" Padding="5" HorizontalContentAlignment="Left"
                             Style="{StaticResource ToolBarButtonBaseStyle}"
                             Command="{x:Static functionality:DesignerCanvas.BringToFront}"
-                            CommandTarget="{Binding ElementName=MyDesigner}">
+                            CommandTarget="{Binding ElementName=DesignersTabControl, Path=SelectedItem, Converter={StaticResource CommandHandlerConverter}}">
                         <Button.Content>
                             <Grid>
                                 <Grid.ColumnDefinitions>
@@ -322,7 +324,7 @@
                     <Button Margin="0,3,0,3" Padding="5" HorizontalContentAlignment="Left"
                             Style="{StaticResource ToolBarButtonBaseStyle}"
                             Command="{x:Static functionality:DesignerCanvas.SendBackward}"
-                            CommandTarget="{Binding ElementName=MyDesigner}">
+                            CommandTarget="{Binding ElementName=DesignersTabControl, Path=SelectedItem, Converter={StaticResource CommandHandlerConverter}}">
                         <Button.Content>
                             <Grid>
                                 <Grid.ColumnDefinitions>
@@ -337,7 +339,7 @@
                     <Button Margin="0,3,0,3" Padding="5" HorizontalContentAlignment="Left"
                             Style="{StaticResource ToolBarButtonBaseStyle}"
                             Command="{x:Static functionality:DesignerCanvas.SendToBack}"
-                            CommandTarget="{Binding ElementName=MyDesigner}">
+                            CommandTarget="{Binding ElementName=DesignersTabControl, Path=SelectedItem, Converter={StaticResource CommandHandlerConverter}}">
                         <Button.Content>
                             <Grid>
                                 <Grid.ColumnDefinitions>

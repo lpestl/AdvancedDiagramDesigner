@@ -138,6 +138,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Functionality\CommandHandlerConverter.cs" />
     <Compile Include="Functionality\DiagramTabItem.cs" />
     <Compile Include="Functionality\ScrollViewerExtended.cs" />
     <Compile Include="Views\DiagramControl.xaml.cs">

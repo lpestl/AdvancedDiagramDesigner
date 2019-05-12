@@ -17,7 +17,7 @@ namespace DiagramDesigner.Views
 
             diagramTabs.CollectionChanged += DiagramTabsOnCollectionChanged;
 
-            DesignerCanvasesHolder.ItemsSource = diagramTabs;
+            DesignersTabControl.ItemsSource = diagramTabs;
 
             diagramTabs.Add(new DiagramTabItem
                 {
@@ -35,12 +35,12 @@ namespace DiagramDesigner.Views
         {
             Style s = new Style();
             s.Setters.Add(new Setter(UIElement.VisibilityProperty, visibility));
-            DesignerCanvasesHolder.ItemContainerStyle = s;
+            DesignersTabControl.ItemContainerStyle = s;
         }
 
         private void CloseDiagram_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            DesignerCanvasesHolder.Items.RemoveAt(DesignerCanvasesHolder.SelectedIndex);
+            diagramTabs.RemoveAt(DesignersTabControl.SelectedIndex);
         }
     }
 }

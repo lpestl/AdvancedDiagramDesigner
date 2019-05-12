@@ -21,7 +21,7 @@
     </UserControl.Resources>
     <functionality:ScrollViewerExtended HorizontalScrollBarVisibility="Auto"
                                         VerticalScrollBarVisibility="Auto">
-        <functionality:DesignerCanvas Focusable="true" x:Name="MyDesigner"
+        <functionality:DesignerCanvas Focusable="true" x:Name="Designer"
                                       Background="{StaticResource WindowBackgroundBrush}"
                                       Margin="10" FocusVisualStyle="{x:Null}"
                                       ContextMenu="{StaticResource DesignerCanvasContextMenu}"/>
