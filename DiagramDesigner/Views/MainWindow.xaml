@@ -7,6 +7,7 @@
         xmlns:prop="clr-namespace:DiagramDesigner.Properties"
         WindowStartupLocation="CenterScreen"
         Title="Diagram Designer"
+        x:Name="DiagramDesignerWindow"
         Height="850" Width="1000">
     <Grid Margin="10">
         <Grid.RowDefinitions>
@@ -31,7 +32,7 @@
                     VerticalAlignment="Stretch" HorizontalAlignment="Right"/>
             <!-- Designer -->
             <GroupBox Header="{x:Static prop:Resources.Diagram}" Grid.Column="1" Margin="3,0,0,0">
-                <TabControl x:Name="DesignersTabControl">
+                <TabControl x:Name="DesignersTabControl" ItemsSource="{Binding DiagramTabs, ElementName=DiagramDesignerWindow}" >
                     <TabControl.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal" Height="21" >

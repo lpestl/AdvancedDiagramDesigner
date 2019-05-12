@@ -18,7 +18,8 @@
                 <Button Margin="3" Width="55" Style="{StaticResource ToolBarButtonBaseStyle}"
                         HorizontalContentAlignment="Center"
                         Command="{x:Static ApplicationCommands.New}"
-                        CommandTarget="{Binding ElementName=DesignersTabControl, Path=SelectedItem, Converter={StaticResource CommandHandlerConverter}}">
+                        CommandTarget="{Binding ElementName=DiagramDesignerWindow}">
+                    <!--CommandTarget="{Binding ElementName=DesignersTabControl, Path=SelectedItem, Converter={StaticResource CommandHandlerConverter}}">-->
                     <Button.Content>
                         <Grid>
                             <Grid.RowDefinitions>

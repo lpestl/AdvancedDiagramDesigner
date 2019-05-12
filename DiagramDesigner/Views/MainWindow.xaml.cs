@@ -10,25 +10,38 @@ namespace DiagramDesigner.Views
 {
     public partial class MainWindow : Window
     {
-        private ObservableCollection<DiagramTabItem> diagramTabs { get; set; } = new ObservableCollection<DiagramTabItem>();
+        public ObservableCollection<DiagramTabItem> DiagramTabs { get; set; } = new ObservableCollection<DiagramTabItem>();
         public MainWindow()
         {
+            this.CommandBindings.Add(new CommandBinding(ApplicationCommands.New, New_Executed));
+
             InitializeComponent();
 
-            diagramTabs.CollectionChanged += DiagramTabsOnCollectionChanged;
+            DiagramTabs.CollectionChanged += DiagramTabsOnCollectionChanged;
 
-            DesignersTabControl.ItemsSource = diagramTabs;
+            //DesignersTabControl.ItemsSource = DiagramTabs;
 
-            diagramTabs.Add(new DiagramTabItem
+            DiagramTabs.Add(new DiagramTabItem
                 {
                     Header = Properties.Resources.NewDiagram,
                     Content = new DiagramControl()
                 });
         }
 
+        private void New_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            DiagramTabs.Add(new DiagramTabItem
+            {
+                Header = Properties.Resources.NewDiagram,
+                Content = new DiagramControl()
+            });
+
+            e.Handled = true;
+        }
+
         private void DiagramTabsOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            SetVisibilityTabItemHeaders(diagramTabs.Count > 1 ? Visibility.Visible : Visibility.Collapsed);
+            SetVisibilityTabItemHeaders(DiagramTabs.Count > 1 ? Visibility.Visible : Visibility.Collapsed);
         }
 
         private void SetVisibilityTabItemHeaders(Visibility visibility)
@@ -40,7 +53,7 @@ namespace DiagramDesigner.Views
 
         private void CloseDiagram_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            diagramTabs.RemoveAt(DesignersTabControl.SelectedIndex);
+            DiagramTabs.RemoveAt(DesignersTabControl.SelectedIndex);
         }
     }
 }
