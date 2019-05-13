@@ -4,46 +4,55 @@ using System.Collections.Specialized;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
 using DiagramDesigner.Functionality;
 
 namespace DiagramDesigner.Views
 {
     public partial class MainWindow : Window
     {
-        public ObservableCollection<DiagramTabItem> DiagramTabs { get; set; } = new ObservableCollection<DiagramTabItem>();
         public MainWindow()
         {
             this.CommandBindings.Add(new CommandBinding(ApplicationCommands.New, New_Executed));
 
             InitializeComponent();
 
-            DiagramTabs.CollectionChanged += DiagramTabsOnCollectionChanged;
+            AddNewTab();
+        }
 
-            //DesignersTabControl.ItemsSource = DiagramTabs;
+        private void AddNewTab()
+        {
+            var header = new TabItemHeader(Properties.Resources.NewDiagram);
+            header.CloseMouseUpEventHandler += CloseDiagram_MouseUp;
 
-            DiagramTabs.Add(new DiagramTabItem
-                {
-                    Header = Properties.Resources.NewDiagram,
-                    Content = new DiagramControl()
-                });
+            DesignersTabControl.Items.Add(new TabItem
+            {
+                Header = header,
+                Content = new DiagramControl()
+            });
+            SetVisibilityTabItemHeaders(DesignersTabControl.Items.Count > 1 ? Visibility.Visible : Visibility.Collapsed);
+        }
+
+        private void CloseTab(int index)
+        {
+            // Note: This fix binding exception ( https://stackoverflow.com/questions/14419248/cannot-find-source-for-binding )
+            var tabitem = DesignersTabControl.Items[index] as TabItem;
+            tabitem.Template = null;
+
+            DesignersTabControl.Items.RemoveAt(index);
+
+            DesignersTabControl.SelectedIndex = index != 0 ? --index : 0;
+
+            SetVisibilityTabItemHeaders(DesignersTabControl.Items.Count > 1 ? Visibility.Visible : Visibility.Collapsed);
         }
 
         private void New_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            DiagramTabs.Add(new DiagramTabItem
-            {
-                Header = Properties.Resources.NewDiagram,
-                Content = new DiagramControl()
-            });
+            AddNewTab();
 
             e.Handled = true;
         }
-
-        private void DiagramTabsOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            SetVisibilityTabItemHeaders(DiagramTabs.Count > 1 ? Visibility.Visible : Visibility.Collapsed);
-        }
-
+        
         private void SetVisibilityTabItemHeaders(Visibility visibility)
         {
             Style s = new Style();
@@ -53,7 +62,7 @@ namespace DiagramDesigner.Views
 
         private void CloseDiagram_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            DiagramTabs.RemoveAt(DesignersTabControl.SelectedIndex);
+            CloseTab(DesignersTabControl.SelectedIndex);
         }
     }
 }

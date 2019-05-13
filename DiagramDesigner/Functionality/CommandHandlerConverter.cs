@@ -14,7 +14,7 @@ namespace DiagramDesigner.Functionality
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if ((value is DiagramTabItem diagramTabItem) && (diagramTabItem.Content is DiagramControl diagramControl))
+            if ((value is TabItem diagramTabItem) && (diagramTabItem.Content is DiagramControl diagramControl))
             {
                 return diagramControl.Designer;
             }
