@@ -14,13 +14,26 @@ namespace DiagramDesigner.Views
         public MainWindow()
         {
             this.CommandBindings.Add(new CommandBinding(ApplicationCommands.New, New_Executed));
+            this.CommandBindings.Add(new CommandBinding(ApplicationCommands.Open, Open_Execute));
 
             InitializeComponent();
 
             AddNewTab();
         }
 
-        private void AddNewTab()
+        private void New_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            var designer = AddNewTab();
+            designer.New_Executed(sender, e);
+        }
+
+        private void Open_Execute(object sender, ExecutedRoutedEventArgs e)
+        {
+            var designer = AddNewTab();
+            designer.Open_Executed(sender, e);
+        }
+
+        private DesignerCanvas AddNewTab()
         {
             var header = new TabItemHeader(Properties.Resources.NewDiagram);
             header.CloseMouseUpEventHandler += CloseDiagram_MouseUp;
@@ -28,12 +41,16 @@ namespace DiagramDesigner.Views
             var content = new DiagramControl();
             content.CaptionChangedEventHandler += ContentOnCaptionChangedEventHandler;
 
-            DesignersTabControl.Items.Add(new TabItem
+            var index = DesignersTabControl.Items.Add(new TabItem
             {
                 Header = header,
                 Content = content
             });
             SetVisibilityTabItemHeaders(DesignersTabControl.Items.Count > 1 ? Visibility.Visible : Visibility.Collapsed);
+
+            DesignersTabControl.SelectedIndex = index;
+
+            return content.Designer;
         }
 
         private void ContentOnCaptionChangedEventHandler(object sender, CaptionChangedEventArgs e)
@@ -76,13 +93,6 @@ namespace DiagramDesigner.Views
             DesignersTabControl.SelectedIndex = index != 0 ? --index : 0;
 
             SetVisibilityTabItemHeaders(DesignersTabControl.Items.Count > 1 ? Visibility.Visible : Visibility.Collapsed);
-        }
-
-        private void New_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            AddNewTab();
-
-            e.Handled = true;
         }
         
         private void SetVisibilityTabItemHeaders(Visibility visibility)

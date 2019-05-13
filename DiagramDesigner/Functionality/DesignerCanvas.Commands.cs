@@ -35,7 +35,7 @@ namespace DiagramDesigner.Functionality
         public DesignerCanvas()
         {
             //this.CommandBindings.Add(new CommandBinding(ApplicationCommands.New, New_Executed));
-            this.CommandBindings.Add(new CommandBinding(ApplicationCommands.Open, Open_Executed));
+            //this.CommandBindings.Add(new CommandBinding(ApplicationCommands.Open, Open_Executed));
             this.CommandBindings.Add(new CommandBinding(ApplicationCommands.Save, Save_Executed));
             this.CommandBindings.Add(new CommandBinding(ApplicationCommands.Print, Print_Executed));
             this.CommandBindings.Add(new CommandBinding(ApplicationCommands.Cut, Cut_Executed, Cut_Enabled));
@@ -65,17 +65,17 @@ namespace DiagramDesigner.Functionality
 
         #region New Command
 
-        //private void New_Executed(object sender, ExecutedRoutedEventArgs e)
-        //{
-        //    this.Children.Clear();
-        //    this.SelectionService.ClearSelection();
-        //}
+        public void New_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            this.Children.Clear();
+            this.SelectionService.ClearSelection();
+        }
 
         #endregion
 
         #region Open Command
 
-        private void Open_Executed(object sender, ExecutedRoutedEventArgs e)
+        public void Open_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             XElement root = LoadSerializedDataFromFile();
 
@@ -752,19 +752,22 @@ namespace DiagramDesigner.Functionality
             OpenFileDialog openFile = new OpenFileDialog();
             openFile.Filter = "Designer Files (*.xml)|*.xml|All Files (*.*)|*.*";
 
+            XElement curreentXml = null;
             if (openFile.ShowDialog() == true)
             {
                 try
                 {
-                    return XElement.Load(openFile.FileName);
+                    curreentXml = XElement.Load(openFile.FileName);
+                    Caption = Path.GetFileName(openFile.FileName);
                 }
                 catch (Exception e)
                 {
                     MessageBox.Show(e.StackTrace, e.Message, MessageBoxButton.OK, MessageBoxImage.Error);
+                    curreentXml = null;
                 }
             }
 
-            return null;
+            return curreentXml;
         }
 
         void SaveFile(XElement xElement)
