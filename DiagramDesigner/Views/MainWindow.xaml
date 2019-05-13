@@ -7,19 +7,8 @@
         xmlns:prop="clr-namespace:DiagramDesigner.Properties"
         WindowStartupLocation="CenterScreen"
         Title="Diagram Designer"
+        x:Name="DiagramDesignerWindow"
         Height="850" Width="1000">
-
-    <Window.Resources>
-        <ContextMenu x:Key="DesignerCanvasContextMenu">
-            <MenuItem Header="{x:Static prop:Resources.Paste}" Command="{x:Static ApplicationCommands.Paste}">
-                <MenuItem.Icon>
-                    <Image Source="../Resources/Images/Paste.png" Width="16"/>
-                </MenuItem.Icon>
-            </MenuItem>
-            <MenuItem Header="{x:Static prop:Resources.SelectAll}" Command="{x:Static functionality:DesignerCanvas.SelectAll}"/>
-        </ContextMenu>
-    </Window.Resources>
-
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -43,17 +32,24 @@
                     VerticalAlignment="Stretch" HorizontalAlignment="Right"/>
             <!-- Designer -->
             <GroupBox Header="{x:Static prop:Resources.Diagram}" Grid.Column="1" Margin="3,0,0,0">
-                    <TabControl>
-                        <TabItem Header="{x:Static prop:Resources.NewDiagram}" Visibility="Collapsed">
-                        <functionality:ScrollViewerExtended HorizontalScrollBarVisibility="Auto"
-                                                            VerticalScrollBarVisibility="Auto">
-                            <functionality:DesignerCanvas Focusable="true" x:Name="MyDesigner"
-                                Background="{StaticResource WindowBackgroundBrush}"
-                                Margin="10" FocusVisualStyle="{x:Null}"
-                                ContextMenu="{StaticResource DesignerCanvasContextMenu}"/>
-                        </functionality:ScrollViewerExtended>
-                    </TabItem>
-                    </TabControl>
+                <TabControl x:Name="DesignersTabControl" >
+                    <!--<TabControl.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" Height="21" >
+                                <TextBlock Text="{Binding Header}"/>
+                                <Image Source="..\Resources\Images\Delete.png" 
+                                       Margin="5,-5,-5,0"
+                                       Width="13" Height="13" 
+                                       MouseUp="CloseDiagram_MouseUp"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </TabControl.ItemTemplate>-->
+                    <!--<TabControl.ContentTemplate>
+                        <DataTemplate>
+                            <UserControl Content="{Binding Content}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+                        </DataTemplate>
+                    </TabControl.ContentTemplate>-->
+                </TabControl>
             </GroupBox>
         </Grid>
     </Grid>

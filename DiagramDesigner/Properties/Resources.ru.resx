@@ -189,6 +189,12 @@
   <data name="Save" xml:space="preserve">
     <value>Сохранить</value>
   </data>
+  <data name="SaveAfterCloseMessage" xml:space="preserve">
+    <value>Диаграмма не пустая. Вы хотите сохранить изменения перед закрытием диаграммы?</value>
+  </data>
+  <data name="SaveAfterCloseTitle" xml:space="preserve">
+    <value>Сохранить изменения?</value>
+  </data>
   <data name="SelectAll" xml:space="preserve">
     <value>Выделить все</value>
   </data>

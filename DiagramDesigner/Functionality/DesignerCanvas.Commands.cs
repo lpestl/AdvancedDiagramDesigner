@@ -34,8 +34,8 @@ namespace DiagramDesigner.Functionality
 
         public DesignerCanvas()
         {
-            this.CommandBindings.Add(new CommandBinding(ApplicationCommands.New, New_Executed));
-            this.CommandBindings.Add(new CommandBinding(ApplicationCommands.Open, Open_Executed));
+            //this.CommandBindings.Add(new CommandBinding(ApplicationCommands.New, New_Executed));
+            //this.CommandBindings.Add(new CommandBinding(ApplicationCommands.Open, Open_Executed));
             this.CommandBindings.Add(new CommandBinding(ApplicationCommands.Save, Save_Executed));
             this.CommandBindings.Add(new CommandBinding(ApplicationCommands.Print, Print_Executed));
             this.CommandBindings.Add(new CommandBinding(ApplicationCommands.Cut, Cut_Executed, Cut_Enabled));
@@ -58,14 +58,14 @@ namespace DiagramDesigner.Functionality
             this.CommandBindings.Add(new CommandBinding(DesignerCanvas.DistributeVertical, DistributeVertical_Executed, Distribute_Enabled));
             this.CommandBindings.Add(new CommandBinding(DesignerCanvas.SelectAll, SelectAll_Executed));
             SelectAll.InputGestures.Add(new KeyGesture(Key.A, ModifierKeys.Control));
-
+            
             this.AllowDrop = true;
             Clipboard.Clear();
         }
 
         #region New Command
 
-        private void New_Executed(object sender, ExecutedRoutedEventArgs e)
+        public void New_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             this.Children.Clear();
             this.SelectionService.ClearSelection();
@@ -75,7 +75,7 @@ namespace DiagramDesigner.Functionality
 
         #region Open Command
 
-        private void Open_Executed(object sender, ExecutedRoutedEventArgs e)
+        public void Open_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             XElement root = LoadSerializedDataFromFile();
 
@@ -118,7 +118,7 @@ namespace DiagramDesigner.Functionality
 
         #region Save Command
 
-        private void Save_Executed(object sender, ExecutedRoutedEventArgs e)
+        public void Save_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             IEnumerable<DesignerItem> designerItems = Enumerable.OfType<DesignerItem>(this.Children);
             IEnumerable<Connection> connections = Enumerable.OfType<Connection>(this.Children);
@@ -752,19 +752,22 @@ namespace DiagramDesigner.Functionality
             OpenFileDialog openFile = new OpenFileDialog();
             openFile.Filter = "Designer Files (*.xml)|*.xml|All Files (*.*)|*.*";
 
+            XElement curreentXml = null;
             if (openFile.ShowDialog() == true)
             {
                 try
                 {
-                    return XElement.Load(openFile.FileName);
+                    curreentXml = XElement.Load(openFile.FileName);
+                    Caption = Path.GetFileName(openFile.FileName);
                 }
                 catch (Exception e)
                 {
                     MessageBox.Show(e.StackTrace, e.Message, MessageBoxButton.OK, MessageBoxImage.Error);
+                    curreentXml = null;
                 }
             }
 
-            return null;
+            return curreentXml;
         }
 
         void SaveFile(XElement xElement)
@@ -776,6 +779,7 @@ namespace DiagramDesigner.Functionality
                 try
                 {
                     xElement.Save(saveFile.FileName);
+                    this.Caption = Path.GetFileName(saveFile.FileName);
                 }
                 catch (Exception ex)
                 {
