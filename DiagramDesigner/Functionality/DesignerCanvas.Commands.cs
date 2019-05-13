@@ -118,7 +118,7 @@ namespace DiagramDesigner.Functionality
 
         #region Save Command
 
-        private void Save_Executed(object sender, ExecutedRoutedEventArgs e)
+        public void Save_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             IEnumerable<DesignerItem> designerItems = Enumerable.OfType<DesignerItem>(this.Children);
             IEnumerable<Connection> connections = Enumerable.OfType<Connection>(this.Children);
@@ -776,6 +776,7 @@ namespace DiagramDesigner.Functionality
                 try
                 {
                     xElement.Save(saveFile.FileName);
+                    this.Caption = Path.GetFileName(saveFile.FileName);
                 }
                 catch (Exception ex)
                 {

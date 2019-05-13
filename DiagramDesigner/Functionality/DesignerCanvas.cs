@@ -28,7 +28,10 @@ namespace DiagramDesigner.Functionality
             set
             {
                 if (_caption != value)
+                {
+                    _caption = value;
                     OnPropertyChanged("Caption");
+                }
             }
         }
 

@@ -19,7 +19,7 @@ namespace DiagramDesigner.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -273,6 +273,24 @@ namespace DiagramDesigner.Properties {
         public static string Save {
             get {
                 return ResourceManager.GetString("Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The diagram is not empty. Do you want to save changes before closing a diagram?.
+        /// </summary>
+        public static string SaveAfterCloseMessage {
+            get {
+                return ResourceManager.GetString("SaveAfterCloseMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save changes?.
+        /// </summary>
+        public static string SaveAfterCloseTitle {
+            get {
+                return ResourceManager.GetString("SaveAfterCloseTitle", resourceCulture);
             }
         }
         

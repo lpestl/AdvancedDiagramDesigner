@@ -13,6 +13,9 @@ namespace DiagramDesigner.Functionality
     public class TabItemHeader : StackPanel
     {
         public event MouseButtonEventHandler CloseMouseUpEventHandler;
+
+        public TextBlock HeaderTextBlock { get; set; }
+
         public TabItemHeader(string caption)
         {
             Orientation = Orientation.Horizontal;
@@ -29,7 +32,8 @@ namespace DiagramDesigner.Functionality
 
             closeImage.AddHandler(MouseUpEvent, new MouseButtonEventHandler(CloseMouseUp));
 
-            this.Children.Add(new TextBlock { Text = caption });
+            HeaderTextBlock = new TextBlock {Text = caption};
+            this.Children.Add(HeaderTextBlock);
             this.Children.Add(closeImage);
         }
 

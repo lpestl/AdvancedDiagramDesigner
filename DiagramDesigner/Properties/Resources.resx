@@ -189,6 +189,12 @@
   <data name="Save" xml:space="preserve">
     <value>Save</value>
   </data>
+  <data name="SaveAfterCloseMessage" xml:space="preserve">
+    <value>The diagram is not empty. Do you want to save changes before closing a diagram?</value>
+  </data>
+  <data name="SaveAfterCloseTitle" xml:space="preserve">
+    <value>Save changes?</value>
+  </data>
   <data name="SelectAll" xml:space="preserve">
     <value>Select All</value>
   </data>

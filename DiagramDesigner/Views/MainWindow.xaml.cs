@@ -25,16 +25,48 @@ namespace DiagramDesigner.Views
             var header = new TabItemHeader(Properties.Resources.NewDiagram);
             header.CloseMouseUpEventHandler += CloseDiagram_MouseUp;
 
+            var content = new DiagramControl();
+            content.CaptionChangedEventHandler += ContentOnCaptionChangedEventHandler;
+
             DesignersTabControl.Items.Add(new TabItem
             {
                 Header = header,
-                Content = new DiagramControl()
+                Content = content
             });
             SetVisibilityTabItemHeaders(DesignersTabControl.Items.Count > 1 ? Visibility.Visible : Visibility.Collapsed);
         }
 
+        private void ContentOnCaptionChangedEventHandler(object sender, CaptionChangedEventArgs e)
+        {
+            foreach (var item in DesignersTabControl.Items)
+            {
+                if ((item is TabItem tabItem) && (tabItem.Content == sender))
+                {
+                    var tabItemHeader = tabItem.Header as TabItemHeader;
+                    if (tabItemHeader != null)
+                        tabItemHeader.HeaderTextBlock.Text = e.NewCaption;
+                }
+            }
+        }
+
         private void CloseTab(int index)
         {
+            if ((DesignersTabControl.Items[index] is TabItem tabItem) &&
+                (tabItem.Content is DiagramControl diagramControl) && 
+                (diagramControl.Designer.Children.Count > 0))
+            {
+                switch (MessageBox.Show(Properties.Resources.SaveAfterCloseMessage, Properties.Resources.SaveAfterCloseTitle, MessageBoxButton.YesNoCancel, MessageBoxImage.Question))
+                {
+                    case MessageBoxResult.Yes:
+                        diagramControl.Designer.Save_Executed(this, null);
+                        break;
+                    case MessageBoxResult.No:
+                        break;
+                    default:
+                        return;
+                }
+            }
+
             // Note: This fix binding exception ( https://stackoverflow.com/questions/14419248/cannot-find-source-for-binding )
             var tabitem = DesignersTabControl.Items[index] as TabItem;
             tabitem.Template = null;
