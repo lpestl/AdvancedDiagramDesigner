@@ -1,0 +1,44 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+  <Brush x:Key="ItemStroke">#ACADCD</Brush>
+  <LinearGradientBrush x:Key="ItemBrush" StartPoint="0,0" EndPoint="0,1" >
+    <LinearGradientBrush.GradientStops>
+      <GradientStop Color="#FEFEFE" Offset="0"/>
+      <GradientStop Color="#BDBEDE" Offset="1"/>
+    </LinearGradientBrush.GradientStops>
+  </LinearGradientBrush>
+
+  <Style x:Key="ExternalToolboxExampleItemStyle" TargetType="Path">
+    <Setter Property="Fill" Value="{StaticResource ItemBrush}"/>
+    <Setter Property="Stroke" Value="{StaticResource ItemStroke}"/>
+    <Setter Property="StrokeThickness" Value="1"/>
+    <Setter Property="StrokeLineJoin" Value="Round"/>
+    <Setter Property="Stretch" Value="Fill"/>
+    <Setter Property="IsHitTestVisible" Value="False"/>
+    <Setter Property="SnapsToDevicePixels" Value="True"/>
+  </Style>
+
+  <!-- X -->
+  <Style x:Key="X" TargetType="Path" BasedOn="{StaticResource ExternalToolboxExampleItemStyle}">
+    <Setter Property="Data" Value="M 20,0 L 30,10 L 40,0 L 50,10 L 40,20 L 50,30 L 40,40 L 30,30 L 20,40 L 10,30 L 20,20 L 10,10 Z"/>
+  </Style>
+
+  <Style x:Key="X_DragThumb" TargetType="Path" BasedOn="{StaticResource X}">
+    <Setter Property="IsHitTestVisible" Value="true"/>
+    <Setter Property="Fill" Value="Transparent"/>
+    <Setter Property="Stroke" Value="Transparent"/>
+  </Style>
+
+  <!-- Y -->
+  <Style x:Key="Y" TargetType="Path" BasedOn="{StaticResource ExternalToolboxExampleItemStyle}">
+    <Setter Property="Data" Value="M 20,0 H 40 V 20 L 50,30 L 40,40 L 30,30 L 20,40 L 10,30 L 20,20 Z"/>
+  </Style>
+
+  <Style x:Key="Y_DragThumb" TargetType="Path" BasedOn="{StaticResource Y}">
+    <Setter Property="IsHitTestVisible" Value="true"/>
+    <Setter Property="Fill" Value="Transparent"/>
+    <Setter Property="Stroke" Value="Transparent"/>
+  </Style>
+
+</ResourceDictionary>
