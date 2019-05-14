@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -7,6 +8,9 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Resources;
+using DiagramDesigner.Controls;
+using ToolboxDesigner.Core;
+using Path = System.Windows.Shapes.Path;
 
 namespace DiagramDesigner.Functionality
 {
@@ -39,18 +43,92 @@ namespace DiagramDesigner.Functionality
             if (newResources == null)
                 return;
 
-            //CreateToolboxDictionary(newResources);
+            var dictionaryEntries = GetToolboxesSettings(newResources);
+
+            if (!dictionaryEntries.Any())
+                return;
+
+            var keys = new List<string>();
+            foreach (var dictionaryEntry in dictionaryEntries)
+            {
+                if (dictionaryEntry.Value is ToolboxSettings toolboxSettings)
+                {
+                    string toolBoxKey = $"{dictionaryEntry.Key}_Toolbox";
+
+                    var toolBox = new Toolbox { ItemSize = new Size(60, 40), Tag = toolboxSettings.Name};
+
+                    foreach (var itemsSetting in toolboxSettings.ItemsSettings)
+                    {
+                        var newItem = new Path {Style = itemsSetting.PathStyle, ToolTip = itemsSetting.DisplayName};
+
+                        if (itemsSetting.PathStyle_DragThumb != null)
+                        {
+                            var controlTemplate = new ControlTemplate();
+
+                            var pathTemplate = new FrameworkElementFactory(typeof(Path));
+                            pathTemplate.SetValue(Path.StyleProperty, itemsSetting.PathStyle_DragThumb);
+
+                            controlTemplate.VisualTree = pathTemplate;
+
+                            DesignerItem.SetDragThumbTemplate(newItem, controlTemplate);
+                        }
+
+                        // TODO: Add connectors
+                        //if (itemsSetting.ConnectorsSettings.Any())
+                        //{
+                        //    var controlTemplate = new ControlTemplate();
+
+                        //    var relPanelTemplate = new FrameworkElementFactory(typeof(RelativePositionPanel));
+                        //    relPanelTemplate.SetValue(RelativePositionPanel.MarginProperty, new Thickness(-4));
+                            
+                        //    foreach (var connectorsSetting in itemsSetting.ConnectorsSettings)
+                        //    {
+                                
+
+
+                        //    }
+                        //}
+
+                        toolBox.Items.Add(newItem);
+                    }
+
+                    newResources.Add(toolBoxKey, toolBox);
+                    keys.Add(toolBoxKey);
+                    //var toolboxExpander = new Expander { Header = toolboxSettings.Name, IsExpanded = true};
+                    //toolboxExpander.Content = toolBox;
+
+                    //toolboxesHandle_.Children.Add(toolboxExpander);
+                }
+            }
+
+            Application.Current.Resources.MergedDictionaries.Add(newResources);
+
+            foreach (var key in keys)
+            {
+                foreach (var mergedDictionary in Application.Current.Resources.MergedDictionaries)
+                {
+                    if (mergedDictionary.Contains(key))
+                    {
+                        var toolboxExpander = new Expander { Header = ((mergedDictionary[key] as Toolbox).Tag as string), IsExpanded = true };
+                        toolboxExpander.Content = (mergedDictionary[key] as Toolbox);
+
+                        toolboxesHandle_.Children.Add(toolboxExpander);
+                    }
+                }
+            }
         }
 
-        //private void CreateToolboxDictionary(ResourceDictionary newResources)
-        //{
-        //    var toolBox = new Toolbox { ItemSize = new Size(60,40) };
+        private List<DictionaryEntry> GetToolboxesSettings(ResourceDictionary newResources)
+        {
+            //var toolBox = new Toolbox { ItemSize = new Size(60, 40) };
+            
+            var toolboxesSettings = new List<DictionaryEntry>();
+            foreach (var resourceEntry in newResources)
+                if ((resourceEntry is DictionaryEntry dicEntry) && (dicEntry.Value is ToolboxSettings toolboxSettings))
+                    toolboxesSettings.Add(dicEntry);
 
-        //    foreach (var resourcePair in newResources)
-        //    {
-                
-        //    }
-        //}
+            return toolboxesSettings;
+        }
 
         private ResourceDictionary AddResources(FileInfo xamlFileInfo)
         {
