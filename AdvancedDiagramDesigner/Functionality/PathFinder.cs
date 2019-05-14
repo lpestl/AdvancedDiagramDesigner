@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using ToolboxDesigner.Core;
 
 namespace DiagramDesigner.Functionality
 {

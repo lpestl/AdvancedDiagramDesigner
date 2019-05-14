@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using ToolboxDesigner.Core;
 
 namespace DiagramDesigner.Functionality
 {
@@ -163,12 +164,4 @@ namespace DiagramDesigner.Functionality
         public ConnectorOrientation Orientation { get; set; }
     }
 
-    public enum ConnectorOrientation
-    {
-        None,
-        Left,
-        Top,
-        Right,
-        Bottom
-    }
 }
