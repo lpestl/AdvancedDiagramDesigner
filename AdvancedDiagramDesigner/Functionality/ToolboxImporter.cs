@@ -34,14 +34,42 @@ namespace DiagramDesigner.Functionality
         
         private void AddCustomToolbox(FileInfo xamlFileInfo)
         {
-            // TODO: All
-            //Uri uri = new Uri($"pack://application:,,,/{xamlFileInfo.FullName}", UriKind.Absolute);
-            //StreamResourceInfo info = Application.GetContentStream(uri);
-            Stream stream = File.OpenRead(xamlFileInfo.FullName);
-            System.Windows.Markup.XamlReader reader = new System.Windows.Markup.XamlReader();
-            ResourceDictionary myResourceDictionary =
-                (ResourceDictionary)reader.LoadAsync(stream);
-            //Application.Current.Resources.MergedDictionaries.Add(myResourceDictionary);
+            var newResources = AddResources(xamlFileInfo);
+
+            if (newResources == null)
+                return;
+
+            //CreateToolboxDictionary(newResources);
+        }
+
+        //private void CreateToolboxDictionary(ResourceDictionary newResources)
+        //{
+        //    var toolBox = new Toolbox { ItemSize = new Size(60,40) };
+
+        //    foreach (var resourcePair in newResources)
+        //    {
+                
+        //    }
+        //}
+
+        private ResourceDictionary AddResources(FileInfo xamlFileInfo)
+        {
+            ResourceDictionary myResourceDictionary = null;
+
+            try
+            {
+                Stream stream = File.OpenRead(xamlFileInfo.FullName);
+                System.Windows.Markup.XamlReader reader = new System.Windows.Markup.XamlReader();
+                myResourceDictionary = (ResourceDictionary) reader.LoadAsync(stream);
+                //Application.Current.Resources.MergedDictionaries.Add(myResourceDictionary);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(string.Format(Properties.Resources.ErrorImportMessage, xamlFileInfo.FullName,
+                    $"{e.Source} - {e.Message}"), Properties.Resources.ErrorImport, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            return myResourceDictionary;
         }
 
         public void Scan()

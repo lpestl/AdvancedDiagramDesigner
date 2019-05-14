@@ -318,7 +318,7 @@
             </functionality:DesignerItem.DragThumbTemplate>
         </Path>-->
 
-            <Path Style="{StaticResource Decision}" ToolTip="Decision">
+      <Path Style="{StaticResource Decision}" ToolTip="Decision">
         <functionality:DesignerItem.DragThumbTemplate>
           <ControlTemplate>
             <Path Style="{StaticResource Decision_DragThumb}"/>

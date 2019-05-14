@@ -32,7 +32,7 @@
 
   <!-- Y -->
   <Style x:Key="Y" TargetType="Path" BasedOn="{StaticResource ExternalToolboxExampleItemStyle}">
-    <Setter Property="Data" Value="M 20,0 H 40 V 20 L 50,30 L 40,40 L 30,30 L 20,40 L 10,30 L 20,20 Z"/>
+    <Setter Property="Data" Value="M 20,40 H 40 V 20 L 50,10 L 40,0 L 30,10 L 20,0 L 10,10 L 20,20 Z"/>
   </Style>
 
   <Style x:Key="Y_DragThumb" TargetType="Path" BasedOn="{StaticResource Y}">

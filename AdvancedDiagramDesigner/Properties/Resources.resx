@@ -150,6 +150,15 @@
   <data name="Edit" xml:space="preserve">
     <value>Edit</value>
   </data>
+  <data name="ErrorImport" xml:space="preserve">
+    <value>Import error</value>
+  </data>
+  <data name="ErrorImportMessage" xml:space="preserve">
+    <value>Errors have occurred while importing the external toolbox library. Please check the structure of the file "{0]".
+
+Detailed error description:
+{1}</value>
+  </data>
   <data name="File" xml:space="preserve">
     <value>File</value>
   </data>
