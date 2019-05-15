@@ -55,7 +55,7 @@ namespace DiagramDesigner.Functionality
                 {
                     string toolBoxKey = $"{dictionaryEntry.Key}_Toolbox";
 
-                    var toolBox = new Toolbox { ItemSize = new Size(60, 40), Tag = toolboxSettings.Name};
+                    var toolBox = new Toolbox { ItemSize = new Size(60, 60), Tag = toolboxSettings.Name};
 
                     foreach (var itemsSetting in toolboxSettings.ItemsSettings)
                     {
@@ -73,21 +73,28 @@ namespace DiagramDesigner.Functionality
                             DesignerItem.SetDragThumbTemplate(newItem, controlTemplate);
                         }
 
-                        // TODO: Add connectors
-                        //if (itemsSetting.ConnectorsSettings.Any())
-                        //{
-                        //    var controlTemplate = new ControlTemplate();
+                        if (itemsSetting.ConnectorsSettings.Any())
+                        {
+                            var controlTemplate = new ControlTemplate();
 
-                        //    var relPanelTemplate = new FrameworkElementFactory(typeof(RelativePositionPanel));
-                        //    relPanelTemplate.SetValue(RelativePositionPanel.MarginProperty, new Thickness(-4));
+                            var relPanelTemplate = new FrameworkElementFactory(typeof(RelativePositionPanel));
+                            relPanelTemplate.SetValue(RelativePositionPanel.MarginProperty, new Thickness(-4));
                             
-                        //    foreach (var connectorsSetting in itemsSetting.ConnectorsSettings)
-                        //    {
-                                
+                            foreach (var connectorsSetting in itemsSetting.ConnectorsSettings)
+                            {
+                                var connectorTemplate = new FrameworkElementFactory(typeof(Connector));
 
+                                connectorTemplate.SetValue(Connector.NameProperty, connectorsSetting.Name);
+                                connectorTemplate.SetValue(Connector.OrientationProperty, connectorsSetting.Orientation);
+                                connectorTemplate.SetValue(RelativePositionPanel.RelativePositionProperty, connectorsSetting.RelativePosition);
 
-                        //    }
-                        //}
+                                relPanelTemplate.AppendChild(connectorTemplate);
+                            }
+
+                            controlTemplate.VisualTree = relPanelTemplate;
+
+                            DesignerItem.SetConnectorDecoratorTemplate(newItem, controlTemplate);
+                        }
 
                         toolBox.Items.Add(newItem);
                     }
