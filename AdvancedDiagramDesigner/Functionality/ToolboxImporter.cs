@@ -112,8 +112,14 @@ namespace DiagramDesigner.Functionality
 
                                     if (!string.IsNullOrEmpty(connectorsSetting.Caption))
                                     {
-                                        var newCaption = new TextBlock { Text = connectorsSetting.Caption, IsHitTestVisible = false, Tag = connectorsSetting.RelativePosition };
-                                        
+                                        var newCaption = new TextBlock { Text = connectorsSetting.Caption, IsHitTestVisible = false, Tag = connectorsSetting };
+
+                                        if (connectorsSetting.Orientation == ConnectorOrientation.Left)
+                                            newCaption.HorizontalAlignment = HorizontalAlignment.Right;
+
+                                        if (connectorsSetting.Orientation == ConnectorOrientation.Top)
+                                            newCaption.VerticalAlignment = VerticalAlignment.Bottom;
+
                                         var bindingLeft = new Binding("ActualWidth");
                                         bindingLeft.Source = newGrid;
                                         //bindingLeft.ElementName = newGrid.Name;
@@ -127,7 +133,7 @@ namespace DiagramDesigner.Functionality
                                         var multiBinding = new MultiBinding();
                                         multiBinding.Bindings.Add(bindingLeft);
                                         multiBinding.Bindings.Add(bindingTop);
-                                        multiBinding.Converter = new SizeToMarginConverter(connectorsSetting.RelativePosition);
+                                        multiBinding.Converter = new SizeToMarginConverter(connectorsSetting.RelativePosition, connectorsSetting.Orientation);
 
                                         newCaption.SetBinding(TextBlock.MarginProperty, multiBinding);
                                         newGrid.Children.Add(newCaption);
@@ -216,20 +222,40 @@ namespace DiagramDesigner.Functionality
     public class SizeToMarginConverter : IMultiValueConverter
     {
         private Point relativePosition_;
+        private ConnectorOrientation orientation_;
 
-        public SizeToMarginConverter(Point relativePosition)
+        public SizeToMarginConverter(Point relativePosition, ConnectorOrientation orientation)
         {
             relativePosition_ = relativePosition;
+            orientation_ = orientation;
         }
 
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
             if ((values[0] is double) && (values[1] is double))
             {
-                return new Thickness(System.Convert.ToDouble(values[0]) * relativePosition_.X,
-                    System.Convert.ToDouble(values[1]) * relativePosition_.Y,
-                    System.Convert.ToDouble(values[0]) * -relativePosition_.X,
-                    System.Convert.ToDouble(values[1]) * -relativePosition_.Y);
+                var orientstionOffset = new Thickness(1,1,-1,-1);
+                var sizeOffset = new Point(0,0);
+
+                if (orientation_ == ConnectorOrientation.Left)
+                {
+                    orientstionOffset.Left = -1;
+                    orientstionOffset.Right = 1;
+                    sizeOffset.X = 1;
+                }
+
+                if (orientation_ == ConnectorOrientation.Top)
+                {
+                    orientstionOffset.Top = -1;
+                    orientstionOffset.Bottom = 1;
+                    sizeOffset.Y = 1;
+                }
+
+                var margin = new Thickness(System.Convert.ToDouble(values[0]) * orientstionOffset.Left * relativePosition_.X - System.Convert.ToDouble(values[0]) * sizeOffset.X,
+                    System.Convert.ToDouble(values[1]) * orientstionOffset.Top * relativePosition_.Y - System.Convert.ToDouble(values[1]) * sizeOffset.Y,
+                    System.Convert.ToDouble(values[0]) * orientstionOffset.Right * relativePosition_.X + System.Convert.ToDouble(values[0]) * sizeOffset.X,
+                    System.Convert.ToDouble(values[1]) * orientstionOffset.Bottom * relativePosition_.Y + System.Convert.ToDouble(values[1]) * sizeOffset.Y);
+                return margin;
             }
 
             return new Thickness(0);

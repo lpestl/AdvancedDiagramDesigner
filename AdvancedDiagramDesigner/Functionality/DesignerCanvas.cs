@@ -10,6 +10,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Markup;
 using System.Xml;
+using ToolboxDesigner.Core;
 
 namespace DiagramDesigner.Functionality
 {
@@ -107,8 +108,8 @@ namespace DiagramDesigner.Functionality
                                 multiBinding.Bindings.Add(bindingLeft);
                                 multiBinding.Bindings.Add(bindingTop);
                                 
-                                if (conCapture.Tag is Point relativePos)
-                                    multiBinding.Converter = new SizeToMarginConverter(relativePos);
+                                if (conCapture.Tag is ConnectorSettings conSettings)
+                                    multiBinding.Converter = new SizeToMarginConverter(conSettings.RelativePosition, conSettings.Orientation);
 
                                 conCapture.SetBinding(TextBlock.MarginProperty, multiBinding);
                             }

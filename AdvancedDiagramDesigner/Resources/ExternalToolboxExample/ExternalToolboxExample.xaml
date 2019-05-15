@@ -146,9 +146,10 @@
                                           PathStyle_DragThumb="{StaticResource Rhombus_DragThumb}">
                     <core:ToolboxItemSettings.ConnectorsSettings>
                         <core:ConnectorsSettingsCollection>
-                            <core:ConnectorSettings Name="Top" Orientation="Top" RelativePosition="0.5,0" MaxInConnections="1" MaxOutConnections="0" />
+                            <core:ConnectorSettings Name="Top" Orientation="Top" RelativePosition="0.5,0" MaxInConnections="1" MaxOutConnections="0" Caption="Input" />
                             <core:ConnectorSettings Name="Bottom" Orientation="Bottom" RelativePosition="0.5,1" MaxInConnections="0" MaxOutConnections="1" Caption="Yes" />
                             <core:ConnectorSettings Name="Right" Orientation="Right" RelativePosition="1,0.5" MaxInConnections="0" MaxOutConnections="1" Caption="No" />
+                            <core:ConnectorSettings Name="Left" Orientation="Left" RelativePosition="0,0.5" MaxInConnections="0" MaxOutConnections="1" Caption="No" />
                         </core:ConnectorsSettingsCollection>
                     </core:ToolboxItemSettings.ConnectorsSettings>
                 </core:ToolboxItemSettings>
