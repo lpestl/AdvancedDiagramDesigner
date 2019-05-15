@@ -150,6 +150,15 @@
   <data name="Edit" xml:space="preserve">
     <value>Правка</value>
   </data>
+  <data name="ErrorImport" xml:space="preserve">
+    <value>Ошибка при импорте</value>
+  </data>
+  <data name="ErrorImportMessage" xml:space="preserve">
+    <value>Во время импорта внешней библиотеки инструментов возникли ошибки. Пожалуйста проверьте структуру файла "{0}".
+
+Подробное описание ошибки:
+{1}</value>
+  </data>
   <data name="File" xml:space="preserve">
     <value>Файл</value>
   </data>

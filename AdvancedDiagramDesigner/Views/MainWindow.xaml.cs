@@ -18,8 +18,13 @@ namespace DiagramDesigner.Views
 
             InitializeComponent();
 
+            var toolboxImporter = new ToolboxImporter(ToolboxesHandle);
+            toolboxImporter.Scan();
+
             AddNewTab();
         }
+
+        #region Application Common Commands
 
         private void New_Executed(object sender, ExecutedRoutedEventArgs e)
         {
@@ -32,6 +37,10 @@ namespace DiagramDesigner.Views
             var designer = AddNewTab();
             designer.Open_Executed(sender, e);
         }
+
+        #endregion
+
+        #region Designer`s tabs contol
 
         private DesignerCanvas AddNewTab()
         {
@@ -53,23 +62,10 @@ namespace DiagramDesigner.Views
             return content.Designer;
         }
 
-        private void ContentOnCaptionChangedEventHandler(object sender, CaptionChangedEventArgs e)
-        {
-            foreach (var item in DesignersTabControl.Items)
-            {
-                if ((item is TabItem tabItem) && (tabItem.Content == sender))
-                {
-                    var tabItemHeader = tabItem.Header as TabItemHeader;
-                    if (tabItemHeader != null)
-                        tabItemHeader.HeaderTextBlock.Text = e.NewCaption;
-                }
-            }
-        }
-
         private void CloseTab(int index)
         {
             if ((DesignersTabControl.Items[index] is TabItem tabItem) &&
-                (tabItem.Content is DiagramControl diagramControl) && 
+                (tabItem.Content is DiagramControl diagramControl) &&
                 (diagramControl.Designer.Children.Count > 0))
             {
                 switch (MessageBox.Show(Properties.Resources.SaveAfterCloseMessage, Properties.Resources.SaveAfterCloseTitle, MessageBoxButton.YesNoCancel, MessageBoxImage.Question))
@@ -94,7 +90,24 @@ namespace DiagramDesigner.Views
 
             SetVisibilityTabItemHeaders(DesignersTabControl.Items.Count > 1 ? Visibility.Visible : Visibility.Collapsed);
         }
-        
+
+        #endregion
+
+        #region Tab Headers managment
+
+        private void ContentOnCaptionChangedEventHandler(object sender, CaptionChangedEventArgs e)
+        {
+            foreach (var item in DesignersTabControl.Items)
+            {
+                if ((item is TabItem tabItem) && (tabItem.Content == sender))
+                {
+                    var tabItemHeader = tabItem.Header as TabItemHeader;
+                    if (tabItemHeader != null)
+                        tabItemHeader.HeaderTextBlock.Text = e.NewCaption;
+                }
+            }
+        }
+
         private void SetVisibilityTabItemHeaders(Visibility visibility)
         {
             Style s = new Style();
@@ -106,5 +119,8 @@ namespace DiagramDesigner.Views
         {
             CloseTab(DesignersTabControl.SelectedIndex);
         }
+
+        #endregion
+
     }
 }

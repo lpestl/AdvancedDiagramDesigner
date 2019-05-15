@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using ToolboxDesigner.Core;
 
 namespace DiagramDesigner.Functionality
 {
@@ -14,7 +15,14 @@ namespace DiagramDesigner.Functionality
         // drag start point, relative to the DesignerCanvas
         private Point? dragStartPoint = null;
 
-        public ConnectorOrientation Orientation { get; set; }
+        public static readonly DependencyProperty OrientationProperty =
+            DependencyProperty.Register("Orientation", typeof(ConnectorOrientation), typeof(Connector));
+
+        public ConnectorOrientation Orientation
+        {
+            get => (ConnectorOrientation)GetValue(OrientationProperty);
+            set => SetValue(OrientationProperty, value);
+        }
 
         // center position of this Connector relative to the DesignerCanvas
         private Point position;
@@ -163,12 +171,4 @@ namespace DiagramDesigner.Functionality
         public ConnectorOrientation Orientation { get; set; }
     }
 
-    public enum ConnectorOrientation
-    {
-        None,
-        Left,
-        Top,
-        Right,
-        Bottom
-    }
 }

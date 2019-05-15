@@ -90,6 +90,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Resources\ExternalToolboxExample\ExternalToolboxExample.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Resources\Stencils\FlowChartStencils.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -141,6 +145,7 @@
     <Compile Include="Functionality\CommandHandlerConverter.cs" />
     <Compile Include="Functionality\TabItemHeader.cs" />
     <Compile Include="Functionality\ScrollViewerExtended.cs" />
+    <Compile Include="Functionality\ToolboxImporter.cs" />
     <Compile Include="Views\DiagramControl.xaml.cs">
       <DependentUpon>DiagramControl.xaml</DependentUpon>
     </Compile>
@@ -219,7 +224,17 @@
     <Resource Include="Resources\Images\SendToBack.png" />
     <Resource Include="Resources\Images\Ungroup.png" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ToolboxDesigner\ToolboxDesigner.csproj">
+      <Project>{de8e724e-b4f5-4d47-8dd5-6b4d019492cd}</Project>
+      <Name>ToolboxDesigner</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>copy "$(ProjectDir)\Resources\ExternalToolboxExample\ExternalToolboxExample.xaml" "$(TargetDir)ExternalToolboxes\ExternalToolboxExample.xaml" /Y
+</PreBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

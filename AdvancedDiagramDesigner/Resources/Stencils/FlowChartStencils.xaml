@@ -35,7 +35,23 @@
     </Setter>-->
   </Style>
 
-  <!-- Process -->
+    <!--<Style x:Key="FlowChartItemStyle2" TargetType="Path">
+        <Setter Property="Fill" Value="{StaticResource ItemBrush1}"/>
+        <Setter Property="Stroke" Value="{StaticResource ItemStroke1}"/>
+        <Setter Property="StrokeThickness" Value="1"/>
+        <Setter Property="StrokeLineJoin" Value="Round"/>
+        <Setter Property="Stretch" Value="Fill"/>
+        <Setter Property="IsHitTestVisible" Value="False"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        --><!--<Setter Property="BitmapEffect">
+      <Setter.Value>
+        <DropShadowBitmapEffect Color="#AAA" Direction="315" ShadowDepth="10"
+                                Softness="0.5" Opacity="0.6"/>
+      </Setter.Value>
+    </Setter>--><!--
+    </Style>-->
+
+    <!-- Process -->
   <Style x:Key="Process" TargetType="Path" BasedOn="{StaticResource FlowChartItemStyle}">
     <Setter Property="Data" Value="M 0,0 H 60 V40 H 0 Z"/>
   </Style>
@@ -46,7 +62,18 @@
     <Setter Property="Stroke" Value="Transparent"/>
   </Style>
 
-  <!-- Decision -->
+  <!-- Process2 --><!--
+  <Style x:Key="Process2" TargetType="Path" BasedOn="{StaticResource FlowChartItemStyle2}">
+      <Setter Property="Data" Value="M 0,0 H 60 V40 H 0 Z"/>
+  </Style>
+
+  <Style x:Key="Process2_DragThumb" TargetType="Path" BasedOn="{StaticResource Process2}">
+      <Setter Property="IsHitTestVisible" Value="true"/>
+      <Setter Property="Fill" Value="Transparent"/>
+      <Setter Property="Stroke" Value="Transparent"/>
+  </Style>-->
+
+    <!-- Decision -->
   <Style x:Key="Decision" TargetType="Path" BasedOn="{StaticResource FlowChartItemStyle}">
     <Setter Property="Data" Value="M 0,20 L 30 0 L 60,20 L 30,40 Z"/>
   </Style>
@@ -282,6 +309,14 @@
           </ControlTemplate>
         </functionality:DesignerItem.DragThumbTemplate>
       </Path>
+
+        <!--<Path Style="{StaticResource Process2}" ToolTip="Process">
+            <functionality:DesignerItem.DragThumbTemplate>
+                <ControlTemplate>
+                    <Path Style="{StaticResource Process2_DragThumb}"/>
+                </ControlTemplate>
+            </functionality:DesignerItem.DragThumbTemplate>
+        </Path>-->
 
       <Path Style="{StaticResource Decision}" ToolTip="Decision">
         <functionality:DesignerItem.DragThumbTemplate>

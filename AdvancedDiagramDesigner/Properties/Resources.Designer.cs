@@ -160,6 +160,27 @@ namespace DiagramDesigner.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Import error.
+        /// </summary>
+        public static string ErrorImport {
+            get {
+                return ResourceManager.GetString("ErrorImport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Errors have occurred while importing the external toolbox library. Please check the structure of the file &quot;{0]&quot;.
+        ///
+        ///Detailed error description:
+        ///{1}.
+        /// </summary>
+        public static string ErrorImportMessage {
+            get {
+                return ResourceManager.GetString("ErrorImportMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to File.
         /// </summary>
         public static string File {
