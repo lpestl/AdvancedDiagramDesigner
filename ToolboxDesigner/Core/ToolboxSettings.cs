@@ -41,6 +41,8 @@ namespace ToolboxDesigner.Core
         public uint MaxInConnections { get; set; } = uint.MaxValue;
 
         public uint MaxOutConnections { get; set; } = uint.MaxValue;
+
+        public string Caption { get; set; }
     }
     
     public enum ConnectorOrientation

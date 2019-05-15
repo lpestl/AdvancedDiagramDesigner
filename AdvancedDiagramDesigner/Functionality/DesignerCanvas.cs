@@ -5,10 +5,12 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Markup;
 using System.Xml;
+using ToolboxDesigner.Core;
 
 namespace DiagramDesigner.Functionality
 {
@@ -89,6 +91,31 @@ namespace DiagramDesigner.Functionality
 
                 if (content != null)
                 {
+                    // Restore binding on size
+                    if ((content is ContentControl conCtrl) && (conCtrl.Content is Grid itemGrid))
+                    {
+                        foreach (var child in itemGrid.Children)
+                        {
+                            if (child is TextBlock conCapture)
+                            {
+                                var bindingLeft = new Binding("ActualWidth");
+                                bindingLeft.Source = itemGrid;
+
+                                var bindingTop = new Binding("ActualHeight");
+                                bindingTop.Source = itemGrid;
+
+                                var multiBinding = new MultiBinding();
+                                multiBinding.Bindings.Add(bindingLeft);
+                                multiBinding.Bindings.Add(bindingTop);
+                                
+                                if (conCapture.Tag is ConnectorSettings conSettings)
+                                    multiBinding.Converter = new SizeToMarginConverter(conSettings.RelativePosition, conSettings.Orientation);
+
+                                conCapture.SetBinding(TextBlock.MarginProperty, multiBinding);
+                            }
+                        }
+                    }
+
                     newItem = new DesignerItem { DateTimeCreated = DateTime.Now };
                     newItem.Content = content;
 
