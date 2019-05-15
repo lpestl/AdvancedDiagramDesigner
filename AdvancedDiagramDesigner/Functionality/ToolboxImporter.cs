@@ -76,12 +76,12 @@ namespace DiagramDesigner.Functionality
                     
                     foreach (var itemsSetting in toolboxSettings.ItemsSettings)
                     {
-                        var newItem = new ContentControl();
+                        var newItem = new ContentControl { Tag = itemsSetting, ToolTip = itemsSetting.DisplayName };
 
                         var stackPanel = new StackPanel {Orientation = Orientation.Horizontal};
 
                         var newGrid = new Grid();// { Name = $"{itemsSetting.DisplayName.Replace(" ", "")}_Grid" };
-                        var newPath = new Path {Style = itemsSetting.PathStyle, ToolTip = itemsSetting.DisplayName};
+                        var newPath = new Path {Style = itemsSetting.PathStyle/*, ToolTip = itemsSetting.DisplayName*/};
 
                         newGrid.Children.Add(newPath);
 

@@ -80,9 +80,10 @@
                         <!--ToolboxGridType="List"-->
         <core:ToolboxSettings.ItemsSettings>
             <core:ToolboxItemSettingsCollection>
-                <core:ToolboxItemSettings DisplayName="Xxxxxxxx" 
+                <core:ToolboxItemSettings DisplayName="NoDelete item" 
                             PathStyle="{StaticResource X}"
-                            PathStyle_DragThumb="{StaticResource X_DragThumb}">
+                            PathStyle_DragThumb="{StaticResource X_DragThumb}"
+                            NoDelete="True">
                     <core:ToolboxItemSettings.ConnectorsSettings>
                         <core:ConnectorsSettingsCollection>
                             <core:ConnectorSettings Name="BottomLeft" Orientation="Bottom" RelativePosition="0.25,1" />
