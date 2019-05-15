@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -21,9 +22,9 @@ namespace DiagramDesigner.Views
             var toolboxImporter = new ToolboxImporter(ToolboxesHandle);
             toolboxImporter.Scan();
 
-            AddNewTab();
+            New_Executed(this, null);
         }
-
+        
         #region Application Common Commands
 
         private void New_Executed(object sender, ExecutedRoutedEventArgs e)
