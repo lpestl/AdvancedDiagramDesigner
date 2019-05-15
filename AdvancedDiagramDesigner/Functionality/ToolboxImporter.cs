@@ -91,6 +91,8 @@ namespace DiagramDesigner.Functionality
                                         connectorsSetting.Orientation);
                                     connectorTemplate.SetValue(RelativePositionPanel.RelativePositionProperty,
                                         connectorsSetting.RelativePosition);
+                                    connectorTemplate.SetValue(Connector.MaxInConnectionsProperty, connectorsSetting.MaxInConnections);
+                                    connectorTemplate.SetValue(Connector.MaxOutConnectionsProperty, connectorsSetting.MaxOutConnections);
 
                                     relPanelTemplate.AppendChild(connectorTemplate);
                                 }

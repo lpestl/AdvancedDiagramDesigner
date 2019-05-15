@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -63,11 +64,14 @@ namespace DiagramDesigner.Functionality
             {
                 Connector sourceConnector = this.sourceConnector;
                 Connector sinkConnector = this.HitConnector;
-                Connection newConnection = new Connection(sourceConnector, sinkConnector);
+                if (sinkConnector.ValidateAddInConnection())
+                {
+                    Connection newConnection = new Connection(sourceConnector, sinkConnector);
 
-                Canvas.SetZIndex(newConnection, designerCanvas.Children.Count);
-                this.designerCanvas.Children.Add(newConnection);
-                
+                    Canvas.SetZIndex(newConnection, designerCanvas.Children.Count);
+                    this.designerCanvas.Children.Add(newConnection);
+                }
+
             }
             if (HitDesignerItem != null)
             {
@@ -152,11 +156,20 @@ namespace DiagramDesigner.Functionality
                 {
                     HitDesignerItem = hitObject as DesignerItem;
                     if (!hitConnectorFlag)
+                    {
+                        Cursor = Cursors.Cross;
                         HitConnector = null;
+                    }
+                    else
+                    {
+                        if (!HitConnector.ValidateAddInConnection())
+                            Cursor = Cursors.No;
+                    }
                     return;
                 }
                 hitObject = VisualTreeHelper.GetParent(hitObject);
             }
+            Cursor = Cursors.Cross;
 
             HitConnector = null;
             HitDesignerItem = null;

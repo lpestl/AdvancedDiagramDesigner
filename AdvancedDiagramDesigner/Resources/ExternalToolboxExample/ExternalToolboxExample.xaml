@@ -47,7 +47,18 @@
         <Setter Property="Data" Value="M 75,50 C 75,63.8071187457698 63.8071187457698,75 50,75 36.1928812542302,75 25,63.8071187457698 25,50 25,36.1928812542302 36.1928812542302,25 50,25 63.8071187457698,25 75,36.1928812542302 75,50 Z"/>
     </Style>
 
-    <Style x:Key="O_DragThumb" TargetType="Path" BasedOn="{StaticResource Y}">
+    <Style x:Key="O_DragThumb" TargetType="Path" BasedOn="{StaticResource O}">
+        <Setter Property="IsHitTestVisible" Value="true"/>
+        <Setter Property="Fill" Value="Transparent"/>
+        <Setter Property="Stroke" Value="Transparent"/>
+    </Style>
+
+    <!-- Square -->
+    <Style x:Key="Square" TargetType="Path" BasedOn="{StaticResource ExternalToolboxExampleItemStyle}">
+        <Setter Property="Data" Value="M 0,0 H 40 V 40 H 0 Z"/>
+    </Style>
+
+    <Style x:Key="Square_DragThumb" TargetType="Path" BasedOn="{StaticResource Square}">
         <Setter Property="IsHitTestVisible" Value="true"/>
         <Setter Property="Fill" Value="Transparent"/>
         <Setter Property="Stroke" Value="Transparent"/>
@@ -108,6 +119,18 @@
 
                     <core:ToolboxItemSettings.ConnectorsSettings>
                         <core:ConnectorsSettingsCollection />
+                    </core:ToolboxItemSettings.ConnectorsSettings>
+                </core:ToolboxItemSettings>
+
+                <core:ToolboxItemSettings DisplayName="Square" 
+                                          PathStyle="{StaticResource Square}"
+                                          PathStyle_DragThumb="{StaticResource Square_DragThumb}">
+
+                    <core:ToolboxItemSettings.ConnectorsSettings>
+                        <core:ConnectorsSettingsCollection>
+                            <core:ConnectorSettings Name="Top" Orientation="Top" RelativePosition="0.5,0" MaxInConnections="1" MaxOutConnections="0" />
+                            <core:ConnectorSettings Name="Bottom" Orientation="Bottom" RelativePosition="0.5,1" MaxInConnections="0" MaxOutConnections="1" />
+                        </core:ConnectorsSettingsCollection>
                     </core:ToolboxItemSettings.ConnectorsSettings>
                 </core:ToolboxItemSettings>
 

@@ -8,29 +8,8 @@ using System.Windows.Markup;
 
 namespace ToolboxDesigner.Core
 {
-    //[ContentProperty(nameof(ItemsSettings))]
-    public class ToolboxSettings //: DependencyObject
+    public class ToolboxSettings
     {
-        //    public static readonly DependencyProperty NameProperty =
-        //        DependencyProperty.Register("Name", typeof(string), typeof(ToolboxSettings));
-
-        //    public string Name
-        //    {
-        //        get => (string)GetValue(NameProperty);
-        //        set => SetValue(NameProperty, value);
-        //    }
-
-        //    public static readonly DependencyProperty ItemsSettingsProperty =
-        //        DependencyProperty.Register("ItemsSettings", typeof(IList<ToolboxItemSettings>), typeof(ToolboxSettings),
-        //            new PropertyMetadata(new List<ToolboxItemSettings>()));
-
-
-        //    public IList<ToolboxItemSettings> ItemsSettings
-        //    {
-        //        get => (IList<ToolboxItemSettings>)GetValue(ItemsSettingsProperty);
-        //        set => SetValue(ItemsSettingsProperty, value);
-        //    }
-
         public string Name { get; set; }
 
         public ToolboxItemSettingsCollection ItemsSettings { get; set; } = new ToolboxItemSettingsCollection();
@@ -38,7 +17,6 @@ namespace ToolboxDesigner.Core
 
     public class ToolboxItemSettingsCollection : List<ToolboxItemSettings> { }
 
-    //[ContentProperty(nameof(ConnectorsSettingsCollection))]
     public class ToolboxItemSettings
     {
         public string DisplayName { get; set; }
@@ -59,6 +37,10 @@ namespace ToolboxDesigner.Core
         public ConnectorOrientation Orientation { get; set; } = ConnectorOrientation.None;
 
         public Point RelativePosition { get; set; }
+
+        public uint MaxInConnections { get; set; } = uint.MaxValue;
+
+        public uint MaxOutConnections { get; set; } = uint.MaxValue;
     }
     
     public enum ConnectorOrientation
