@@ -42,6 +42,17 @@
         <Setter Property="Stroke" Value="Transparent"/>
     </Style>
 
+    <!-- O -->
+    <Style x:Key="O" TargetType="Path" BasedOn="{StaticResource ExternalToolboxExampleItemStyle}">
+        <Setter Property="Data" Value="M 75,50 C 75,63.8071187457698 63.8071187457698,75 50,75 36.1928812542302,75 25,63.8071187457698 25,50 25,36.1928812542302 36.1928812542302,25 50,25 63.8071187457698,25 75,36.1928812542302 75,50 Z"/>
+    </Style>
+
+    <Style x:Key="O_DragThumb" TargetType="Path" BasedOn="{StaticResource Y}">
+        <Setter Property="IsHitTestVisible" Value="true"/>
+        <Setter Property="Fill" Value="Transparent"/>
+        <Setter Property="Stroke" Value="Transparent"/>
+    </Style>
+
     <core:ToolboxSettings x:Key="MyExternalToolboxSettings" Name="External toolbox">
         <core:ToolboxSettings.ItemsSettings>
             <core:ToolboxItemSettingsCollection>
@@ -90,6 +101,16 @@
                         </core:ConnectorsSettingsCollection>
                     </core:ToolboxItemSettings.ConnectorsSettings>
                 </core:ToolboxItemSettings>
+
+                <core:ToolboxItemSettings DisplayName="O" 
+                                          PathStyle="{StaticResource O}"
+                                          PathStyle_DragThumb="{StaticResource O_DragThumb}">
+
+                    <core:ToolboxItemSettings.ConnectorsSettings>
+                        <core:ConnectorsSettingsCollection />
+                    </core:ToolboxItemSettings.ConnectorsSettings>
+                </core:ToolboxItemSettings>
+
             </core:ToolboxItemSettingsCollection>
         </core:ToolboxSettings.ItemsSettings>
     </core:ToolboxSettings>

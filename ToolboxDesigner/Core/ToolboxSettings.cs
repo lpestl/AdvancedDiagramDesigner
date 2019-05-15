@@ -47,7 +47,7 @@ namespace ToolboxDesigner.Core
 
         public Style PathStyle_DragThumb { get; set; }
 
-        public ConnectorsSettingsCollection ConnectorsSettings { get; set; } = new ConnectorsSettingsCollection();
+        public ConnectorsSettingsCollection ConnectorsSettings { get; set; } //= new ConnectorsSettingsCollection();
     }
 
     public class ConnectorsSettingsCollection : List<ConnectorSettings> { }
