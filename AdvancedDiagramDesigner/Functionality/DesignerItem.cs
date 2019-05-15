@@ -44,6 +44,8 @@ namespace DiagramDesigner.Functionality
         
         public bool NoDelete { get; set; }
 
+        public bool Proportional { get; set; }
+
         #region ParentID
 
         public Guid ParentID

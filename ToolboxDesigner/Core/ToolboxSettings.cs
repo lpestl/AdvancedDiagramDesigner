@@ -24,6 +24,7 @@ namespace ToolboxDesigner.Core
         public Style PathStyle_DragThumb { get; set; }
         public bool NoDelete { get; set; }
         public bool Invisible { get; set; }
+        public bool Proportional { get; set; }
         public ConnectorsSettingsCollection ConnectorsSettings { get; set; } //= new ConnectorsSettingsCollection();
     }
 

@@ -41,12 +41,39 @@ namespace DiagramDesigner.Controls
                                 dragDeltaVertical = Math.Min(-e.VerticalChange, minDeltaVertical);
                                 scale = (item.ActualHeight - dragDeltaVertical) / item.ActualHeight;
                                 DragBottom(scale, item, designer.SelectionService);
+
+                                if (item.Proportional)
+                                {
+                                    switch (base.HorizontalAlignment)
+                                    {
+                                        case HorizontalAlignment.Left:
+                                            DragLeft(scale, item, designer.SelectionService);
+                                            break;
+                                        default:
+                                            DragRight(scale, item, designer.SelectionService);
+                                            break;
+                                    }
+                                }
+
                                 break;
                             case VerticalAlignment.Top:
                                 double top = Canvas.GetTop(item);
                                 dragDeltaVertical = Math.Min(Math.Max(-minTop, e.VerticalChange), minDeltaVertical);
                                 scale = (item.ActualHeight - dragDeltaVertical) / item.ActualHeight;
                                 DragTop(scale, item, designer.SelectionService);
+
+                                if (item.Proportional)
+                                {
+                                    switch (base.HorizontalAlignment)
+                                    {
+                                        case HorizontalAlignment.Left:
+                                            DragLeft(scale, item, designer.SelectionService);
+                                            break;
+                                        default:
+                                            DragRight(scale, item, designer.SelectionService);
+                                            break;
+                                    }
+                                }
                                 break;
                             default:
                                 break;
@@ -58,12 +85,40 @@ namespace DiagramDesigner.Controls
                                 double left = Canvas.GetLeft(item);
                                 dragDeltaHorizontal = Math.Min(Math.Max(-minLeft, e.HorizontalChange), minDeltaHorizontal);
                                 scale = (item.ActualWidth - dragDeltaHorizontal) / item.ActualWidth;
-                                DragLeft(scale, item, designer.SelectionService);
+
+                                if (item.Proportional)
+                                {
+                                    switch (base.VerticalAlignment)
+                                    {
+                                        case VerticalAlignment.Bottom:
+                                        case VerticalAlignment.Top:
+                                            break;
+                                        default:
+                                            DragLeft(scale, item, designer.SelectionService);
+                                            DragBottom(scale, item, designer.SelectionService);
+                                            break;
+                                    }
+                                }
+
                                 break;
                             case HorizontalAlignment.Right:
                                 dragDeltaHorizontal = Math.Min(-e.HorizontalChange, minDeltaHorizontal);
                                 scale = (item.ActualWidth - dragDeltaHorizontal) / item.ActualWidth;
-                                DragRight(scale, item, designer.SelectionService);
+                                
+                                if (item.Proportional)
+                                {
+                                    switch (base.VerticalAlignment)
+                                    {
+                                        case VerticalAlignment.Bottom:
+                                        case VerticalAlignment.Top:
+                                            break;
+                                        default:
+                                            DragRight(scale, item, designer.SelectionService);
+                                            DragBottom(scale, item, designer.SelectionService);
+                                            break;
+                                    }
+                                }
+
                                 break;
                             default:
                                 break;

@@ -80,7 +80,7 @@ namespace DiagramDesigner.Functionality
                         
                         var stackPanel = new StackPanel {Orientation = Orientation.Horizontal};
 
-                        var newGrid = new Grid();// { Name = $"{itemsSetting.DisplayName.Replace(" ", "")}_Grid" };
+                        var newGrid = new Grid();
                         var newPath = new Path { Style = itemsSetting.PathStyle/*, ToolTip = itemsSetting.DisplayName*/ };
                         
                         newGrid.Children.Add(newPath);
@@ -150,13 +150,9 @@ namespace DiagramDesigner.Functionality
 
                                         var bindingLeft = new Binding("ActualWidth");
                                         bindingLeft.Source = newGrid;
-                                        //bindingLeft.ElementName = newGrid.Name;
-                                        //bindingLeft.Converter = new WidthToRelativeLeftMargin(connectorsSetting.RelativePosition.X, newCaption);
 
                                         var bindingTop = new Binding("ActualHeight");
                                         bindingTop.Source = newGrid;
-                                        //bindingTop.ElementName = newGrid.Name;
-                                        //bindingTop.Converter = new HeightToRelativeTopMargin(connectorsSetting.RelativePosition.Y, newCaption);
 
                                         var multiBinding = new MultiBinding();
                                         multiBinding.Bindings.Add(bindingLeft);
@@ -182,10 +178,6 @@ namespace DiagramDesigner.Functionality
 
                     newResources.Add(toolBoxKey, toolBox);
                     keys.Add(toolBoxKey);
-                    //var toolboxExpander = new Expander { Header = toolboxSettings.Name, IsExpanded = true};
-                    //toolboxExpander.Content = toolBox;
-
-                    //toolboxesHandle_.Children.Add(toolboxExpander);
                 }
             }
 
@@ -198,7 +190,7 @@ namespace DiagramDesigner.Functionality
                     if (mergedDictionary.Contains(key))
                     {
                         var toolboxExpander = new Expander
-                            {Header = ((mergedDictionary[key] as Toolbox).Tag as string), IsExpanded = true};
+                            {Header = ((mergedDictionary[key] as Toolbox)?.Tag as string), IsExpanded = true};
                         toolboxExpander.Content = (mergedDictionary[key] as Toolbox);
 
                         toolboxesHandle_.Children.Add(toolboxExpander);
