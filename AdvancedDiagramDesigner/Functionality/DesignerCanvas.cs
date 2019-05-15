@@ -140,7 +140,10 @@ namespace DiagramDesigner.Functionality
 
                     if ((content is ContentControl contentCtrl) &&
                         (contentCtrl.Tag is ToolboxItemSettings itemSettings))
+                    {
                         newItem.NoDelete = itemSettings.NoDelete;
+                        newItem.Proportional = itemSettings.Proportional;
+                    }
 
                     Point position = e.GetPosition(this);
 

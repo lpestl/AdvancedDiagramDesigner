@@ -182,6 +182,12 @@
                     </core:ToolboxItemSettings.ConnectorsSettings>
                 </core:ToolboxItemSettings>
 
+                <core:ToolboxItemSettings DisplayName="Proportional Square" 
+                                          PathStyle="{StaticResource Square}"
+                                          PathStyle_DragThumb="{StaticResource Square_DragThumb}"
+                                          Proportional="True">
+                </core:ToolboxItemSettings>
+
             </core:ToolboxItemSettingsCollection>
         </core:ToolboxSettings.ItemsSettings>
     </core:ToolboxSettings>
