@@ -99,6 +99,10 @@ namespace DiagramDesigner.Controls
                                             break;
                                     }
                                 }
+                                else
+                                {
+                                    DragLeft(scale, item, designer.SelectionService);
+                                }
 
                                 break;
                             case HorizontalAlignment.Right:
@@ -117,6 +121,10 @@ namespace DiagramDesigner.Controls
                                             DragBottom(scale, item, designer.SelectionService);
                                             break;
                                     }
+                                }
+                                else
+                                {
+                                    DragRight(scale, item, designer.SelectionService);
                                 }
 
                                 break;
