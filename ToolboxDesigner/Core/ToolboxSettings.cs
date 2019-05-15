@@ -12,6 +12,8 @@ namespace ToolboxDesigner.Core
     {
         public string Name { get; set; }
 
+        public ToolboxGrid ToolboxGridType { get; set; }
+
         public ToolboxItemSettingsCollection ItemsSettings { get; set; } = new ToolboxItemSettingsCollection();
     }
 
@@ -52,5 +54,11 @@ namespace ToolboxDesigner.Core
         Top,
         Right,
         Bottom
+    }
+
+    public enum ToolboxGrid
+    {
+        Grid,
+        List
     }
 }
