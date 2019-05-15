@@ -137,6 +137,24 @@ namespace DiagramDesigner.Controls
                         connection.StrokeDashArray == null)
                         return;
             }
+            
+            Connection newConnection = null;
+            if (movingDesignerItem.DateTimeCreated < nearestItem.Item1.DateTimeCreated)
+            {
+                if ((nearestConnectors.Item1.ValidateAddOutConnection()) &&
+                    (nearestConnectors.Item2.ValidateAddInConnection()))
+                    newConnection = new Connection(nearestConnectors.Item1, nearestConnectors.Item2);
+                else
+                    return;
+            }
+            else
+            {
+                if ((nearestConnectors.Item2.ValidateAddOutConnection()) &&
+                    (nearestConnectors.Item1.ValidateAddInConnection()))
+                    newConnection = new Connection(nearestConnectors.Item2, nearestConnectors.Item1);
+                else
+                    return;
+            }
 
             // Remove last preview connection if it exist
             if (lastAutoCreatedConnection != null)
@@ -146,9 +164,6 @@ namespace DiagramDesigner.Controls
             }
 
             // Create auto connection preview
-            Connection newConnection = movingDesignerItem.DateTimeCreated < nearestItem.Item1.DateTimeCreated 
-                ? new Connection(nearestConnectors.Item1, nearestConnectors.Item2) 
-                : new Connection(nearestConnectors.Item2, nearestConnectors.Item1);
             newConnection.StrokeDashArray = new DoubleCollection(new double[] { 1, 2 });
 
             Canvas.SetZIndex(newConnection, designer.Children.Count);

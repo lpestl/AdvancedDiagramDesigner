@@ -73,22 +73,29 @@ namespace DiagramDesigner.Functionality
                             DesignerItem.SetDragThumbTemplate(newItem, controlTemplate);
                         }
 
-                        if (itemsSetting.ConnectorsSettings.Any())
+                        if (itemsSetting.ConnectorsSettings != null)
                         {
                             var controlTemplate = new ControlTemplate();
 
                             var relPanelTemplate = new FrameworkElementFactory(typeof(RelativePositionPanel));
                             relPanelTemplate.SetValue(RelativePositionPanel.MarginProperty, new Thickness(-4));
-                            
-                            foreach (var connectorsSetting in itemsSetting.ConnectorsSettings)
+
+                            if (itemsSetting.ConnectorsSettings.Any())
                             {
-                                var connectorTemplate = new FrameworkElementFactory(typeof(Connector));
+                                foreach (var connectorsSetting in itemsSetting.ConnectorsSettings)
+                                {
+                                    var connectorTemplate = new FrameworkElementFactory(typeof(Connector));
 
-                                connectorTemplate.SetValue(Connector.NameProperty, connectorsSetting.Name);
-                                connectorTemplate.SetValue(Connector.OrientationProperty, connectorsSetting.Orientation);
-                                connectorTemplate.SetValue(RelativePositionPanel.RelativePositionProperty, connectorsSetting.RelativePosition);
+                                    connectorTemplate.SetValue(Connector.NameProperty, connectorsSetting.Name);
+                                    connectorTemplate.SetValue(Connector.OrientationProperty,
+                                        connectorsSetting.Orientation);
+                                    connectorTemplate.SetValue(RelativePositionPanel.RelativePositionProperty,
+                                        connectorsSetting.RelativePosition);
+                                    connectorTemplate.SetValue(Connector.MaxInConnectionsProperty, connectorsSetting.MaxInConnections);
+                                    connectorTemplate.SetValue(Connector.MaxOutConnectionsProperty, connectorsSetting.MaxOutConnections);
 
-                                relPanelTemplate.AppendChild(connectorTemplate);
+                                    relPanelTemplate.AppendChild(connectorTemplate);
+                                }
                             }
 
                             controlTemplate.VisualTree = relPanelTemplate;

@@ -102,8 +102,7 @@ namespace DiagramDesigner.Views
             {
                 if ((item is TabItem tabItem) && (tabItem.Content == sender))
                 {
-                    var tabItemHeader = tabItem.Header as TabItemHeader;
-                    if (tabItemHeader != null)
+                    if (tabItem.Header is TabItemHeader tabItemHeader)
                         tabItemHeader.HeaderTextBlock.Text = e.NewCaption;
                 }
             }

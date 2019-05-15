@@ -24,7 +24,7 @@ namespace DiagramDesigner.Functionality
 
             var closeImage = new Image
             {
-                Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/Delete.png")),
+                Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/Close.png")),
                 Margin = new Thickness(5, -5, -5, 0),
                 Width = 13,
                 Height = 13

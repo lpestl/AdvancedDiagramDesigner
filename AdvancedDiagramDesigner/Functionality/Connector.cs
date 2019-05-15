@@ -12,9 +12,6 @@ namespace DiagramDesigner.Functionality
 {
     public class Connector : Control, INotifyPropertyChanged
     {
-        // drag start point, relative to the DesignerCanvas
-        private Point? dragStartPoint = null;
-
         public static readonly DependencyProperty OrientationProperty =
             DependencyProperty.Register("Orientation", typeof(ConnectorOrientation), typeof(Connector));
 
@@ -23,6 +20,27 @@ namespace DiagramDesigner.Functionality
             get => (ConnectorOrientation)GetValue(OrientationProperty);
             set => SetValue(OrientationProperty, value);
         }
+
+        public static readonly DependencyProperty MaxInConnectionsProperty = 
+            DependencyProperty.Register("MaxInConnections", typeof(uint), typeof(Connector), new PropertyMetadata(uint.MaxValue));
+
+        public uint MaxInConnections
+        {
+            get => (uint)GetValue(MaxInConnectionsProperty);
+            set => SetValue(MaxInConnectionsProperty, value);
+        }
+
+        public static readonly DependencyProperty MaxOutConnectionsProperty =
+            DependencyProperty.Register("MaxOutConnections", typeof(uint), typeof(Connector), new PropertyMetadata(uint.MaxValue));
+
+        public uint MaxOutConnections
+        {
+            get => (uint)GetValue(MaxOutConnectionsProperty);
+            set => SetValue(MaxOutConnectionsProperty, value);
+        }
+
+        // drag start point, relative to the DesignerCanvas
+        private Point? dragStartPoint = null;
 
         // center position of this Connector relative to the DesignerCanvas
         private Point position;
@@ -66,6 +84,30 @@ namespace DiagramDesigner.Functionality
             }
         }
 
+        public bool ValidateAddInConnection()
+        {
+            var inConnectionCount = 0;
+            foreach (var connection in Connections)
+            {
+                if (connection.Sink == this)
+                    inConnectionCount++;
+            }
+
+            return inConnectionCount < MaxInConnections;
+        }
+
+        public bool ValidateAddOutConnection()
+        {
+            var outConnectionCount = 0;
+            foreach (var connection in Connections)
+            {
+                if (connection.Source == this)
+                    outConnectionCount++;
+            }
+
+            return outConnectionCount < MaxOutConnections;
+        }
+
         public Connector()
         {
             // fired when layout changes
@@ -86,12 +128,15 @@ namespace DiagramDesigner.Functionality
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
         {
             base.OnMouseLeftButtonDown(e);
-            DesignerCanvas canvas = GetDesignerCanvas(this);
-            if (canvas != null)
+            if (ValidateAddOutConnection())
             {
-                // position relative to DesignerCanvas
-                this.dragStartPoint = new Point?(e.GetPosition(canvas));
-                e.Handled = true;
+                DesignerCanvas canvas = GetDesignerCanvas(this);
+                if (canvas != null)
+                {
+                    // position relative to DesignerCanvas
+                    this.dragStartPoint = new Point?(e.GetPosition(canvas));
+                    e.Handled = true;
+                }
             }
         }
 

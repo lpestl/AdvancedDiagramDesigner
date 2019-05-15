@@ -230,6 +230,9 @@
       <Name>ToolboxDesigner</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Close.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>copy "$(ProjectDir)\Resources\ExternalToolboxExample\ExternalToolboxExample.xaml" "$(TargetDir)ExternalToolboxes\ExternalToolboxExample.xaml" /Y
