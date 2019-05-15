@@ -64,13 +64,23 @@
         <Setter Property="Stroke" Value="Transparent"/>
     </Style>
 
+    <!-- Rhombus -->
+    <Style x:Key="Rhombus" TargetType="Path" BasedOn="{StaticResource ExternalToolboxExampleItemStyle}">
+        <Setter Property="Data" Value="M 0,10 L 20,0 L 40,10 L 20,20 Z"/>
+    </Style>
+
+    <Style x:Key="Rhombus_DragThumb" TargetType="Path" BasedOn="{StaticResource Rhombus}">
+        <Setter Property="IsHitTestVisible" Value="true"/>
+        <Setter Property="Fill" Value="Transparent"/>
+        <Setter Property="Stroke" Value="Transparent"/>
+    </Style>
+
     <core:ToolboxSettings x:Key="MyExternalToolboxSettings" Name="External toolbox">
         <core:ToolboxSettings.ItemsSettings>
             <core:ToolboxItemSettingsCollection>
                 <core:ToolboxItemSettings DisplayName="X" 
                             PathStyle="{StaticResource X}"
                             PathStyle_DragThumb="{StaticResource X_DragThumb}">
-
                     <core:ToolboxItemSettings.ConnectorsSettings>
                         <core:ConnectorsSettingsCollection>
                             <core:ConnectorSettings Name="BottomLeft" Orientation="Bottom" RelativePosition="0.25,1" />
@@ -95,7 +105,6 @@
                 <core:ToolboxItemSettings DisplayName="Y" 
                           PathStyle="{StaticResource Y}"
                           PathStyle_DragThumb="{StaticResource Y_DragThumb}">
-
                     <core:ToolboxItemSettings.ConnectorsSettings>
                         <core:ConnectorsSettingsCollection>
                             <core:ConnectorSettings Name="TopLeft" Orientation="Top" RelativePosition="0.25,0" />
@@ -116,7 +125,6 @@
                 <core:ToolboxItemSettings DisplayName="O" 
                                           PathStyle="{StaticResource O}"
                                           PathStyle_DragThumb="{StaticResource O_DragThumb}">
-
                     <core:ToolboxItemSettings.ConnectorsSettings>
                         <core:ConnectorsSettingsCollection />
                     </core:ToolboxItemSettings.ConnectorsSettings>
@@ -125,11 +133,22 @@
                 <core:ToolboxItemSettings DisplayName="Square" 
                                           PathStyle="{StaticResource Square}"
                                           PathStyle_DragThumb="{StaticResource Square_DragThumb}">
-
                     <core:ToolboxItemSettings.ConnectorsSettings>
                         <core:ConnectorsSettingsCollection>
                             <core:ConnectorSettings Name="Top" Orientation="Top" RelativePosition="0.5,0" MaxInConnections="1" MaxOutConnections="0" />
                             <core:ConnectorSettings Name="Bottom" Orientation="Bottom" RelativePosition="0.5,1" MaxInConnections="0" MaxOutConnections="1" />
+                        </core:ConnectorsSettingsCollection>
+                    </core:ToolboxItemSettings.ConnectorsSettings>
+                </core:ToolboxItemSettings>
+
+                <core:ToolboxItemSettings DisplayName="Rhombus" 
+                                          PathStyle="{StaticResource Rhombus}"
+                                          PathStyle_DragThumb="{StaticResource Rhombus_DragThumb}">
+                    <core:ToolboxItemSettings.ConnectorsSettings>
+                        <core:ConnectorsSettingsCollection>
+                            <core:ConnectorSettings Name="Top" Orientation="Top" RelativePosition="0.5,0" MaxInConnections="1" MaxOutConnections="0" />
+                            <core:ConnectorSettings Name="Bottom" Orientation="Bottom" RelativePosition="0.5,1" MaxInConnections="0" MaxOutConnections="1" Caption="Yes" />
+                            <core:ConnectorSettings Name="Right" Orientation="Right" RelativePosition="1,0.5" MaxInConnections="0" MaxOutConnections="1" Caption="No" />
                         </core:ConnectorsSettingsCollection>
                     </core:ToolboxItemSettings.ConnectorsSettings>
                 </core:ToolboxItemSettings>

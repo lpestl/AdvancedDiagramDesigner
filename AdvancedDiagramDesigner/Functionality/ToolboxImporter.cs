@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Resources;
 using DiagramDesigner.Controls;
 using ToolboxDesigner.Core;
@@ -18,6 +20,7 @@ namespace DiagramDesigner.Functionality
     {
         private StackPanel toolboxesHandle_;
         private static string storagePath_ = "ExternalToolboxes";
+
         public ToolboxImporter(StackPanel toolboxesHandle)
         {
             toolboxesHandle_ = toolboxesHandle;
@@ -27,7 +30,9 @@ namespace DiagramDesigner.Functionality
         {
             var appDir = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory);
 
-            var fullStoragePath = appDir.FullName.LastIndexOf('\\') != appDir.FullName.Length - 1 ? $"{appDir.FullName}\\{storagePath_}\\" : $"{appDir.FullName}{storagePath_}\\";
+            var fullStoragePath = appDir.FullName.LastIndexOf('\\') != appDir.FullName.Length - 1
+                ? $"{appDir.FullName}\\{storagePath_}\\"
+                : $"{appDir.FullName}{storagePath_}\\";
             if (!Directory.Exists(fullStoragePath))
                 Directory.CreateDirectory(fullStoragePath);
 
@@ -35,7 +40,7 @@ namespace DiagramDesigner.Functionality
 
             return storageDir.GetFiles("*.xaml", SearchOption.TopDirectoryOnly);
         }
-        
+
         private void AddCustomToolbox(FileInfo xamlFileInfo)
         {
             var newResources = AddResources(xamlFileInfo);
@@ -55,11 +60,18 @@ namespace DiagramDesigner.Functionality
                 {
                     string toolBoxKey = $"{dictionaryEntry.Key}_Toolbox";
 
-                    var toolBox = new Toolbox { ItemSize = new Size(60, 60), Tag = toolboxSettings.Name};
+                    var toolBox = new Toolbox {ItemSize = new Size(60, 60), Tag = toolboxSettings.Name};
 
                     foreach (var itemsSetting in toolboxSettings.ItemsSettings)
                     {
-                        var newItem = new Path {Style = itemsSetting.PathStyle, ToolTip = itemsSetting.DisplayName};
+                        var newItem = new ContentControl();
+
+                        var newGrid = new Grid();// { Name = $"{itemsSetting.DisplayName.Replace(" ", "")}_Grid" };
+                        var newPath = new Path {Style = itemsSetting.PathStyle, ToolTip = itemsSetting.DisplayName};
+
+                        newGrid.Children.Add(newPath);
+
+                        newItem.Content = newGrid;
 
                         if (itemsSetting.PathStyle_DragThumb != null)
                         {
@@ -91,10 +103,35 @@ namespace DiagramDesigner.Functionality
                                         connectorsSetting.Orientation);
                                     connectorTemplate.SetValue(RelativePositionPanel.RelativePositionProperty,
                                         connectorsSetting.RelativePosition);
-                                    connectorTemplate.SetValue(Connector.MaxInConnectionsProperty, connectorsSetting.MaxInConnections);
-                                    connectorTemplate.SetValue(Connector.MaxOutConnectionsProperty, connectorsSetting.MaxOutConnections);
+                                    connectorTemplate.SetValue(Connector.MaxInConnectionsProperty,
+                                        connectorsSetting.MaxInConnections);
+                                    connectorTemplate.SetValue(Connector.MaxOutConnectionsProperty,
+                                        connectorsSetting.MaxOutConnections);
 
                                     relPanelTemplate.AppendChild(connectorTemplate);
+
+                                    if (!string.IsNullOrEmpty(connectorsSetting.Caption))
+                                    {
+                                        var newCaption = new TextBlock { Text = connectorsSetting.Caption, IsHitTestVisible = false, Tag = connectorsSetting.RelativePosition };
+                                        
+                                        var bindingLeft = new Binding("ActualWidth");
+                                        bindingLeft.Source = newGrid;
+                                        //bindingLeft.ElementName = newGrid.Name;
+                                        //bindingLeft.Converter = new WidthToRelativeLeftMargin(connectorsSetting.RelativePosition.X, newCaption);
+
+                                        var bindingTop = new Binding("ActualHeight");
+                                        bindingTop.Source = newGrid;
+                                        //bindingTop.ElementName = newGrid.Name;
+                                        //bindingTop.Converter = new HeightToRelativeTopMargin(connectorsSetting.RelativePosition.Y, newCaption);
+
+                                        var multiBinding = new MultiBinding();
+                                        multiBinding.Bindings.Add(bindingLeft);
+                                        multiBinding.Bindings.Add(bindingTop);
+                                        multiBinding.Converter = new SizeToMarginConverter(connectorsSetting.RelativePosition);
+
+                                        newCaption.SetBinding(TextBlock.MarginProperty, multiBinding);
+                                        newGrid.Children.Add(newCaption);
+                                    }
                                 }
                             }
 
@@ -123,7 +160,8 @@ namespace DiagramDesigner.Functionality
                 {
                     if (mergedDictionary.Contains(key))
                     {
-                        var toolboxExpander = new Expander { Header = ((mergedDictionary[key] as Toolbox).Tag as string), IsExpanded = true };
+                        var toolboxExpander = new Expander
+                            {Header = ((mergedDictionary[key] as Toolbox).Tag as string), IsExpanded = true};
                         toolboxExpander.Content = (mergedDictionary[key] as Toolbox);
 
                         toolboxesHandle_.Children.Add(toolboxExpander);
@@ -135,7 +173,7 @@ namespace DiagramDesigner.Functionality
         private List<DictionaryEntry> GetToolboxesSettings(ResourceDictionary newResources)
         {
             //var toolBox = new Toolbox { ItemSize = new Size(60, 40) };
-            
+
             var toolboxesSettings = new List<DictionaryEntry>();
             foreach (var resourceEntry in newResources)
                 if ((resourceEntry is DictionaryEntry dicEntry) && (dicEntry.Value is ToolboxSettings toolboxSettings))
@@ -158,7 +196,8 @@ namespace DiagramDesigner.Functionality
             catch (Exception e)
             {
                 MessageBox.Show(string.Format(Properties.Resources.ErrorImportMessage, xamlFileInfo.FullName,
-                    $"{e.Source} - {e.Message}"), Properties.Resources.ErrorImport, MessageBoxButton.OK, MessageBoxImage.Error);
+                        $"{e.Source} - {e.Message}"), Properties.Resources.ErrorImport, MessageBoxButton.OK,
+                    MessageBoxImage.Error);
             }
 
             return myResourceDictionary;
@@ -171,6 +210,34 @@ namespace DiagramDesigner.Functionality
             {
                 AddCustomToolbox(xamlFileInfo);
             }
+        }
+    }
+
+    public class SizeToMarginConverter : IMultiValueConverter
+    {
+        private Point relativePosition_;
+
+        public SizeToMarginConverter(Point relativePosition)
+        {
+            relativePosition_ = relativePosition;
+        }
+
+        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+        {
+            if ((values[0] is double) && (values[1] is double))
+            {
+                return new Thickness(System.Convert.ToDouble(values[0]) * relativePosition_.X,
+                    System.Convert.ToDouble(values[1]) * relativePosition_.Y,
+                    System.Convert.ToDouble(values[0]) * -relativePosition_.X,
+                    System.Convert.ToDouble(values[1]) * -relativePosition_.Y);
+            }
+
+            return new Thickness(0);
+        }
+
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+        {
+            return null;
         }
     }
 }

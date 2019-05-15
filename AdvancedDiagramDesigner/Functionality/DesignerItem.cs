@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
@@ -26,8 +28,6 @@ namespace DiagramDesigner.Functionality
 
         #endregion
 
-        // TODO: Check this properties when save/load scheme
-
         // UPD: Name property
         #region Caption
 
@@ -41,7 +41,7 @@ namespace DiagramDesigner.Functionality
         public DateTime DateTimeCreated { get; set; }
 
         #endregion
-
+        
         #region ParentID
 
         public Guid ParentID
