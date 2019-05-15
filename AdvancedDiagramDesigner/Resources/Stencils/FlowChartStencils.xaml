@@ -300,7 +300,8 @@
 
   <functionality:Toolbox x:Key="FlowChartStencils" ItemSize="60,50" SnapsToDevicePixels="True"
              ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-    <ItemsControl.Items>
+
+      <ItemsControl.Items>
 
       <Path Style="{StaticResource Process}" ToolTip="Process">
         <functionality:DesignerItem.DragThumbTemplate>

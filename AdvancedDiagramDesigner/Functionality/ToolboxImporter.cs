@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Resources;
 using DiagramDesigner.Controls;
@@ -60,18 +61,45 @@ namespace DiagramDesigner.Functionality
                 {
                     string toolBoxKey = $"{dictionaryEntry.Key}_Toolbox";
 
-                    var toolBox = new Toolbox {ItemSize = new Size(60, 60), Tag = toolboxSettings.Name};
+                    var toolBox = new Toolbox { Tag = toolboxSettings.Name };
 
+                    switch (toolboxSettings.ToolboxGridType)
+                    {
+                        case ToolboxGrid.List:
+                            toolBox.ItemSize = new Size(250, 40);
+
+                            break;
+                        case ToolboxGrid.Grid:
+                            toolBox.ItemSize = new Size(60, 60);
+                            break;
+                    }
+                    
                     foreach (var itemsSetting in toolboxSettings.ItemsSettings)
                     {
                         var newItem = new ContentControl();
+
+                        var stackPanel = new StackPanel {Orientation = Orientation.Horizontal};
 
                         var newGrid = new Grid();// { Name = $"{itemsSetting.DisplayName.Replace(" ", "")}_Grid" };
                         var newPath = new Path {Style = itemsSetting.PathStyle, ToolTip = itemsSetting.DisplayName};
 
                         newGrid.Children.Add(newPath);
 
-                        newItem.Content = newGrid;
+                        if (toolboxSettings.ToolboxGridType == ToolboxGrid.Grid)
+                        {
+                            newItem.Content = newGrid;
+                        }
+                        else
+                        {
+                            newGrid.Width = 25;
+                            stackPanel.Children.Add(newGrid);
+                            stackPanel.Children.Add(new TextBlock
+                            {
+                                Text = itemsSetting.DisplayName, VerticalAlignment = VerticalAlignment.Center,
+                                Margin = new Thickness(10, 0, 0, 0)
+                            });
+                            newItem.Content = stackPanel;
+                        }
 
                         if (itemsSetting.PathStyle_DragThumb != null)
                         {

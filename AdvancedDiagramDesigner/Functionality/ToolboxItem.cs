@@ -45,7 +45,14 @@ namespace DiagramDesigner.Functionality
                 {
                     // desired size for DesignerCanvas is the stretched Toolbox item size
                     double scale = 1.3;
-                    dataObject.DesiredSize = new Size(panel.ItemWidth * scale, panel.ItemHeight * scale);
+                    if (panel.ItemHeight >= 50)
+                    {
+                        dataObject.DesiredSize = new Size(panel.ItemWidth * scale, panel.ItemHeight * scale);
+                    }
+                    else
+                    {
+                        dataObject.DesiredSize = new Size(panel.ItemHeight * scale * scale, panel.ItemHeight * scale * scale);
+                    }
                 }
 
                 DragDrop.DoDragDrop(this, dataObject, DragDropEffects.Copy);

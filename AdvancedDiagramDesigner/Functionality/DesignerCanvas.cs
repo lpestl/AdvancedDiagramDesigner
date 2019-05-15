@@ -91,27 +91,46 @@ namespace DiagramDesigner.Functionality
 
                 if (content != null)
                 {
-                    // Restore binding on size
-                    if ((content is ContentControl conCtrl) && (conCtrl.Content is Grid itemGrid))
+                    if (content is ContentControl conCtrl)
                     {
-                        foreach (var child in itemGrid.Children)
+                        if (conCtrl.Content is StackPanel stackPanel)
                         {
-                            if (child is TextBlock conCapture)
+                            var gridobj = stackPanel.Children[0];
+                            stackPanel.Children.Clear();
+                            conCtrl.Content = null;
+
+                            var bindingWidth = new Binding("ActualWidth");
+                            bindingWidth.Source = conCtrl;
+
+                            if (gridobj is Grid grid)
+                                grid.SetBinding(Grid.WidthProperty, bindingWidth);
+
+                            conCtrl.Content = gridobj;
+                        }
+
+                        // Restore binding on size
+                        if (conCtrl.Content is Grid itemGrid)
+                        {
+                            foreach (var child in itemGrid.Children)
                             {
-                                var bindingLeft = new Binding("ActualWidth");
-                                bindingLeft.Source = itemGrid;
+                                if (child is TextBlock conCapture)
+                                {
+                                    var bindingLeft = new Binding("ActualWidth");
+                                    bindingLeft.Source = itemGrid;
 
-                                var bindingTop = new Binding("ActualHeight");
-                                bindingTop.Source = itemGrid;
+                                    var bindingTop = new Binding("ActualHeight");
+                                    bindingTop.Source = itemGrid;
 
-                                var multiBinding = new MultiBinding();
-                                multiBinding.Bindings.Add(bindingLeft);
-                                multiBinding.Bindings.Add(bindingTop);
-                                
-                                if (conCapture.Tag is ConnectorSettings conSettings)
-                                    multiBinding.Converter = new SizeToMarginConverter(conSettings.RelativePosition, conSettings.Orientation);
+                                    var multiBinding = new MultiBinding();
+                                    multiBinding.Bindings.Add(bindingLeft);
+                                    multiBinding.Bindings.Add(bindingTop);
 
-                                conCapture.SetBinding(TextBlock.MarginProperty, multiBinding);
+                                    if (conCapture.Tag is ConnectorSettings conSettings)
+                                        multiBinding.Converter = new SizeToMarginConverter(conSettings.RelativePosition,
+                                            conSettings.Orientation);
+
+                                    conCapture.SetBinding(TextBlock.MarginProperty, multiBinding);
+                                }
                             }
                         }
                     }
