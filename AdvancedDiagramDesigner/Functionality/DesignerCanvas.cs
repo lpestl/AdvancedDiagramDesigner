@@ -134,9 +134,13 @@ namespace DiagramDesigner.Functionality
                             }
                         }
                     }
-
+                    
                     newItem = new DesignerItem { DateTimeCreated = DateTime.Now };
                     newItem.Content = content;
+
+                    if ((content is ContentControl contentCtrl) &&
+                        (contentCtrl.Tag is ToolboxItemSettings itemSettings))
+                        newItem.NoDelete = itemSettings.NoDelete;
 
                     Point position = e.GetPosition(this);
 

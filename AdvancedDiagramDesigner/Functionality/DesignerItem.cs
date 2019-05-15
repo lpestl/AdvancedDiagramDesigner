@@ -42,6 +42,8 @@ namespace DiagramDesigner.Functionality
 
         #endregion
         
+        public bool NoDelete { get; set; }
+
         #region ParentID
 
         public Guid ParentID

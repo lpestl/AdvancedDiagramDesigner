@@ -943,19 +943,23 @@ namespace DiagramDesigner.Functionality
 
             foreach (DesignerItem item in SelectionService.CurrentSelection.OfType<DesignerItem>())
             {
-                Control cd = item.Template.FindName("PART_ConnectorDecorator", item) as Control;
-
-                List<Connector> connectors = new List<Connector>();
-                GetConnectors(cd, connectors);
-
-                foreach (Connector connector in connectors)
+                if (!item.NoDelete)
                 {
-                    foreach (Connection con in connector.Connections)
+                    Control cd = item.Template.FindName("PART_ConnectorDecorator", item) as Control;
+
+                    List<Connector> connectors = new List<Connector>();
+                    GetConnectors(cd, connectors);
+
+                    foreach (Connector connector in connectors)
                     {
-                        this.Children.Remove(con);
+                        foreach (Connection con in connector.Connections)
+                        {
+                            this.Children.Remove(con);
+                        }
                     }
+
+                    this.Children.Remove(item);
                 }
-                this.Children.Remove(item);
             }
 
             SelectionService.ClearSelection();
