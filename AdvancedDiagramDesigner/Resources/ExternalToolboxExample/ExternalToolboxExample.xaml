@@ -75,6 +75,17 @@
         <Setter Property="Stroke" Value="Transparent"/>
     </Style>
 
+    <!-- Invisible item -->
+    <Style x:Key="InvisibleItem" TargetType="Path" BasedOn="{StaticResource ExternalToolboxExampleItemStyle}">
+        <Setter Property="Data" Value="M 0,10 L 20,0 L 40,10 L 20,20 Z"/>
+    </Style>
+
+    <Style x:Key="InvisibleItem_DragThumb" TargetType="Path" BasedOn="{StaticResource InvisibleItem}">
+        <Setter Property="IsHitTestVisible" Value="true"/>
+        <Setter Property="Fill" Value="Transparent"/>
+        <Setter Property="Stroke" Value="Transparent"/>
+    </Style>
+
     <core:ToolboxSettings x:Key="MyExternalToolboxSettings" 
                           Name="External toolbox">
                         <!--ToolboxGridType="List"-->
@@ -153,6 +164,20 @@
                             <core:ConnectorSettings Name="Bottom" Orientation="Bottom" RelativePosition="0.5,1" MaxInConnections="0" MaxOutConnections="1" Caption="Yes" />
                             <core:ConnectorSettings Name="Right" Orientation="Right" RelativePosition="1,0.5" MaxInConnections="0" MaxOutConnections="1" Caption="No" />
                             <core:ConnectorSettings Name="Left" Orientation="Left" RelativePosition="0,0.5" MaxInConnections="0" MaxOutConnections="1" Caption="No" />
+                        </core:ConnectorsSettingsCollection>
+                    </core:ToolboxItemSettings.ConnectorsSettings>
+                </core:ToolboxItemSettings>
+
+                <core:ToolboxItemSettings DisplayName="InvisibleItem" 
+                                          PathStyle="{StaticResource InvisibleItem}"
+                                          PathStyle_DragThumb="{StaticResource InvisibleItem_DragThumb}"
+                                          Invisible="True">
+                    <core:ToolboxItemSettings.ConnectorsSettings>
+                        <core:ConnectorsSettingsCollection>
+                            <core:ConnectorSettings Name="Top" Orientation="Top" RelativePosition="0.5,0" MaxInConnections="1" MaxOutConnections="0" />
+                            <core:ConnectorSettings Name="Bottom" Orientation="Bottom" RelativePosition="0.5,1" MaxInConnections="0" MaxOutConnections="1" />
+                            <core:ConnectorSettings Name="Right" Orientation="Right" RelativePosition="1,0.5" MaxInConnections="0" MaxOutConnections="1" />
+                            <core:ConnectorSettings Name="Left" Orientation="Left" RelativePosition="0,0.5" MaxInConnections="0" MaxOutConnections="1" />
                         </core:ConnectorsSettingsCollection>
                     </core:ToolboxItemSettings.ConnectorsSettings>
                 </core:ToolboxItemSettings>
