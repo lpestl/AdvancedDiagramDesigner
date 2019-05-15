@@ -69,6 +69,29 @@ namespace DiagramDesigner.Functionality
         {
             this.Children.Clear();
             this.SelectionService.ClearSelection();
+
+            var settingsDir = CheckSettingsDirectory();
+            var files = settingsDir.GetFiles();
+
+            foreach (var fileInfo in files)
+            {
+                if (fileInfo.Name.Equals("default.xml"))
+                {
+                    RestoreDiagramFromXElement(XElement.Load(fileInfo.FullName));
+                }
+            }
+        }
+
+        private DirectoryInfo CheckSettingsDirectory()
+        {
+            var appDir = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory);
+
+            var settingsPath = appDir.FullName.LastIndexOf('\\') != appDir.FullName.Length - 1 ? $"{appDir.FullName}\\Settings\\" : $"{appDir.FullName}Settings\\";
+            
+            if (!Directory.Exists(settingsPath))
+                Directory.CreateDirectory(settingsPath);
+
+            return new DirectoryInfo(settingsPath);
         }
 
         #endregion
@@ -79,6 +102,11 @@ namespace DiagramDesigner.Functionality
         {
             XElement root = LoadSerializedDataFromFile();
 
+            RestoreDiagramFromXElement(root);
+        }
+
+        private void RestoreDiagramFromXElement(XElement root)
+        {
             if (root == null)
                 return;
 
