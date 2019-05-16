@@ -14,12 +14,21 @@
     <ToolBar x:Key="MyToolbar" Height="120">
         <!--File-->
         <GroupBox Header="{x:Static prop:Resources.File}" Style="{StaticResource ToolbarGroup}" Margin="5,3,3,3">
-            <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+
                 <Button Margin="3" Width="55" Style="{StaticResource ToolBarButtonBaseStyle}"
-                        HorizontalContentAlignment="Center"
+                        Grid.Row="0" Grid.Column="0" Grid.RowSpan="3"
                         Command="{x:Static ApplicationCommands.New}"
                         CommandTarget="{Binding ElementName=DiagramDesignerWindow}">
-                    <!--CommandTarget="{Binding ElementName=DesignersTabControl, Path=SelectedItem, Converter={StaticResource CommandHandlerConverter}}">-->
                     <Button.Content>
                         <Grid>
                             <Grid.RowDefinitions>
@@ -31,60 +40,73 @@
                         </Grid>
                     </Button.Content>
                 </Button>
-                <StackPanel Orientation="Vertical" Margin="0,2,0,2">
-                    <Button Margin="1" Padding="2" HorizontalContentAlignment="Left"
+
+                <Button Margin="1,3,1,1" Padding="2" HorizontalContentAlignment="Left"
+                        Grid.Row="0" Grid.Column="1"
                             Style="{StaticResource ToolBarButtonBaseStyle}"
                             Command="{x:Static ApplicationCommands.Open}"
                             CommandTarget="{Binding ElementName=DesignersTabControl, Path=SelectedItem, Converter={StaticResource CommandHandlerConverter}}">
-                        <Button.Content>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition/>
-                                </Grid.ColumnDefinitions>
-                                <Image Source="Images/OpenFolder.png" Width="16"/>
-                                <TextBlock Margin="3,0,3,0" Text="{x:Static prop:Resources.Open}" VerticalAlignment="Center"  Grid.Column="1"/>
-                            </Grid>
-                        </Button.Content>
-                    </Button>
-                    <Button Margin="1" Padding="2" HorizontalContentAlignment="Left"
+                    <Button.Content>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Image Source="Images/OpenFolder.png" Width="16"/>
+                            <TextBlock Margin="3,0,3,0" Text="{x:Static prop:Resources.Open}" VerticalAlignment="Center"  Grid.Column="1"/>
+                        </Grid>
+                    </Button.Content>
+                </Button>
+                <Button Margin="1,2,1,2" Padding="2" HorizontalContentAlignment="Left"
+                        Grid.Row="1" Grid.Column="1"
                             Style="{StaticResource ToolBarButtonBaseStyle}"
                             Command="{x:Static ApplicationCommands.Save}"
                             CommandTarget="{Binding ElementName=DesignersTabControl, Path=SelectedItem, Converter={StaticResource CommandHandlerConverter}}">
-                        <Button.Content>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Image Source="Images/Save.png" Width="16"/>
-                                <TextBlock Margin="3,0,3,0" Text="{x:Static prop:Resources.Save}" VerticalAlignment="Center" Grid.Column="1"/>
-                            </Grid>
-                        </Button.Content>
-                    </Button>
-                    <Button Margin="1" Padding="2" HorizontalContentAlignment="Left"
+                    <Button.Content>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Image Source="Images/Save.png" Width="16"/>
+                            <TextBlock Margin="3,0,3,0" Text="{x:Static prop:Resources.Save}" VerticalAlignment="Center" Grid.Column="1"/>
+                        </Grid>
+                    </Button.Content>
+                </Button>
+                <Button Margin="1,1,1,3" Padding="2" HorizontalContentAlignment="Left"
+                        Grid.Row="2" Grid.Column="1"
                             Style="{StaticResource ToolBarButtonBaseStyle}"
                             Command="{x:Static ApplicationCommands.Print}"
                             CommandTarget="{Binding ElementName=DesignersTabControl, Path=SelectedItem, Converter={StaticResource CommandHandlerConverter}}">
-                        <Button.Content>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Image Source="Images/Print.png" Width="16"/>
-                                <TextBlock Margin="3,0,3,0" Text="{x:Static prop:Resources.Print}" VerticalAlignment="Center" Grid.Column="1"/>
-                            </Grid>
-                        </Button.Content>
-                    </Button>
-                </StackPanel>
-            </StackPanel>
+                    <Button.Content>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Image Source="Images/Print.png" Width="16"/>
+                            <TextBlock Margin="3,0,3,0" Text="{x:Static prop:Resources.Print}" VerticalAlignment="Center" Grid.Column="1"/>
+                        </Grid>
+                    </Button.Content>
+                </Button>
+            </Grid>
         </GroupBox>
 
         <!--Edit-->
         <GroupBox Header="{x:Static prop:Resources.Edit}" Style="{StaticResource ToolbarGroup}" Margin="3">
-            <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+
                 <Button Margin="3" Width="55"
+                        Grid.Row="0" Grid.Column="0" Grid.RowSpan="3"
                         Style="{StaticResource ToolBarButtonBaseStyle}"
                         Command="{x:Static ApplicationCommands.Paste}"
                         CommandTarget="{Binding ElementName=DesignersTabControl, Path=SelectedItem, Converter={StaticResource CommandHandlerConverter}}">
@@ -99,54 +121,55 @@
                         </Grid>
                     </Button.Content>
                 </Button>
-                <StackPanel Orientation="Vertical" Margin="0,2,0,2">
-                    <Button Margin="1" Padding="2" HorizontalContentAlignment="Left"
+                <Button Margin="1,3,1,1" Padding="2" HorizontalContentAlignment="Left"
+                        Grid.Row="0" Grid.Column="1"
                             Style="{StaticResource ToolBarButtonBaseStyle}"
                             Command="{x:Static ApplicationCommands.Cut}"
                             CommandTarget="{Binding ElementName=DesignersTabControl, Path=SelectedItem, Converter={StaticResource CommandHandlerConverter}}">
-                        <Button.Content>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Image Source="Images/Cut.png" Width="16"/>
-                                <TextBlock Margin="3,0,3,0" Text="{x:Static prop:Resources.Cut}" VerticalAlignment="Center" Grid.Column="1"/>
-                            </Grid>
-                        </Button.Content>
-                    </Button>
-                    <Button Margin="1" Padding="2" HorizontalContentAlignment="Left"
+                    <Button.Content>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Image Source="Images/Cut.png" Width="16"/>
+                            <TextBlock Margin="3,0,3,0" Text="{x:Static prop:Resources.Cut}" VerticalAlignment="Center" Grid.Column="1"/>
+                        </Grid>
+                    </Button.Content>
+                </Button>
+                <Button Margin="1,2,1,2" Padding="2" HorizontalContentAlignment="Left"
+                        Grid.Row="1" Grid.Column="1"
                             Style="{StaticResource ToolBarButtonBaseStyle}"
                             Command="{x:Static ApplicationCommands.Copy}"
                             CommandTarget="{Binding ElementName=DesignersTabControl, Path=SelectedItem, Converter={StaticResource CommandHandlerConverter}}">
-                        <Button.Content>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Image Source="Images/Copy.png" Width="16"/>
-                                <TextBlock Margin="3,0,3,0" Text="{x:Static prop:Resources.Copy}" VerticalAlignment="Center" Grid.Column="1"/>
-                            </Grid>
-                        </Button.Content>
-                    </Button>
-                    <Button Margin="1" Padding="2" HorizontalContentAlignment="Left"
+                    <Button.Content>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Image Source="Images/Copy.png" Width="16"/>
+                            <TextBlock Margin="3,0,3,0" Text="{x:Static prop:Resources.Copy}" VerticalAlignment="Center" Grid.Column="1"/>
+                        </Grid>
+                    </Button.Content>
+                </Button>
+                <Button Margin="1,1,1,3" Padding="2" HorizontalContentAlignment="Left"
+                        Grid.Row="2" Grid.Column="1"
                             Style="{StaticResource ToolBarButtonBaseStyle}"
                             Command="{x:Static ApplicationCommands.Delete}"
                             CommandTarget="{Binding ElementName=DesignersTabControl, Path=SelectedItem, Converter={StaticResource CommandHandlerConverter}}">
-                        <Button.Content>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Image Source="Images/Delete.png" Width="16"/>
-                                <TextBlock Margin="3,0,3,0" Text="{x:Static prop:Resources.Delete}" VerticalAlignment="Center" Grid.Column="1"/>
-                            </Grid>
-                        </Button.Content>
-                    </Button>
-                </StackPanel>
-            </StackPanel>
+                    <Button.Content>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Image Source="Images/Delete.png" Width="16"/>
+                            <TextBlock Margin="3,0,3,0" Text="{x:Static prop:Resources.Delete}" VerticalAlignment="Center" Grid.Column="1"/>
+                        </Grid>
+                    </Button.Content>
+                </Button>
+            </Grid>
         </GroupBox>
 
         <!--Alignment-->
@@ -156,92 +179,98 @@
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                <StackPanel Grid.Column="0" Orientation="Vertical">
-                    <Border BorderBrush="{StaticResource ToolbarBorderBrush}" BorderThickness="1" CornerRadius="2" Margin="3">
-                        <StackPanel Orientation="Horizontal">
-                            <Button Padding="5" Style="{StaticResource ToolBarButtonBaseStyle}"
-                                    Command="{x:Static functionality:DesignerCanvas.AlignLeft}"
-                                    CommandTarget="{Binding ElementName=DesignersTabControl, Path=SelectedItem, Converter={StaticResource CommandHandlerConverter}}">
-                                <Button.Content>
-                                    <Image Source="Images/AlignObjectsLeft.png" Width="16"/>
-                                </Button.Content>
-                            </Button>
-                            <Button Padding="5" Style="{StaticResource ToolBarButtonBaseStyle}"
-                                    Command="{x:Static functionality:DesignerCanvas.AlignHorizontalCenters}"
-                                    CommandTarget="{Binding ElementName=DesignersTabControl, Path=SelectedItem, Converter={StaticResource CommandHandlerConverter}}">
-                                <Button.Content>
-                                    <Image Source="Images/AlignObjectsCenteredHorizontal.png" Width="16"/>
-                                </Button.Content>
-                            </Button>
-                            <Button Padding="5" Style="{StaticResource ToolBarButtonBaseStyle}"
-                                    Command="{x:Static functionality:DesignerCanvas.AlignRight}"
-                                    CommandTarget="{Binding ElementName=DesignersTabControl, Path=SelectedItem, Converter={StaticResource CommandHandlerConverter}}">
-                                <Button.Content>
-                                    <Image Source="Images/AlignObjectsRight.png" Width="16"/>
-                                </Button.Content>
-                            </Button>
-                        </StackPanel>
-                    </Border>
-                    <Border BorderBrush="{StaticResource ToolbarBorderBrush}" BorderThickness="1" CornerRadius="2" Margin="3">
-                        <StackPanel Orientation="Horizontal">
-                            <Button Padding="5" Style="{StaticResource ToolBarButtonBaseStyle}"
-                                    Command="{x:Static functionality:DesignerCanvas.AlignTop}"
-                                    CommandTarget="{Binding ElementName=DesignersTabControl, Path=SelectedItem, Converter={StaticResource CommandHandlerConverter}}">
-                                <Button.Content>
-                                    <Image Source="Images/AlignObjectsTop.png" Width="16"/>
-                                </Button.Content>
-                            </Button>
-                            <Button Padding="5" Style="{StaticResource ToolBarButtonBaseStyle}"
-                                    Command="{x:Static functionality:DesignerCanvas.AlignVerticalCenters}"
-                                    CommandTarget="{Binding ElementName=DesignersTabControl, Path=SelectedItem, Converter={StaticResource CommandHandlerConverter}}">
-                                <Button.Content>
-                                    <Image Source="Images/AlignObjectsCenteredVertical.png" Width="16"/>
-                                </Button.Content>
-                            </Button>
-                            <Button Padding="5" Style="{StaticResource ToolBarButtonBaseStyle}"
-                                    Command="{x:Static functionality:DesignerCanvas.AlignBottom}"
-                                    CommandTarget="{Binding ElementName=DesignersTabControl, Path=SelectedItem, Converter={StaticResource CommandHandlerConverter}}">
-                                <Button.Content>
-                                    <Image Source="Images/AlignObjectsBottom.png" Width="16"/>
-                                </Button.Content>
-                            </Button>
-                        </StackPanel>
-                    </Border>
-                </StackPanel>
-                <StackPanel Grid.Column="1" Orientation="Vertical" Margin="5,0,0,0">
-                    <Button Margin="3" Padding="5" HorizontalContentAlignment="Left"
-                            Style="{StaticResource ToolBarButtonBaseStyle}"
-                            Command="{x:Static functionality:DesignerCanvas.DistributeHorizontal}"
-                            CommandTarget="{Binding ElementName=DesignersTabControl, Path=SelectedItem, Converter={StaticResource CommandHandlerConverter}}">
-                        <Button.Content>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Image Source="Images/DistributeObjectsHorizontal.png" Width="16"/>
-                                <TextBlock Margin="3" Text="{x:Static prop:Resources.Horizontal}" VerticalAlignment="Center" Grid.Column="1"/>
-                            </Grid>
-                        </Button.Content>
-                    </Button>
-                    <Button Margin="3" Padding="5" HorizontalContentAlignment="Left"
-                            Style="{StaticResource ToolBarButtonBaseStyle}"
-                            Command="{x:Static functionality:DesignerCanvas.DistributeVertical}"
-                            CommandTarget="{Binding ElementName=DesignersTabControl, Path=SelectedItem, Converter={StaticResource CommandHandlerConverter}}">
-                        <Button.Content>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Image Source="Images/DistributeObjectsVertical.png" Width="16"/>
-                                <TextBlock Margin="3" Text="{x:Static prop:Resources.Vertical}" VerticalAlignment="Center" Grid.Column="1"/>
-                            </Grid>
-                        </Button.Content>
-                    </Button>
-                </StackPanel>
-                <Line Stroke="{StaticResource ToolbarBorderBrush}" StrokeThickness="1" X1="0" Y1="0" X2="0" Y2="20" Stretch="Fill" HorizontalAlignment="Left"
-              Margin="3,0,0,0" Grid.Column="1"/>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Border Grid.Column="0" Grid.Row="0" BorderBrush="{StaticResource ToolbarBorderBrush}" BorderThickness="1" Margin="3"><!--CornerRadius="2"-->
+                    <StackPanel Orientation="Horizontal">
+                        <Button Padding="5" Style="{StaticResource ToolBarButtonBaseStyle}"
+                                Command="{x:Static functionality:DesignerCanvas.AlignLeft}"
+                                CommandTarget="{Binding ElementName=DesignersTabControl, Path=SelectedItem, Converter={StaticResource CommandHandlerConverter}}">
+                            <Button.Content>
+                                <Image Source="Images/AlignObjectsLeft.png" Width="16"/>
+                            </Button.Content>
+                        </Button>
+                        <Button Padding="5" Style="{StaticResource ToolBarButtonBaseStyle}"
+                                Command="{x:Static functionality:DesignerCanvas.AlignHorizontalCenters}"
+                                CommandTarget="{Binding ElementName=DesignersTabControl, Path=SelectedItem, Converter={StaticResource CommandHandlerConverter}}">
+                            <Button.Content>
+                                <Image Source="Images/AlignObjectsCenteredHorizontal.png" Width="16"/>
+                            </Button.Content>
+                        </Button>
+                        <Button Padding="5" Style="{StaticResource ToolBarButtonBaseStyle}"
+                                Command="{x:Static functionality:DesignerCanvas.AlignRight}"
+                                CommandTarget="{Binding ElementName=DesignersTabControl, Path=SelectedItem, Converter={StaticResource CommandHandlerConverter}}">
+                            <Button.Content>
+                                <Image Source="Images/AlignObjectsRight.png" Width="16"/>
+                            </Button.Content>
+                        </Button>
+                    </StackPanel>
+                </Border>
+                <Border Grid.Column="0" Grid.Row="1" BorderBrush="{StaticResource ToolbarBorderBrush}" BorderThickness="1" Margin="3"><!--CornerRadius="2"-->
+                    <StackPanel Orientation="Horizontal">
+                        <Button Padding="5" Style="{StaticResource ToolBarButtonBaseStyle}"
+                                Command="{x:Static functionality:DesignerCanvas.AlignTop}"
+                                CommandTarget="{Binding ElementName=DesignersTabControl, Path=SelectedItem, Converter={StaticResource CommandHandlerConverter}}">
+                            <Button.Content>
+                                <Image Source="Images/AlignObjectsTop.png" Width="16"/>
+                            </Button.Content>
+                        </Button>
+                        <Button Padding="5" Style="{StaticResource ToolBarButtonBaseStyle}"
+                                Command="{x:Static functionality:DesignerCanvas.AlignVerticalCenters}"
+                                CommandTarget="{Binding ElementName=DesignersTabControl, Path=SelectedItem, Converter={StaticResource CommandHandlerConverter}}">
+                            <Button.Content>
+                                <Image Source="Images/AlignObjectsCenteredVertical.png" Width="16"/>
+                            </Button.Content>
+                        </Button>
+                        <Button Padding="5" Style="{StaticResource ToolBarButtonBaseStyle}"
+                                Command="{x:Static functionality:DesignerCanvas.AlignBottom}"
+                                CommandTarget="{Binding ElementName=DesignersTabControl, Path=SelectedItem, Converter={StaticResource CommandHandlerConverter}}">
+                            <Button.Content>
+                                <Image Source="Images/AlignObjectsBottom.png" Width="16"/>
+                            </Button.Content>
+                        </Button>
+                    </StackPanel>
+                </Border>
+                <Button Margin="8,3,3,3" Padding="5" HorizontalContentAlignment="Left"
+                        Grid.Column="1" Grid.Row="0"
+                        Style="{StaticResource ToolBarButtonBaseStyle}"
+                        Command="{x:Static functionality:DesignerCanvas.DistributeHorizontal}"
+                        CommandTarget="{Binding ElementName=DesignersTabControl, Path=SelectedItem, Converter={StaticResource CommandHandlerConverter}}">
+                    <Button.Content>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Image Source="Images/DistributeObjectsHorizontal.png" Width="16"/>
+                            <TextBlock Margin="3" Text="{x:Static prop:Resources.Horizontal}" VerticalAlignment="Center" Grid.Column="1"/>
+                        </Grid>
+                    </Button.Content>
+                </Button>
+                <Button Margin="8,3,3,3" Padding="5" HorizontalContentAlignment="Left"
+                        Grid.Column="1" Grid.Row="1"
+                        Style="{StaticResource ToolBarButtonBaseStyle}"
+                        Command="{x:Static functionality:DesignerCanvas.DistributeVertical}"
+                        CommandTarget="{Binding ElementName=DesignersTabControl, Path=SelectedItem, Converter={StaticResource CommandHandlerConverter}}">
+                    <Button.Content>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Image Source="Images/DistributeObjectsVertical.png" Width="16"/>
+                            <TextBlock Margin="3" Text="{x:Static prop:Resources.Vertical}" VerticalAlignment="Center" Grid.Column="1"/>
+                        </Grid>
+                    </Button.Content>
+                </Button>
+
+                <Line Stroke="{StaticResource ToolbarBorderBrush}" 
+                      Grid.Column="1" Grid.Row="0" Grid.RowSpan="2"
+                      StrokeThickness="1" X1="0" Y1="0" X2="0" Y2="20" Stretch="Fill" HorizontalAlignment="Left"
+                      Margin="3,0,0,0"/>
             </Grid>
         </GroupBox>
 
@@ -253,106 +282,115 @@
                     <ColumnDefinition />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                <StackPanel>
-                    <Button Margin="0,3,0,3" Padding="5" HorizontalContentAlignment="Left"
-                            Style="{StaticResource ToolBarButtonBaseStyle}"
-                            Command="{x:Static functionality:DesignerCanvas.Group}"
-                            CommandTarget="{Binding ElementName=DesignersTabControl, Path=SelectedItem, Converter={StaticResource CommandHandlerConverter}}">
-                        <Button.Content>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Image Source="Images/Group.png" Width="16"/>
-                                <TextBlock Margin="3" Text="{x:Static prop:Resources.Group}" VerticalAlignment="Center" Grid.Column="1"/>
-                            </Grid>
-                        </Button.Content>
-                    </Button>
-                    <Button Margin="0,3,0,3" Padding="5" HorizontalContentAlignment="Left"
-                            Style="{StaticResource ToolBarButtonBaseStyle}"
-                            Command="{x:Static functionality:DesignerCanvas.Ungroup}"
-                            CommandTarget="{Binding ElementName=DesignersTabControl, Path=SelectedItem, Converter={StaticResource CommandHandlerConverter}}">
-                        <Button.Content>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Image Source="Images/Ungroup.png" Width="16"/>
-                                <TextBlock Margin="3" Text="{x:Static prop:Resources.Ungroup}" VerticalAlignment="Center" Grid.Column="1"/>
-                            </Grid>
-                        </Button.Content>
-                    </Button>
-                </StackPanel>
-                <StackPanel Grid.Column="1" Margin="7,0,0,0">
-                    <Button Margin="0,3,0,3" Padding="5" HorizontalContentAlignment="Left"
-                            Style="{StaticResource ToolBarButtonBaseStyle}"
-                            Command="{x:Static functionality:DesignerCanvas.BringForward}"
-                            CommandTarget="{Binding ElementName=DesignersTabControl, Path=SelectedItem, Converter={StaticResource CommandHandlerConverter}}">
-                        <Button.Content>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Image Source="Images/BringForward.png" Width="16"/>
-                                <TextBlock Margin="3" Text="{x:Static prop:Resources.Forward}" VerticalAlignment="Center" Grid.Column="1"/>
-                            </Grid>
-                        </Button.Content>
-                    </Button>
-                    <Button Margin="0,3,0,3" Padding="5" HorizontalContentAlignment="Left"
-                            Style="{StaticResource ToolBarButtonBaseStyle}"
-                            Command="{x:Static functionality:DesignerCanvas.BringToFront}"
-                            CommandTarget="{Binding ElementName=DesignersTabControl, Path=SelectedItem, Converter={StaticResource CommandHandlerConverter}}">
-                        <Button.Content>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Image Source="Images/BringToFront.png" Width="16"/>
-                                <TextBlock Margin="3" Text="{x:Static prop:Resources.ToFront}" VerticalAlignment="Center" Grid.Column="1"/>
-                            </Grid>
-                        </Button.Content>
-                    </Button>
-                </StackPanel>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Button Margin="0,3,0,3" Padding="5" HorizontalContentAlignment="Left"
+                        Grid.Column="0" Grid.Row="0"
+                        Style="{StaticResource ToolBarButtonBaseStyle}"
+                        Command="{x:Static functionality:DesignerCanvas.Group}"
+                        CommandTarget="{Binding ElementName=DesignersTabControl, Path=SelectedItem, Converter={StaticResource CommandHandlerConverter}}">
+                    <Button.Content>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Image Source="Images/Group.png" Width="16"/>
+                            <TextBlock Margin="3" Text="{x:Static prop:Resources.Group}" VerticalAlignment="Center" Grid.Column="1"/>
+                        </Grid>
+                    </Button.Content>
+                </Button>
+                <Button Margin="0,3,0,3" Padding="5" HorizontalContentAlignment="Left"
+                        Grid.Column="0" Grid.Row="1"
+                        Style="{StaticResource ToolBarButtonBaseStyle}"
+                        Command="{x:Static functionality:DesignerCanvas.Ungroup}"
+                        CommandTarget="{Binding ElementName=DesignersTabControl, Path=SelectedItem, Converter={StaticResource CommandHandlerConverter}}">
+                    <Button.Content>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Image Source="Images/Ungroup.png" Width="16"/>
+                            <TextBlock Margin="3" Text="{x:Static prop:Resources.Ungroup}" VerticalAlignment="Center" Grid.Column="1"/>
+                        </Grid>
+                    </Button.Content>
+                </Button>
+                
+                <Button Margin="7,3,0,3" Padding="5" HorizontalContentAlignment="Left"
+                        Grid.Column="1" Grid.Row="0"
+                        Style="{StaticResource ToolBarButtonBaseStyle}"
+                        Command="{x:Static functionality:DesignerCanvas.BringForward}"
+                        CommandTarget="{Binding ElementName=DesignersTabControl, Path=SelectedItem, Converter={StaticResource CommandHandlerConverter}}">
+                    <Button.Content>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Image Source="Images/BringForward.png" Width="16"/>
+                            <TextBlock Margin="3" Text="{x:Static prop:Resources.Forward}" VerticalAlignment="Center" Grid.Column="1"/>
+                        </Grid>
+                    </Button.Content>
+                </Button>
+                <Button Margin="7,3,0,3" Padding="5" HorizontalContentAlignment="Left"
+                        Grid.Column="1" Grid.Row="1"
+                        Style="{StaticResource ToolBarButtonBaseStyle}"
+                        Command="{x:Static functionality:DesignerCanvas.BringToFront}"
+                        CommandTarget="{Binding ElementName=DesignersTabControl, Path=SelectedItem, Converter={StaticResource CommandHandlerConverter}}">
+                    <Button.Content>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Image Source="Images/BringToFront.png" Width="16"/>
+                            <TextBlock Margin="3" Text="{x:Static prop:Resources.ToFront}" VerticalAlignment="Center" Grid.Column="1"/>
+                        </Grid>
+                    </Button.Content>
+                </Button>
+
                 <Line Stroke="{StaticResource ToolbarBorderBrush}" 
+                      Grid.Column="1" Grid.Row="0" Grid.RowSpan="2"
                       StrokeThickness="1" X1="0" Y1="0" X2="0" Y2="20" 
                       Stretch="Fill" HorizontalAlignment="Left"
-                      Grid.Column="1" Margin="3,0,0,0"/>
-                <StackPanel Grid.Column="2">
-                    <Button Margin="0,3,0,3" Padding="5" HorizontalContentAlignment="Left"
-                            Style="{StaticResource ToolBarButtonBaseStyle}"
-                            Command="{x:Static functionality:DesignerCanvas.SendBackward}"
-                            CommandTarget="{Binding ElementName=DesignersTabControl, Path=SelectedItem, Converter={StaticResource CommandHandlerConverter}}">
-                        <Button.Content>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Image Source="Images/SendBackward.png" Width="16"/>
-                                <TextBlock Margin="3" Text="{x:Static prop:Resources.Backward}" VerticalAlignment="Center"  Grid.Column="1"/>
-                             </Grid>
-                        </Button.Content>
-                    </Button>
-                    <Button Margin="0,3,0,3" Padding="5" HorizontalContentAlignment="Left"
-                            Style="{StaticResource ToolBarButtonBaseStyle}"
-                            Command="{x:Static functionality:DesignerCanvas.SendToBack}"
-                            CommandTarget="{Binding ElementName=DesignersTabControl, Path=SelectedItem, Converter={StaticResource CommandHandlerConverter}}">
-                        <Button.Content>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Image Source="Images/SendToBack.png" Width="16"/>
-                                <TextBlock Margin="3" Text="{x:Static prop:Resources.ToBack}" VerticalAlignment="Center" Grid.Column="1"/>
-                            </Grid>
-                        </Button.Content>
-                    </Button>
-                </StackPanel>
+                      Margin="3,0,0,0"/>
+
+                <Button Margin="0,3,0,3" Padding="5" HorizontalContentAlignment="Left"
+                        Grid.Column="2" Grid.Row="0"
+                        Style="{StaticResource ToolBarButtonBaseStyle}"
+                        Command="{x:Static functionality:DesignerCanvas.SendBackward}"
+                        CommandTarget="{Binding ElementName=DesignersTabControl, Path=SelectedItem, Converter={StaticResource CommandHandlerConverter}}">
+                    <Button.Content>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Image Source="Images/SendBackward.png" Width="16"/>
+                            <TextBlock Margin="3" Text="{x:Static prop:Resources.Backward}" VerticalAlignment="Center"  Grid.Column="1"/>
+                         </Grid>
+                    </Button.Content>
+                </Button>
+                <Button Margin="0,3,0,3" Padding="5" HorizontalContentAlignment="Left"
+                        Grid.Column="2" Grid.Row="1"
+                        Style="{StaticResource ToolBarButtonBaseStyle}"
+                        Command="{x:Static functionality:DesignerCanvas.SendToBack}"
+                        CommandTarget="{Binding ElementName=DesignersTabControl, Path=SelectedItem, Converter={StaticResource CommandHandlerConverter}}">
+                    <Button.Content>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Image Source="Images/SendToBack.png" Width="16"/>
+                            <TextBlock Margin="3" Text="{x:Static prop:Resources.ToBack}" VerticalAlignment="Center" Grid.Column="1"/>
+                        </Grid>
+                    </Button.Content>
+                </Button>
             </Grid>
         </GroupBox>
     </ToolBar>
