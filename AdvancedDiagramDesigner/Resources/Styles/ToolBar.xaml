@@ -53,8 +53,8 @@
             x:Name="Border"
             BorderThickness="1"
             Background="Transparent"
-            BorderBrush="Transparent"
-            CornerRadius="3">
+            BorderBrush="Transparent">
+              <!--CornerRadius="3"-->
             <ContentPresenter
               Margin="{TemplateBinding Padding}"
               HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
@@ -209,9 +209,9 @@
         <ControlTemplate TargetType="{x:Type ToolBar}">
           <Border x:Name="Border"
             CornerRadius="2"
-            BorderThickness="1"
-            Background="{StaticResource ToolbarBrush}"
-            BorderBrush="{StaticResource ToolbarDarkBorderBrush}">
+            BorderThickness="1">
+              <!--Background="{StaticResource ToolbarBrush}"
+              BorderBrush="{StaticResource ToolbarDarkBorderBrush}"-->
             <DockPanel >
               <ToggleButton DockPanel.Dock="Right"
                 IsEnabled="{TemplateBinding HasOverflowItems}"
