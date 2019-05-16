@@ -106,6 +106,15 @@ namespace DiagramDesigner.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Click to open.
+        /// </summary>
+        public static string ClickToOpen {
+            get {
+                return ResourceManager.GetString("ClickToOpen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Copy.
         /// </summary>
         public static string Copy {

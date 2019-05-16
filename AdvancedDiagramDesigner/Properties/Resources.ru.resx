@@ -132,6 +132,9 @@
   <data name="BringToFront" xml:space="preserve">
     <value>Поверх всех</value>
   </data>
+  <data name="ClickToOpen" xml:space="preserve">
+    <value>Открыть</value>
+  </data>
   <data name="Copy" xml:space="preserve">
     <value>Копировать</value>
   </data>

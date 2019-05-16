@@ -113,6 +113,30 @@ namespace DiagramDesigner.Functionality
                         {
                             foreach (var child in itemGrid.Children)
                             {
+                                if (child is Button button)
+                                {
+                                    if (conCtrl.Tag is ToolboxItemSettings toolboxItemSettings)
+                                    {
+                                        var bindingLeft = new Binding("ActualWidth");
+                                        bindingLeft.Source = itemGrid;
+
+                                        var bindingTop = new Binding("ActualHeight");
+                                        bindingTop.Source = itemGrid;
+
+                                        var multiBinding = new MultiBinding();
+                                        multiBinding.Bindings.Add(bindingLeft);
+                                        multiBinding.Bindings.Add(bindingTop);
+                                        multiBinding.Converter = new RelativeMarginToMarginConverter(toolboxItemSettings.Container.RelativeMargin);
+
+                                        button.SetBinding(Button.MarginProperty, multiBinding);
+
+                                        (button.Content as TextBlock).Visibility = Visibility.Visible;
+
+                                        // TODO: Open Diagram
+                                        button.Click += (sender, args) => MessageBox.Show("Click");
+                                    }
+                                }
+
                                 if (child is TextBlock conCapture)
                                 {
                                     var bindingLeft = new Binding("ActualWidth");

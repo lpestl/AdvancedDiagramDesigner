@@ -224,7 +224,7 @@ namespace DiagramDesigner.Functionality
         {
             base.OnMouseDoubleClick(e);
 
-            var shapeContent = GetShape();
+            FrameworkElement shapeContent = GetShape() ?? (FrameworkElement) ((this.Content as ContentControl) ?? (this.Content as Grid)?.Children[0]);
             ClearContent();
             
             // Creat text box for inputing name
@@ -286,13 +286,13 @@ namespace DiagramDesigner.Functionality
 
         private void NameEditBoxOnLostFocus(object sender, RoutedEventArgs routedEventArgs)
         {
-            var shape = GetShape();
+            FrameworkElement shapeContent = GetShape() ?? (FrameworkElement)((this.Content as Grid)?.Children[0]);
             ClearContent();
 
             var inputBox = sender as TextBox;
             if (inputBox == null)
             {
-                this.Content = shape;
+                this.Content = shapeContent;
                 Caption = string.Empty;
                 return;
             }
@@ -313,7 +313,7 @@ namespace DiagramDesigner.Functionality
             };
 
             // Creat grid with figure (Shape.Path) and nameTextBlock
-            var grid = new Grid { Children = { shape, nameTextBlock } };
+            var grid = new Grid { Children = { shapeContent, nameTextBlock } };
 
             this.Content = grid;
         }

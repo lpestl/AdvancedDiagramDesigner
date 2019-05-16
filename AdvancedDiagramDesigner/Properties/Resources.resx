@@ -132,6 +132,9 @@
   <data name="BringToFront" xml:space="preserve">
     <value>Bring To Front</value>
   </data>
+  <data name="ClickToOpen" xml:space="preserve">
+    <value>Click to open</value>
+  </data>
   <data name="Copy" xml:space="preserve">
     <value>Copy</value>
   </data>
