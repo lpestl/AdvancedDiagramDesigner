@@ -786,7 +786,8 @@ namespace DiagramDesigner.Functionality
                 try
                 {
                     curreentXml = XElement.Load(openFile.FileName);
-                    Caption = Path.GetFileName(openFile.FileName);
+                    this.DiagramXmlFileInfo = new FileInfo(openFile.FileName);
+                    this.Caption = Path.GetFileName(openFile.FileName);
                 }
                 catch (Exception e)
                 {
@@ -807,6 +808,7 @@ namespace DiagramDesigner.Functionality
                 try
                 {
                     xElement.Save(saveFile.FileName);
+                    this.DiagramXmlFileInfo = new FileInfo(saveFile.FileName);
                     this.Caption = Path.GetFileName(saveFile.FileName);
                 }
                 catch (Exception ex)

@@ -135,6 +135,12 @@
   <data name="ClickToOpen" xml:space="preserve">
     <value>Click to open</value>
   </data>
+  <data name="ContainerCaptionIsClearMessage" xml:space="preserve">
+    <value>No name was specified for the container, so a nested chart cannot be created. Give this container a name and repeat the opening of the nested chart.</value>
+  </data>
+  <data name="ContainerCaptionIsClearTitle" xml:space="preserve">
+    <value>Container name not set</value>
+  </data>
   <data name="Copy" xml:space="preserve">
     <value>Copy</value>
   </data>
@@ -206,6 +212,12 @@ Detailed error description:
   </data>
   <data name="SaveAfterCloseTitle" xml:space="preserve">
     <value>Save changes?</value>
+  </data>
+  <data name="SaveDiagramForAttachMessage" xml:space="preserve">
+    <value>Save the chart so that it is possible to create a nested chart dependent on the current one.</value>
+  </data>
+  <data name="SaveDiagramForAttachTitle" xml:space="preserve">
+    <value>Save the chart to create attachments.</value>
   </data>
   <data name="SelectAll" xml:space="preserve">
     <value>Select All</value>

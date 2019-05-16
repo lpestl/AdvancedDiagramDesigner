@@ -192,7 +192,7 @@
                                           PathStyle="{StaticResource Square}"
                                           PathStyle_DragThumb="{StaticResource Square_DragThumb}">
                     <core:ToolboxItemSettings.Container>
-                        <core:Container RelativeMargin="0.2,0.1,0.2,0.7"/>
+                        <core:Container RelativeMargin="0.1,0.1,0.1,0.6"/>
                     </core:ToolboxItemSettings.Container>
                 </core:ToolboxItemSettings>
 

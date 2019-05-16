@@ -9,6 +9,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Markup;
+using System.Windows.Media;
 using System.Xml;
 using ToolboxDesigner.Core;
 
@@ -22,6 +23,8 @@ namespace DiagramDesigner.Functionality
         // UPD: Updated and readable style
         internal SelectionService SelectionService => selectionService ?? (selectionService = new SelectionService(this));
         
+        public FileInfo DiagramXmlFileInfo { get; set; }
+
         // UPD: Caption for tabItem
         private string _caption = Properties.Resources.NewDiagram;
         public string Caption
@@ -132,8 +135,7 @@ namespace DiagramDesigner.Functionality
 
                                         (button.Content as TextBlock).Visibility = Visibility.Visible;
 
-                                        // TODO: Open Diagram
-                                        button.Click += (sender, args) => MessageBox.Show("Click");
+                                        button.Click += ButtonOnClick;
                                     }
                                 }
 
@@ -198,7 +200,51 @@ namespace DiagramDesigner.Functionality
                 e.Handled = true;
             }
         }
-        
+
+        private void ButtonOnClick(object sender, RoutedEventArgs e)
+        {
+            DesignerItem container = FindParent<DesignerItem>(sender as Button);
+
+            if (string.IsNullOrEmpty(container.Caption))
+            {
+                MessageBox.Show(Properties.Resources.ContainerCaptionIsClearMessage,
+                    Properties.Resources.ContainerCaptionIsClearTitle, MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            if (DiagramXmlFileInfo == null)
+            {
+                MessageBox.Show(Properties.Resources.SaveDiagramForAttachMessage,
+                    Properties.Resources.SaveDiagramForAttachTitle, MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            var dir = DiagramXmlFileInfo.Directory;
+            var files = dir.GetFiles("*.xml", SearchOption.TopDirectoryOnly);
+            var dependensDiagramXmlName = $"{container.Caption}.xml";
+
+            FileInfo diagramFile = null;
+            foreach (var fileInfo in files)
+            {
+                if (Path.GetFileName(fileInfo.FullName).ToLower().Equals(dependensDiagramXmlName.ToLower()))
+                {
+                    diagramFile = fileInfo;
+                }
+            }
+
+            // TODO: Open or Create file
+        }
+
+        private T FindParent<T>(DependencyObject child) where T : DependencyObject
+        {
+            var parentWithoutType = VisualTreeHelper.GetParent(child);
+            T parent = parentWithoutType as T;
+            if (parent != null)
+                return parent;
+            else
+                return FindParent<T>(parentWithoutType);
+        }
+
         protected override Size MeasureOverride(Size constraint)
         {
             Size size = new Size();
