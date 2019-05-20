@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Markup;
 using System.Windows.Media;
 using System.Xml;
+using System.Xml.Linq;
+using DiagramDesigner.Views;
 using ToolboxDesigner.Core;
 
 namespace DiagramDesigner.Functionality
@@ -226,13 +228,39 @@ namespace DiagramDesigner.Functionality
             FileInfo diagramFile = null;
             foreach (var fileInfo in files)
             {
-                if (Path.GetFileName(fileInfo.FullName).ToLower().Equals(dependensDiagramXmlName.ToLower()))
+                if (Path.GetFileName(fileInfo.FullName).ToLower().Equals(container.Caption.ToLower()))
                 {
                     diagramFile = fileInfo;
                 }
             }
 
-            // TODO: Open or Create file
+            if (diagramFile == null)
+            {
+                var settingsDir = CheckSettingsDirectory();
+                files = settingsDir.GetFiles();
+
+                FileInfo defaultFileInfo = null;
+                foreach (var fileInfo in files)
+                    if (fileInfo.Name.Equals("default.xml"))
+                        defaultFileInfo = fileInfo;
+
+                var dirPath = dir.FullName[dir.FullName.Length - 1] == '\\'
+                    ? dir.FullName
+                    : $"{dir.FullName}\\";
+                diagramFile = defaultFileInfo?.CopyTo($"{dirPath}{dependensDiagramXmlName}") ?? new FileInfo($"{dirPath}{dependensDiagramXmlName}");
+                if (!diagramFile.Exists)
+                {
+                    XElement r = new XElement("Root");
+                    r.Save(diagramFile.FullName);
+
+                }
+            }
+
+            MainWindow mainWindow = FindParent<MainWindow>(this);
+
+            var newDesigner = mainWindow.AddNewTab();
+            var root = newDesigner.LoadSerializedDataFromFile(diagramFile.FullName);
+            newDesigner.RestoreDiagramFromXElement(root);
         }
 
         private T FindParent<T>(DependencyObject child) where T : DependencyObject

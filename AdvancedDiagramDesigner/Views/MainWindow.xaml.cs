@@ -43,7 +43,7 @@ namespace DiagramDesigner.Views
 
         #region Designer`s tabs contol
 
-        private DesignerCanvas AddNewTab()
+        public DesignerCanvas AddNewTab()
         {
             var header = new TabItemHeader(Properties.Resources.NewDiagram);
             header.CloseMouseUpEventHandler += CloseDiagram_MouseUp;
