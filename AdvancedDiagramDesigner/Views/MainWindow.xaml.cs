@@ -16,7 +16,7 @@ using Xceed.Wpf.Toolkit.PropertyGrid;
 
 namespace DiagramDesigner.Views
 {
-    public partial class MainWindow : Window, INotifyPropertyChanged
+    public partial class MainWindow : Window
     {
         public MainWindow()
         {
@@ -128,17 +128,9 @@ namespace DiagramDesigner.Views
 
         #endregion
         
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
         private void DesignersTabControl_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //SelectedTabIndex = (sender as TabControl).SelectedIndex;
+            
         }
     }
 }
