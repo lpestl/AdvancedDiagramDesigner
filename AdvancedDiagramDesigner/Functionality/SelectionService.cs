@@ -17,13 +17,27 @@ namespace DiagramDesigner.Functionality
         {
             this.designerCanvas = canvas;
         }
-        
+
+        internal DesignerItem GetSelectedDesignItem()
+        {
+            DesignerItem selectedItem = null;
+            foreach (var selectable in CurrentSelection)
+            {
+                if (selectable is DesignerItem designerItem)
+                {
+                    selectedItem = designerItem;
+                }
+            }
+
+            return selectedItem;
+        }
+
         internal void SelectItem(ISelectable item)
         {
             this.ClearSelection();
             this.AddToSelection(item);
         }
-
+        
         internal void AddToSelection(ISelectable item)
         {
             if (item is IGroupable)

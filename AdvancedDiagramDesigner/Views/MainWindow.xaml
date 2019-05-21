@@ -38,7 +38,7 @@
                     VerticalAlignment="Stretch" HorizontalAlignment="Right"/>
 
             <!-- Designer -->
-            <GroupBox Header="{x:Static prop:Resources.Diagram}" Grid.Column="1" Margin="3,0,5,0">
+            <GroupBox x:Name="GroupBoxDesigners"  Header="{x:Static prop:Resources.Diagram}" Grid.Column="1" Margin="3,0,5,0">
                 <TabControl x:Name="DesignersTabControl" SelectionChanged="DesignersTabControl_OnSelectionChanged"/>
             </GroupBox>
 
@@ -47,10 +47,13 @@
                           VerticalAlignment="Stretch" HorizontalAlignment="Right"/>
 
 
-            <Expander Grid.Column="2" Header="{x:Static prop:Resources.Properties}" IsExpanded="True" Margin="3,0,0,0">
-                <xctk:PropertyGrid x:Name="ItemPropertyGrid" 
-                                   AutoGenerateProperties="True">
-                </xctk:PropertyGrid>
+            <Expander x:Name="PropertiesExpander"  Grid.Column="2" Header="{x:Static prop:Resources.Properties}" IsExpanded="True" Margin="3,0,0,0" Height="{Binding Path=ActualHeight, ElementName=GroupBoxDesigners}">
+                <!--<ScrollViewer VerticalScrollBarVisibility="Visible">-->
+                    <xctk:PropertyGrid x:Name="ItemPropertyGrid" 
+                                       Height="{Binding Path=ActualHeight, ElementName=DesignersTabControl}"
+                                       AutoGenerateProperties="True">
+                    </xctk:PropertyGrid>
+                <!--</ScrollViewer>-->
             </Expander>
         </Grid>
     </Grid>

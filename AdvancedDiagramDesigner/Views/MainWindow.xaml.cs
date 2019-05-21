@@ -64,7 +64,7 @@ namespace DiagramDesigner.Views
             });
             SetVisibilityTabItemHeaders(DesignersTabControl.Items.Count > 1 ? Visibility.Visible : Visibility.Collapsed);
 
-            DesignersTabControl.SelectedIndex = DesignersTabControl.Items.Count - 1;
+            DesignersTabControl.SelectedIndex = index;
 
             return content.Designer;
         }
@@ -130,7 +130,25 @@ namespace DiagramDesigner.Views
         
         private void DesignersTabControl_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            
+            if ((e.RemovedItems.Count != 0) && (e.RemovedItems[0] is TabItem tabItem) && (tabItem.Content is DiagramControl olddiagramControl))
+                olddiagramControl.Designer.SelectionService.CurrentSelection.CollectionChanged -= CurrentSelectionOnCollectionChanged;
+
+            if ((e.AddedItems.Count != 0) && (e.AddedItems[0] is TabItem tabNewItem) && (tabNewItem.Content is DiagramControl newdiagramControl))
+            {
+                ItemPropertyGrid.SelectedObject = newdiagramControl.Designer.SelectionService.GetSelectedDesignItem();
+                newdiagramControl.Designer.SelectionService.CurrentSelection.CollectionChanged +=
+                    CurrentSelectionOnCollectionChanged;
+            }
+
+        }
+
+        private void CurrentSelectionOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            var selectionService =
+                ((DesignersTabControl.Items[DesignersTabControl.SelectedIndex] as TabItem)?.Content as DiagramControl)?.Designer.SelectionService;
+
+            if (selectionService != null)
+                ItemPropertyGrid.SelectedObject = selectionService.GetSelectedDesignItem();
         }
     }
 }
