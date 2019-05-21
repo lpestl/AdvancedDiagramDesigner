@@ -135,7 +135,7 @@ namespace DiagramDesigner.Views
 
             if ((e.AddedItems.Count != 0) && (e.AddedItems[0] is TabItem tabNewItem) && (tabNewItem.Content is DiagramControl newdiagramControl))
             {
-                ItemPropertyGrid.SelectedObject = newdiagramControl.Designer.SelectionService.GetSelectedDesignItem();
+                ItemPropertyGrid.SelectedObject = newdiagramControl.Designer.SelectionService.GetSelectedDesignItem()?.PropertiesHandler;
                 newdiagramControl.Designer.SelectionService.CurrentSelection.CollectionChanged +=
                     CurrentSelectionOnCollectionChanged;
             }
@@ -148,7 +148,7 @@ namespace DiagramDesigner.Views
                 ((DesignersTabControl.Items[DesignersTabControl.SelectedIndex] as TabItem)?.Content as DiagramControl)?.Designer.SelectionService;
 
             if (selectionService != null)
-                ItemPropertyGrid.SelectedObject = selectionService.GetSelectedDesignItem();
+                ItemPropertyGrid.SelectedObject = selectionService.GetSelectedDesignItem()?.PropertiesHandler;
         }
     }
 }
