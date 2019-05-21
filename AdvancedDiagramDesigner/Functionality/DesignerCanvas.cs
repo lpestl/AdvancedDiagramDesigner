@@ -171,8 +171,12 @@ namespace DiagramDesigner.Functionality
                     {
                         newItem.NoDelete = itemSettings.NoDelete;
                         newItem.Proportional = itemSettings.Proportional;
-                        if (itemSettings.Properties.Any())
-                            newItem.PropertiesHandler = itemSettings.Properties[0];
+
+                        var typePropertiesOwner =
+                            BuilderTypePropertiesOwner.CompileResultType(itemSettings.Properties, newItem.ID.ToString());
+                        newItem.PropertiesHandler = Activator.CreateInstance(typePropertiesOwner);
+
+                        newItem.SetPropertiesValues(itemSettings.Properties);
                     }
 
                     Point position = e.GetPosition(this);

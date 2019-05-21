@@ -41,6 +41,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="PresentationFramework.Aero2">
       <Private>True</Private>
     </Reference>
@@ -145,6 +146,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Functionality\BuilderTypePropertiesOwner.cs" />
     <Compile Include="Functionality\CommandHandlerConverter.cs" />
     <Compile Include="Functionality\TabItemHeader.cs" />
     <Compile Include="Functionality\ScrollViewerExtended.cs" />

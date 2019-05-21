@@ -1,5 +1,11 @@
 ﻿using System;
+using System.Collections.ObjectModel;
+using System.Dynamic;
+using System.Linq;
+using System.Text;
+using System.Reflection;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -44,7 +50,19 @@ namespace DiagramDesigner.Functionality
         #endregion
         
         // TODO: Create dynamic type for PropertiesHandler
-        public Property PropertiesHandler { get; set; }
+        private dynamic _propertiesHandler;
+
+        public dynamic PropertiesHandler
+        {
+            get => _propertiesHandler;
+            set
+            {
+                if (_propertiesHandler != value)
+                {
+                    _propertiesHandler = value;
+                }
+            }
+        }
 
         public bool NoDelete { get; set; }
 
@@ -327,6 +345,58 @@ namespace DiagramDesigner.Functionality
         {
             (this.Content as Grid)?.Children.Clear();
             this.Content = null;
+        }
+
+        public void SetPropertiesValues(PropertiesCollection itemSettingsProperties)
+        {
+            foreach (var property in itemSettingsProperties)
+            {
+                dynamic prop = null;
+
+                if (!string.IsNullOrEmpty(property.DefaultValue))
+                {
+                    if (property.Type.ToLower().Equals("int32"))
+                        prop = Int32.Parse(property.DefaultValue);
+                    else
+                    if (property.Type.ToLower().Equals("int64"))
+                        prop = Int64.Parse(property.DefaultValue);
+                    else
+                    if (property.Type.ToLower().Equals("bool"))
+                        prop = bool.Parse(property.DefaultValue);
+                    else
+                    if (property.Type.ToLower().Equals("float"))
+                        prop = float.Parse(property.DefaultValue, new CultureInfo("EN-en"));
+                    else if (property.Type.ToLower().Equals("double"))
+                        prop = double.Parse(property.DefaultValue, new CultureInfo("EN-en"));
+                    else
+                    if (property.Type.ToLower().Equals("date") || property.Type.ToLower().Equals("datetime"))
+                        prop = DateTime.Parse(property.DefaultValue);
+                    //else
+                    //if (property.Type.ToLower().Equals("enum"))
+                    //    prop = typeof(Enum);
+                }
+
+                if (!string.IsNullOrEmpty(property.Value))
+                {
+                    if (property.Type.ToLower().Equals("int32"))
+                        prop = Int32.Parse(property.Value);
+                    else if (property.Type.ToLower().Equals("int64"))
+                        prop = Int64.Parse(property.Value);
+                    else if (property.Type.ToLower().Equals("bool"))
+                        prop = bool.Parse(property.Value);
+                    else if (property.Type.ToLower().Equals("float"))
+                        prop = float.Parse(property.Value);
+                    else if (property.Type.ToLower().Equals("double"))
+                        prop = double.Parse(property.Value);
+                    else if (property.Type.ToLower().Equals("date") || property.Type.ToLower().Equals("datetime"))
+                        prop = DateTime.Parse(property.Value);
+                    //else
+                    //if (property.Type.ToLower().Equals("enum"))
+                    //    prop = typeof(Enum);
+                }
+
+                PropertiesHandler.GetType().GetProperty(property.Name).SetValue(PropertiesHandler, prop);
+            }
         }
     }
 }

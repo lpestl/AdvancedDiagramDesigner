@@ -207,7 +207,7 @@
                             <core:Property Name="Some bool" CatalogName="Extended properties" Tooltip="This is Bool" Type="bool" DefaultValue="True" />
                             <core:Property Name="Some Int64" CatalogName="Extended properties" Tooltip="This is Int64" Type="Int64" DefaultValue="0" />
                             <core:Property Name="Some double" CatalogName="Extended properties" Tooltip="This is double" Type="double" DefaultValue="0.00001" />
-                            <core:Property Name="Some enum" CatalogName="Extended properties" Tooltip="This is enum" Type="enum" EnumVariants="enum1;enum2;enum3" />
+                            <!--<core:Property Name="Some enum" CatalogName="Extended properties" Tooltip="This is enum" Type="enum" EnumVariants="enum1;enum2;enum3" />-->
                             <core:Property Name="Some date" CatalogName="Extended properties" Tooltip="This is date" Type="date" DefaultValue="21.05.2019" />
                             <core:Property Name="Some dateTime" CatalogName="Extended properties" Tooltip="This is dateTime" Type="dateTime" DefaultValue="21.05.2019 12:00" />
                         </core:PropertiesCollection>
