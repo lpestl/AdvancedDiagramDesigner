@@ -1,16 +1,22 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.ComponentModel;
+using System.Globalization;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
+using DiagramDesigner.Annotations;
 using DiagramDesigner.Functionality;
+using Xceed.Wpf.Toolkit.PropertyGrid;
 
 namespace DiagramDesigner.Views
 {
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, INotifyPropertyChanged
     {
         public MainWindow()
         {
@@ -58,7 +64,7 @@ namespace DiagramDesigner.Views
             });
             SetVisibilityTabItemHeaders(DesignersTabControl.Items.Count > 1 ? Visibility.Visible : Visibility.Collapsed);
 
-            DesignersTabControl.SelectedIndex = index;
+            DesignersTabControl.SelectedIndex = DesignersTabControl.Items.Count - 1;
 
             return content.Designer;
         }
@@ -121,6 +127,18 @@ namespace DiagramDesigner.Views
         }
 
         #endregion
+        
+        public event PropertyChangedEventHandler PropertyChanged;
 
+        [NotifyPropertyChangedInvocator]
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private void DesignersTabControl_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            //SelectedTabIndex = (sender as TabControl).SelectedIndex;
+        }
     }
 }

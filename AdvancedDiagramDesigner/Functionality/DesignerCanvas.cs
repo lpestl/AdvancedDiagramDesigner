@@ -41,7 +41,7 @@ namespace DiagramDesigner.Functionality
                 }
             }
         }
-
+        
         protected override void OnMouseDown(MouseButtonEventArgs e)
         {
             base.OnMouseDown(e);
@@ -171,6 +171,8 @@ namespace DiagramDesigner.Functionality
                     {
                         newItem.NoDelete = itemSettings.NoDelete;
                         newItem.Proportional = itemSettings.Proportional;
+                        if (itemSettings.Properties.Any())
+                            newItem.PropertiesHandler = itemSettings.Properties[0];
                     }
 
                     Point position = e.GetPosition(this);

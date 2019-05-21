@@ -27,7 +27,10 @@ namespace ToolboxDesigner.Core
         public bool Proportional { get; set; }
         public Container Container { get; set; }
         public ConnectorsSettingsCollection ConnectorsSettings { get; set; } //= new ConnectorsSettingsCollection();
+        public PropertiesCollection Properties { get; set; } = new PropertiesCollection();
     }
+
+    public class PropertiesCollection : List<Property> { }
 
     public class ConnectorsSettingsCollection : List<ConnectorSettings> { }
 

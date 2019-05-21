@@ -39,7 +39,7 @@
 
             <!-- Designer -->
             <GroupBox Header="{x:Static prop:Resources.Diagram}" Grid.Column="1" Margin="3,0,5,0">
-                <TabControl x:Name="DesignersTabControl" />
+                <TabControl x:Name="DesignersTabControl" SelectionChanged="DesignersTabControl_OnSelectionChanged"/>
             </GroupBox>
 
             <!-- GridSplitter -->

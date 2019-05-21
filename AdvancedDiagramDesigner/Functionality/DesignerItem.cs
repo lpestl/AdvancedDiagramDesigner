@@ -7,6 +7,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
 using DiagramDesigner.Controls;
+using ToolboxDesigner.Core;
 
 namespace DiagramDesigner.Functionality
 {
@@ -42,6 +43,9 @@ namespace DiagramDesigner.Functionality
 
         #endregion
         
+        // TODO: Create dynamic type for PropertiesHandler
+        public Property PropertiesHandler { get; set; }
+
         public bool NoDelete { get; set; }
 
         public bool Proportional { get; set; }

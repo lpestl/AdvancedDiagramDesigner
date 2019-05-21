@@ -149,6 +149,7 @@
     <Compile Include="Functionality\TabItemHeader.cs" />
     <Compile Include="Functionality\ScrollViewerExtended.cs" />
     <Compile Include="Functionality\ToolboxImporter.cs" />
+    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Views\DiagramControl.xaml.cs">
       <DependentUpon>DiagramControl.xaml</DependentUpon>
     </Compile>

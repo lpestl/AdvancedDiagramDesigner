@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Linq;
 
 namespace DiagramDesigner.Functionality
@@ -9,13 +11,13 @@ namespace DiagramDesigner.Functionality
         private Functionality.DesignerCanvas designerCanvas;
 
         // UPD: Updated and readable style
-        internal List<ISelectable> CurrentSelection { get; } = new List<ISelectable>();
+        internal ObservableCollection<ISelectable> CurrentSelection { get; } = new ObservableCollection<ISelectable>();
 
         public SelectionService(Functionality.DesignerCanvas canvas)
         {
             this.designerCanvas = canvas;
         }
-
+        
         internal void SelectItem(ISelectable item)
         {
             this.ClearSelection();
@@ -62,15 +64,28 @@ namespace DiagramDesigner.Functionality
 
         internal void ClearSelection()
         {
-            CurrentSelection.ForEach(item => item.IsSelected = false);
+            //CurrentSelection.ForEach(item => item.IsSelected = false);
+            foreach (var item in CurrentSelection)
+            {
+                item.IsSelected = false;
+            }
             CurrentSelection.Clear();
         }
 
         internal void SelectAll()
         {
             ClearSelection();
-            CurrentSelection.AddRange(designerCanvas.Children.OfType<ISelectable>());
-            CurrentSelection.ForEach(item => item.IsSelected = true);
+            //CurrentSelection.AddRange(designerCanvas.Children.OfType<ISelectable>());
+            var children = designerCanvas.Children.OfType<ISelectable>();
+            foreach (var selectable in children)
+            {
+                CurrentSelection.Add(selectable);
+            }
+            //CurrentSelection.ForEach(item => item.IsSelected = true);
+            foreach (var item in CurrentSelection)
+            {
+                item.IsSelected = true;
+            }
         }
 
         internal List<IGroupable> GetGroupMembers(IGroupable item)
