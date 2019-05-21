@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Threading;
 using DiagramDesigner.Controls;
 using ToolboxDesigner.Core;
+using Xceed.Wpf.Toolkit.PropertyGrid;
 
 namespace DiagramDesigner.Functionality
 {
@@ -48,7 +49,9 @@ namespace DiagramDesigner.Functionality
         public DateTime DateTimeCreated { get; set; }
 
         #endregion
-        
+
+        public ToolboxItemSettings ToolboxItemSettings => (ToolboxItemSettings) (Content as ContentControl)?.Tag;
+
         // TODO: Create dynamic type for PropertiesHandler
         private dynamic _propertiesHandler;
 
@@ -396,6 +399,21 @@ namespace DiagramDesigner.Functionality
                 }
 
                 PropertiesHandler.GetType().GetProperty(property.Name).SetValue(PropertiesHandler, prop);
+            }
+        }
+
+        public void PropertyValueChanged(object sender, PropertyValueChangedEventArgs e)
+        {
+            var changedProperty = (e.OriginalSource as PropertyItem);
+
+            if (!string.IsNullOrEmpty(changedProperty?.DisplayName))
+            {
+                var setting = ToolboxItemSettings.Properties.FirstOrDefault(x =>
+                    x.Name.ToLower().Equals(changedProperty.DisplayName.ToLower()));
+                if (setting != null)
+                {
+                    setting.Value = e.NewValue.ToString();
+                }
             }
         }
     }

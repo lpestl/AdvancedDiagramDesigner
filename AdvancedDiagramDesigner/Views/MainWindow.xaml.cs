@@ -28,6 +28,8 @@ namespace DiagramDesigner.Views
             var toolboxImporter = new ToolboxImporter(ToolboxesHandle);
             toolboxImporter.Scan();
 
+            ItemPropertyGrid.PropertyValueChanged += ItemPropertyGridOnPropertyValueChanged;
+
             New_Executed(this, null);
         }
         
@@ -139,7 +141,6 @@ namespace DiagramDesigner.Views
                 newdiagramControl.Designer.SelectionService.CurrentSelection.CollectionChanged +=
                     CurrentSelectionOnCollectionChanged;
             }
-
         }
 
         private void CurrentSelectionOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -149,6 +150,18 @@ namespace DiagramDesigner.Views
 
             if (selectionService != null)
                 ItemPropertyGrid.SelectedObject = selectionService.GetSelectedDesignItem()?.PropertiesHandler;
+        }
+        
+        private void ItemPropertyGridOnPropertyValueChanged(object sender, PropertyValueChangedEventArgs propertyValueChangedEventArgs)
+        {
+            var selectionService =
+                ((DesignersTabControl.Items[DesignersTabControl.SelectedIndex] as TabItem)?.Content as DiagramControl)?.Designer.SelectionService;
+
+            if (selectionService != null)
+            {
+                var selectedDesItem = selectionService.GetSelectedDesignItem();
+                selectedDesItem.PropertyValueChanged(sender, propertyValueChangedEventArgs);
+            }
         }
     }
 }

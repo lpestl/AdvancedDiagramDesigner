@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Xml;
 using System.Xml.Linq;
 using Microsoft.Win32;
+using ToolboxDesigner.Core;
 
 namespace DiagramDesigner.Functionality
 {
@@ -120,6 +121,19 @@ namespace DiagramDesigner.Functionality
                 DesignerItem item = DeserializeDesignerItem(itemXML, id, 0, 0);
                 this.Children.Add(item);
                 SetConnectorDecoratorTemplate(item);
+
+                if ((item.Content is ContentControl conCtrl) &&
+                    (conCtrl.Tag is ToolboxItemSettings toolboxItemSettings))
+                {
+                    item.NoDelete = toolboxItemSettings.NoDelete;
+                    item.Proportional = toolboxItemSettings.Proportional;
+
+                    var typePropertiesOwner =
+                        BuilderTypePropertiesOwner.CompileResultType(toolboxItemSettings.Properties, item.ID.ToString());
+                    item.PropertiesHandler = Activator.CreateInstance(typePropertiesOwner);
+
+                    item.SetPropertiesValues(toolboxItemSettings.Properties);
+                }
             }
 
             this.InvalidateVisual();
