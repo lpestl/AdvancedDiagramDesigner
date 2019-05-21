@@ -16,19 +16,19 @@
               <RowDefinition Height="*"/>
               <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <Rectangle Stroke="GhostWhite" StrokeThickness="1" Margin="1,1,-1,0" RadiusX="3" RadiusY="3" Grid.RowSpan="2"/>
+            <Rectangle Stroke="GhostWhite" StrokeThickness="1" Margin="1,1,-1,0" Grid.RowSpan="2"/> <!--RadiusX="3" RadiusY="3"-->
             <Border Grid.Row="0"
                     BorderBrush="{StaticResource ToolbarBorderBrush}"
-                    BorderThickness="1,1,1,0"
-                    CornerRadius="3,3,0,0" >
-              <ContentPresenter Margin="4" />
+                    BorderThickness="1,1,1,0" >
+                <!--CornerRadius="3,3,0,0"-->
+                <ContentPresenter Margin="4" />
             </Border>
             <Border Grid.Row="1"
                     Background="{StaticResource ToolbarGroupHeaderBrush}"
                     BorderBrush="{StaticResource ToolbarBorderBrush}"
-                    BorderThickness="1,0,1,1"
-                    CornerRadius="0,0,3,3" >
-              <ContentPresenter HorizontalAlignment="Center"
+                    BorderThickness="1,0,1,1" >
+                <!--CornerRadius="0,0,3,3"-->
+                <ContentPresenter HorizontalAlignment="Center"
                                 Margin="4"
                                 ContentSource="Header"
                                 RecognizesAccessKey="True" />
@@ -53,8 +53,8 @@
             x:Name="Border"
             BorderThickness="1"
             Background="Transparent"
-            BorderBrush="Transparent"
-            CornerRadius="3">
+            BorderBrush="Transparent">
+              <!--CornerRadius="3"-->
             <ContentPresenter
               Margin="{TemplateBinding Padding}"
               HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
@@ -209,9 +209,9 @@
         <ControlTemplate TargetType="{x:Type ToolBar}">
           <Border x:Name="Border"
             CornerRadius="2"
-            BorderThickness="1"
-            Background="{StaticResource ToolbarBrush}"
-            BorderBrush="{StaticResource ToolbarDarkBorderBrush}">
+            BorderThickness="1">
+              <!--Background="{StaticResource ToolbarBrush}"
+              BorderBrush="{StaticResource ToolbarDarkBorderBrush}"-->
             <DockPanel >
               <ToggleButton DockPanel.Dock="Right"
                 IsEnabled="{TemplateBinding HasOverflowItems}"

@@ -9,7 +9,9 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
-    <UserControl.Resources>
+    <UserControl.Resources>        
+        <SolidColorBrush x:Key="WindowBackgroundBrush" Color="#FFF" />
+        
         <ContextMenu x:Key="DesignerCanvasContextMenu">
             <MenuItem Header="{x:Static prop:Resources.Paste}" Command="{x:Static ApplicationCommands.Paste}">
                 <MenuItem.Icon>

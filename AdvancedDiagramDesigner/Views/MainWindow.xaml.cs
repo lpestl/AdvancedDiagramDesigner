@@ -1,12 +1,18 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.ComponentModel;
+using System.Globalization;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
+using DiagramDesigner.Annotations;
 using DiagramDesigner.Functionality;
+using Xceed.Wpf.Toolkit.PropertyGrid;
 
 namespace DiagramDesigner.Views
 {
@@ -43,7 +49,7 @@ namespace DiagramDesigner.Views
 
         #region Designer`s tabs contol
 
-        private DesignerCanvas AddNewTab()
+        public DesignerCanvas AddNewTab()
         {
             var header = new TabItemHeader(Properties.Resources.NewDiagram);
             header.CloseMouseUpEventHandler += CloseDiagram_MouseUp;
@@ -121,6 +127,28 @@ namespace DiagramDesigner.Views
         }
 
         #endregion
+        
+        private void DesignersTabControl_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if ((e.RemovedItems.Count != 0) && (e.RemovedItems[0] is TabItem tabItem) && (tabItem.Content is DiagramControl olddiagramControl))
+                olddiagramControl.Designer.SelectionService.CurrentSelection.CollectionChanged -= CurrentSelectionOnCollectionChanged;
 
+            if ((e.AddedItems.Count != 0) && (e.AddedItems[0] is TabItem tabNewItem) && (tabNewItem.Content is DiagramControl newdiagramControl))
+            {
+                ItemPropertyGrid.SelectedObject = newdiagramControl.Designer.SelectionService.GetSelectedDesignItem()?.PropertiesHandler;
+                newdiagramControl.Designer.SelectionService.CurrentSelection.CollectionChanged +=
+                    CurrentSelectionOnCollectionChanged;
+            }
+
+        }
+
+        private void CurrentSelectionOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            var selectionService =
+                ((DesignersTabControl.Items[DesignersTabControl.SelectedIndex] as TabItem)?.Content as DiagramControl)?.Designer.SelectionService;
+
+            if (selectionService != null)
+                ItemPropertyGrid.SelectedObject = selectionService.GetSelectedDesignItem()?.PropertiesHandler;
+        }
     }
 }

@@ -775,23 +775,33 @@ namespace DiagramDesigner.Functionality
 
         #region Helper Methods
 
-        private XElement LoadSerializedDataFromFile()
+        private XElement LoadSerializedDataFromFile(string pathXml = null)
         {
-            OpenFileDialog openFile = new OpenFileDialog();
-            openFile.Filter = "Designer Files (*.xml)|*.xml|All Files (*.*)|*.*";
-
             XElement curreentXml = null;
-            if (openFile.ShowDialog() == true)
+            if (!(string.IsNullOrEmpty(pathXml)) && (File.Exists(pathXml)))
             {
-                try
+                curreentXml = XElement.Load(pathXml);
+                this.DiagramXmlFileInfo = new FileInfo(pathXml);
+                this.Caption = Path.GetFileName(pathXml);
+            }
+            else
+            {
+                OpenFileDialog openFile = new OpenFileDialog();
+                openFile.Filter = "Designer Files (*.xml)|*.xml|All Files (*.*)|*.*";
+
+                if (openFile.ShowDialog() == true)
                 {
-                    curreentXml = XElement.Load(openFile.FileName);
-                    Caption = Path.GetFileName(openFile.FileName);
-                }
-                catch (Exception e)
-                {
-                    MessageBox.Show(e.StackTrace, e.Message, MessageBoxButton.OK, MessageBoxImage.Error);
-                    curreentXml = null;
+                    try
+                    {
+                        curreentXml = XElement.Load(openFile.FileName);
+                        this.DiagramXmlFileInfo = new FileInfo(openFile.FileName);
+                        this.Caption = Path.GetFileName(openFile.FileName);
+                    }
+                    catch (Exception e)
+                    {
+                        MessageBox.Show(e.StackTrace, e.Message, MessageBoxButton.OK, MessageBoxImage.Error);
+                        curreentXml = null;
+                    }
                 }
             }
 
@@ -807,6 +817,7 @@ namespace DiagramDesigner.Functionality
                 try
                 {
                     xElement.Save(saveFile.FileName);
+                    this.DiagramXmlFileInfo = new FileInfo(saveFile.FileName);
                     this.Caption = Path.GetFileName(saveFile.FileName);
                 }
                 catch (Exception ex)

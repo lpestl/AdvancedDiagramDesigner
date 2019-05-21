@@ -59,116 +59,12 @@ namespace DiagramDesigner.Functionality
             {
                 if (dictionaryEntry.Value is ToolboxSettings toolboxSettings)
                 {
-                    string toolBoxKey = $"{dictionaryEntry.Key}_Toolbox";
-
-                    var toolBox = new Toolbox { Tag = toolboxSettings.Name };
-
-                    switch (toolboxSettings.ToolboxGridType)
-                    {
-                        case ToolboxGrid.List:
-                            toolBox.ItemSize = new Size(250, 40);
-
-                            break;
-                        case ToolboxGrid.Grid:
-                            toolBox.ItemSize = new Size(60, 60);
-                            break;
-                    }
+                    string toolBoxKey = $"{dictionaryEntry.Value}_Toolbox";
+                    var toolBox = CreateToolbox(toolboxSettings);
                     
                     foreach (var itemsSetting in toolboxSettings.ItemsSettings)
                     {
-                        var newItem = new ContentControl { Tag = itemsSetting, ToolTip = itemsSetting.DisplayName };
-                        
-                        var stackPanel = new StackPanel {Orientation = Orientation.Horizontal};
-
-                        var newGrid = new Grid();
-                        var newPath = new Path { Style = itemsSetting.PathStyle/*, ToolTip = itemsSetting.DisplayName*/ };
-                        
-                        newGrid.Children.Add(newPath);
-
-                        if (toolboxSettings.ToolboxGridType == ToolboxGrid.Grid)
-                        {
-                            newItem.Content = newGrid;
-                        }
-                        else
-                        {
-                            newGrid.Width = 25;
-                            stackPanel.Children.Add(newGrid);
-                            stackPanel.Children.Add(new TextBlock
-                            {
-                                Text = itemsSetting.DisplayName, VerticalAlignment = VerticalAlignment.Center,
-                                Margin = new Thickness(10, 0, 0, 0)
-                            });
-                            newItem.Content = stackPanel;
-                        }
-
-                        if (itemsSetting.PathStyle_DragThumb != null)
-                        {
-                            var controlTemplate = new ControlTemplate();
-
-                            var pathTemplate = new FrameworkElementFactory(typeof(Path));
-                            pathTemplate.SetValue(Path.StyleProperty, itemsSetting.PathStyle_DragThumb);
-
-                            controlTemplate.VisualTree = pathTemplate;
-
-                            DesignerItem.SetDragThumbTemplate(newItem, controlTemplate);
-                        }
-
-                        if (itemsSetting.ConnectorsSettings != null)
-                        {
-                            var controlTemplate = new ControlTemplate();
-
-                            var relPanelTemplate = new FrameworkElementFactory(typeof(RelativePositionPanel));
-                            relPanelTemplate.SetValue(RelativePositionPanel.MarginProperty, new Thickness(-4));
-
-                            if (itemsSetting.ConnectorsSettings.Any())
-                            {
-                                foreach (var connectorsSetting in itemsSetting.ConnectorsSettings)
-                                {
-                                    var connectorTemplate = new FrameworkElementFactory(typeof(Connector));
-
-                                    connectorTemplate.SetValue(Connector.NameProperty, connectorsSetting.Name);
-                                    connectorTemplate.SetValue(Connector.OrientationProperty,
-                                        connectorsSetting.Orientation);
-                                    connectorTemplate.SetValue(RelativePositionPanel.RelativePositionProperty,
-                                        connectorsSetting.RelativePosition);
-                                    connectorTemplate.SetValue(Connector.MaxInConnectionsProperty,
-                                        connectorsSetting.MaxInConnections);
-                                    connectorTemplate.SetValue(Connector.MaxOutConnectionsProperty,
-                                        connectorsSetting.MaxOutConnections);
-
-                                    relPanelTemplate.AppendChild(connectorTemplate);
-
-                                    if (!string.IsNullOrEmpty(connectorsSetting.Caption))
-                                    {
-                                        var newCaption = new TextBlock { Text = connectorsSetting.Caption, IsHitTestVisible = false, Tag = connectorsSetting };
-
-                                        if (connectorsSetting.Orientation == ConnectorOrientation.Left)
-                                            newCaption.HorizontalAlignment = HorizontalAlignment.Right;
-
-                                        if (connectorsSetting.Orientation == ConnectorOrientation.Top)
-                                            newCaption.VerticalAlignment = VerticalAlignment.Bottom;
-
-                                        var bindingLeft = new Binding("ActualWidth");
-                                        bindingLeft.Source = newGrid;
-
-                                        var bindingTop = new Binding("ActualHeight");
-                                        bindingTop.Source = newGrid;
-
-                                        var multiBinding = new MultiBinding();
-                                        multiBinding.Bindings.Add(bindingLeft);
-                                        multiBinding.Bindings.Add(bindingTop);
-                                        multiBinding.Converter = new SizeToMarginConverter(connectorsSetting.RelativePosition, connectorsSetting.Orientation);
-
-                                        newCaption.SetBinding(TextBlock.MarginProperty, multiBinding);
-                                        newGrid.Children.Add(newCaption);
-                                    }
-                                }
-                            }
-
-                            controlTemplate.VisualTree = relPanelTemplate;
-
-                            DesignerItem.SetConnectorDecoratorTemplate(newItem, controlTemplate);
-                        }
+                        var newItem = CreateNewToolboxItem(toolboxSettings, itemsSetting);
 
                         if (!itemsSetting.Invisible)
                             toolBox.Items.Add(newItem);
@@ -199,10 +95,152 @@ namespace DiagramDesigner.Functionality
             }
         }
 
+        private ContentControl CreateNewToolboxItem(ToolboxSettings toolboxSettings, ToolboxItemSettings itemsSetting)
+        {
+            var newItem = new ContentControl { Tag = itemsSetting, ToolTip = itemsSetting.DisplayName };
+
+            var stackPanel = new StackPanel { Orientation = Orientation.Horizontal };
+
+            var newGrid = new Grid();
+            var newPath = new Path { Style = itemsSetting.PathStyle/*, ToolTip = itemsSetting.DisplayName*/ };
+
+            newGrid.Children.Add(newPath);
+
+            if (toolboxSettings.ToolboxGridType == ToolboxGrid.Grid)
+            {
+                newItem.Content = newGrid;
+            }
+            else
+            {
+                newGrid.Width = 25;
+                stackPanel.Children.Add(newGrid);
+                stackPanel.Children.Add(new TextBlock
+                {
+                    Text = itemsSetting.DisplayName,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    Margin = new Thickness(10, 0, 0, 0)
+                });
+                newItem.Content = stackPanel;
+            }
+
+            if (itemsSetting.PathStyle_DragThumb != null)
+            {
+                var controlTemplate = new ControlTemplate();
+
+                var pathTemplate = new FrameworkElementFactory(typeof(Path));
+                pathTemplate.SetValue(Path.StyleProperty, itemsSetting.PathStyle_DragThumb);
+
+                controlTemplate.VisualTree = pathTemplate;
+
+                DesignerItem.SetDragThumbTemplate(newItem, controlTemplate);
+            }
+
+            if (itemsSetting.Container != null)
+            {
+                var bindingLeft = new Binding("ActualWidth");
+                bindingLeft.Source = newGrid;
+
+                var bindingTop = new Binding("ActualHeight");
+                bindingTop.Source = newGrid;
+
+                var multiBinding = new MultiBinding();
+                multiBinding.Bindings.Add(bindingLeft);
+                multiBinding.Bindings.Add(bindingTop);
+                multiBinding.Converter = new RelativeMarginToMarginConverter(itemsSetting.Container.RelativeMargin);
+                
+                var button = new Button {
+                    Content = new TextBlock
+                    {
+                        Text = Properties.Resources.ClickToOpen,
+                        TextWrapping = TextWrapping.Wrap,
+                        HorizontalAlignment = HorizontalAlignment.Center,
+                        Visibility = Visibility.Collapsed
+                    }
+                };
+
+                button.SetBinding(TextBlock.MarginProperty, multiBinding);
+                newGrid.Children.Add(button);
+            }
+
+            if (itemsSetting.ConnectorsSettings != null)
+            {
+                var controlTemplate = new ControlTemplate();
+
+                var relPanelTemplate = new FrameworkElementFactory(typeof(RelativePositionPanel));
+                relPanelTemplate.SetValue(RelativePositionPanel.MarginProperty, new Thickness(-4));
+
+                if (itemsSetting.ConnectorsSettings.Any())
+                {
+                    foreach (var connectorsSetting in itemsSetting.ConnectorsSettings)
+                    {
+                        var connectorTemplate = new FrameworkElementFactory(typeof(Connector));
+
+                        connectorTemplate.SetValue(Connector.NameProperty, connectorsSetting.Name);
+                        connectorTemplate.SetValue(Connector.OrientationProperty,
+                            connectorsSetting.Orientation);
+                        connectorTemplate.SetValue(RelativePositionPanel.RelativePositionProperty,
+                            connectorsSetting.RelativePosition);
+                        connectorTemplate.SetValue(Connector.MaxInConnectionsProperty,
+                            connectorsSetting.MaxInConnections);
+                        connectorTemplate.SetValue(Connector.MaxOutConnectionsProperty,
+                            connectorsSetting.MaxOutConnections);
+
+                        relPanelTemplate.AppendChild(connectorTemplate);
+
+                        if (!string.IsNullOrEmpty(connectorsSetting.Caption))
+                        {
+                            var newCaption = new TextBlock { Text = connectorsSetting.Caption, IsHitTestVisible = false, Tag = connectorsSetting };
+
+                            if (connectorsSetting.Orientation == ConnectorOrientation.Left)
+                                newCaption.HorizontalAlignment = HorizontalAlignment.Right;
+
+                            if (connectorsSetting.Orientation == ConnectorOrientation.Top)
+                                newCaption.VerticalAlignment = VerticalAlignment.Bottom;
+
+                            var bindingLeft = new Binding("ActualWidth");
+                            bindingLeft.Source = newGrid;
+
+                            var bindingTop = new Binding("ActualHeight");
+                            bindingTop.Source = newGrid;
+
+                            var multiBinding = new MultiBinding();
+                            multiBinding.Bindings.Add(bindingLeft);
+                            multiBinding.Bindings.Add(bindingTop);
+                            multiBinding.Converter = new SizeToMarginConverter(connectorsSetting.RelativePosition, connectorsSetting.Orientation);
+
+                            newCaption.SetBinding(TextBlock.MarginProperty, multiBinding);
+                            newGrid.Children.Add(newCaption);
+                        }
+                    }
+                }
+
+                controlTemplate.VisualTree = relPanelTemplate;
+
+                DesignerItem.SetConnectorDecoratorTemplate(newItem, controlTemplate);
+            }
+
+            return newItem;
+        }
+
+        private Toolbox CreateToolbox(ToolboxSettings toolboxSettings)
+        {
+            var toolBox = new Toolbox { Tag = toolboxSettings.Name };
+
+            switch (toolboxSettings.ToolboxGridType)
+            {
+                case ToolboxGrid.List:
+                    toolBox.ItemSize = new Size(250, 40);
+                    break;
+                case ToolboxGrid.Grid:
+                    toolBox.ItemSize = new Size(60, 60);
+                    break;
+            }
+
+            return toolBox;
+        }
+
         private List<DictionaryEntry> GetToolboxesSettings(ResourceDictionary newResources)
         {
-            //var toolBox = new Toolbox { ItemSize = new Size(60, 40) };
-
             var toolboxesSettings = new List<DictionaryEntry>();
             foreach (var resourceEntry in newResources)
                 if ((resourceEntry is DictionaryEntry dicEntry) && (dicEntry.Value is ToolboxSettings toolboxSettings))
@@ -239,6 +277,32 @@ namespace DiagramDesigner.Functionality
             {
                 AddCustomToolbox(xamlFileInfo);
             }
+        }
+    }
+
+    public class RelativeMarginToMarginConverter : IMultiValueConverter
+    {
+        private Thickness relativeMargin_;
+
+        public RelativeMarginToMarginConverter(Thickness relativeMargin)
+        {
+            relativeMargin_ = relativeMargin;
+        }
+
+        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+        {
+            var width = System.Convert.ToDouble(values[0]);
+            var height = System.Convert.ToDouble(values[1]);
+
+            return new Thickness(width * relativeMargin_.Left,
+                height * relativeMargin_.Top,
+                width * relativeMargin_.Right,
+                height * relativeMargin_.Bottom);
+        }
+
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+        {
+            return null;
         }
     }
 

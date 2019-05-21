@@ -9,7 +9,10 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Markup;
+using System.Windows.Media;
 using System.Xml;
+using System.Xml.Linq;
+using DiagramDesigner.Views;
 using ToolboxDesigner.Core;
 
 namespace DiagramDesigner.Functionality
@@ -22,6 +25,8 @@ namespace DiagramDesigner.Functionality
         // UPD: Updated and readable style
         internal SelectionService SelectionService => selectionService ?? (selectionService = new SelectionService(this));
         
+        public FileInfo DiagramXmlFileInfo { get; set; }
+
         // UPD: Caption for tabItem
         private string _caption = Properties.Resources.NewDiagram;
         public string Caption
@@ -36,7 +41,7 @@ namespace DiagramDesigner.Functionality
                 }
             }
         }
-
+        
         protected override void OnMouseDown(MouseButtonEventArgs e)
         {
             base.OnMouseDown(e);
@@ -113,6 +118,29 @@ namespace DiagramDesigner.Functionality
                         {
                             foreach (var child in itemGrid.Children)
                             {
+                                if (child is Button button)
+                                {
+                                    if (conCtrl.Tag is ToolboxItemSettings toolboxItemSettings)
+                                    {
+                                        var bindingLeft = new Binding("ActualWidth");
+                                        bindingLeft.Source = itemGrid;
+
+                                        var bindingTop = new Binding("ActualHeight");
+                                        bindingTop.Source = itemGrid;
+
+                                        var multiBinding = new MultiBinding();
+                                        multiBinding.Bindings.Add(bindingLeft);
+                                        multiBinding.Bindings.Add(bindingTop);
+                                        multiBinding.Converter = new RelativeMarginToMarginConverter(toolboxItemSettings.Container.RelativeMargin);
+
+                                        button.SetBinding(Button.MarginProperty, multiBinding);
+
+                                        (button.Content as TextBlock).Visibility = Visibility.Visible;
+
+                                        button.Click += ButtonOnClick;
+                                    }
+                                }
+
                                 if (child is TextBlock conCapture)
                                 {
                                     var bindingLeft = new Binding("ActualWidth");
@@ -143,6 +171,12 @@ namespace DiagramDesigner.Functionality
                     {
                         newItem.NoDelete = itemSettings.NoDelete;
                         newItem.Proportional = itemSettings.Proportional;
+
+                        var typePropertiesOwner =
+                            BuilderTypePropertiesOwner.CompileResultType(itemSettings.Properties, newItem.ID.ToString());
+                        newItem.PropertiesHandler = Activator.CreateInstance(typePropertiesOwner);
+
+                        newItem.SetPropertiesValues(itemSettings.Properties);
                     }
 
                     Point position = e.GetPosition(this);
@@ -174,7 +208,77 @@ namespace DiagramDesigner.Functionality
                 e.Handled = true;
             }
         }
-        
+
+        private void ButtonOnClick(object sender, RoutedEventArgs e)
+        {
+            DesignerItem container = FindParent<DesignerItem>(sender as Button);
+
+            if (string.IsNullOrEmpty(container.Caption))
+            {
+                MessageBox.Show(Properties.Resources.ContainerCaptionIsClearMessage,
+                    Properties.Resources.ContainerCaptionIsClearTitle, MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            if (DiagramXmlFileInfo == null)
+            {
+                MessageBox.Show(Properties.Resources.SaveDiagramForAttachMessage,
+                    Properties.Resources.SaveDiagramForAttachTitle, MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            var dir = DiagramXmlFileInfo.Directory;
+            var files = dir.GetFiles("*.xml", SearchOption.TopDirectoryOnly);
+            var dependensDiagramXmlName = $"{container.Caption}.xml";
+
+            FileInfo diagramFile = null;
+            foreach (var fileInfo in files)
+            {
+                if (Path.GetFileName(fileInfo.FullName).ToLower().Equals(container.Caption.ToLower()))
+                {
+                    diagramFile = fileInfo;
+                }
+            }
+
+            if (diagramFile == null)
+            {
+                var settingsDir = CheckSettingsDirectory();
+                files = settingsDir.GetFiles();
+
+                FileInfo defaultFileInfo = null;
+                foreach (var fileInfo in files)
+                    if (fileInfo.Name.Equals("default.xml"))
+                        defaultFileInfo = fileInfo;
+
+                var dirPath = dir.FullName[dir.FullName.Length - 1] == '\\'
+                    ? dir.FullName
+                    : $"{dir.FullName}\\";
+                diagramFile = defaultFileInfo?.CopyTo($"{dirPath}{dependensDiagramXmlName}") ?? new FileInfo($"{dirPath}{dependensDiagramXmlName}");
+                if (!diagramFile.Exists)
+                {
+                    XElement r = new XElement("Root");
+                    r.Save(diagramFile.FullName);
+
+                }
+            }
+
+            MainWindow mainWindow = FindParent<MainWindow>(this);
+
+            var newDesigner = mainWindow.AddNewTab();
+            var root = newDesigner.LoadSerializedDataFromFile(diagramFile.FullName);
+            newDesigner.RestoreDiagramFromXElement(root);
+        }
+
+        private T FindParent<T>(DependencyObject child) where T : DependencyObject
+        {
+            var parentWithoutType = VisualTreeHelper.GetParent(child);
+            T parent = parentWithoutType as T;
+            if (parent != null)
+                return parent;
+            else
+                return FindParent<T>(parentWithoutType);
+        }
+
         protected override Size MeasureOverride(Size constraint)
         {
             Size size = new Size();

@@ -132,6 +132,15 @@
   <data name="BringToFront" xml:space="preserve">
     <value>Поверх всех</value>
   </data>
+  <data name="ClickToOpen" xml:space="preserve">
+    <value>Открыть</value>
+  </data>
+  <data name="ContainerCaptionIsClearMessage" xml:space="preserve">
+    <value>Для контейнера не задано имя, поэтому вложенная диаграмма не может быть создана. Задайте этому контейнеру имя и повторите открытие вложенной диаграммы.</value>
+  </data>
+  <data name="ContainerCaptionIsClearTitle" xml:space="preserve">
+    <value>Имя контейнера не задано</value>
+  </data>
   <data name="Copy" xml:space="preserve">
     <value>Копировать</value>
   </data>
@@ -195,6 +204,9 @@
   <data name="Print" xml:space="preserve">
     <value>Печать</value>
   </data>
+  <data name="Properties" xml:space="preserve">
+    <value>Свойства</value>
+  </data>
   <data name="Save" xml:space="preserve">
     <value>Сохранить</value>
   </data>
@@ -203,6 +215,12 @@
   </data>
   <data name="SaveAfterCloseTitle" xml:space="preserve">
     <value>Сохранить изменения?</value>
+  </data>
+  <data name="SaveDiagramForAttachMessage" xml:space="preserve">
+    <value>Сохраните диаграмму, чтобы возможно было создать вложенную диаграмму, зависимую от текущей.</value>
+  </data>
+  <data name="SaveDiagramForAttachTitle" xml:space="preserve">
+    <value>Сохраните диаграмму для создания вложений.</value>
   </data>
   <data name="SelectAll" xml:space="preserve">
     <value>Выделить все</value>

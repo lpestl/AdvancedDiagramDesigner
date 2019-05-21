@@ -106,6 +106,33 @@ namespace DiagramDesigner.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Click to open.
+        /// </summary>
+        public static string ClickToOpen {
+            get {
+                return ResourceManager.GetString("ClickToOpen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No name was specified for the container, so a nested chart cannot be created. Give this container a name and repeat the opening of the nested chart..
+        /// </summary>
+        public static string ContainerCaptionIsClearMessage {
+            get {
+                return ResourceManager.GetString("ContainerCaptionIsClearMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Container name not set.
+        /// </summary>
+        public static string ContainerCaptionIsClearTitle {
+            get {
+                return ResourceManager.GetString("ContainerCaptionIsClearTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Copy.
         /// </summary>
         public static string Copy {
@@ -289,6 +316,15 @@ namespace DiagramDesigner.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Properties.
+        /// </summary>
+        public static string Properties {
+            get {
+                return ResourceManager.GetString("Properties", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Save.
         /// </summary>
         public static string Save {
@@ -312,6 +348,24 @@ namespace DiagramDesigner.Properties {
         public static string SaveAfterCloseTitle {
             get {
                 return ResourceManager.GetString("SaveAfterCloseTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save the chart so that it is possible to create a nested chart dependent on the current one..
+        /// </summary>
+        public static string SaveDiagramForAttachMessage {
+            get {
+                return ResourceManager.GetString("SaveDiagramForAttachMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save the chart to create attachments..
+        /// </summary>
+        public static string SaveDiagramForAttachTitle {
+            get {
+                return ResourceManager.GetString("SaveDiagramForAttachTitle", resourceCulture);
             }
         }
         

@@ -1,5 +1,11 @@
 ﻿using System;
+using System.Collections.ObjectModel;
+using System.Dynamic;
+using System.Linq;
+using System.Text;
+using System.Reflection;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -7,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
 using DiagramDesigner.Controls;
+using ToolboxDesigner.Core;
 
 namespace DiagramDesigner.Functionality
 {
@@ -42,6 +49,21 @@ namespace DiagramDesigner.Functionality
 
         #endregion
         
+        // TODO: Create dynamic type for PropertiesHandler
+        private dynamic _propertiesHandler;
+
+        public dynamic PropertiesHandler
+        {
+            get => _propertiesHandler;
+            set
+            {
+                if (_propertiesHandler != value)
+                {
+                    _propertiesHandler = value;
+                }
+            }
+        }
+
         public bool NoDelete { get; set; }
 
         public bool Proportional { get; set; }
@@ -224,7 +246,7 @@ namespace DiagramDesigner.Functionality
         {
             base.OnMouseDoubleClick(e);
 
-            var shapeContent = GetShape();
+            FrameworkElement shapeContent = GetShape() ?? (FrameworkElement) ((this.Content as ContentControl) ?? (this.Content as Grid)?.Children[0]);
             ClearContent();
             
             // Creat text box for inputing name
@@ -286,13 +308,13 @@ namespace DiagramDesigner.Functionality
 
         private void NameEditBoxOnLostFocus(object sender, RoutedEventArgs routedEventArgs)
         {
-            var shape = GetShape();
+            FrameworkElement shapeContent = GetShape() ?? (FrameworkElement)((this.Content as Grid)?.Children[0]);
             ClearContent();
 
             var inputBox = sender as TextBox;
             if (inputBox == null)
             {
-                this.Content = shape;
+                this.Content = shapeContent;
                 Caption = string.Empty;
                 return;
             }
@@ -313,7 +335,7 @@ namespace DiagramDesigner.Functionality
             };
 
             // Creat grid with figure (Shape.Path) and nameTextBlock
-            var grid = new Grid { Children = { shape, nameTextBlock } };
+            var grid = new Grid { Children = { shapeContent, nameTextBlock } };
 
             this.Content = grid;
         }
@@ -323,6 +345,58 @@ namespace DiagramDesigner.Functionality
         {
             (this.Content as Grid)?.Children.Clear();
             this.Content = null;
+        }
+
+        public void SetPropertiesValues(PropertiesCollection itemSettingsProperties)
+        {
+            foreach (var property in itemSettingsProperties)
+            {
+                dynamic prop = null;
+
+                if (!string.IsNullOrEmpty(property.DefaultValue))
+                {
+                    if (property.Type.ToLower().Equals("int32"))
+                        prop = Int32.Parse(property.DefaultValue);
+                    else
+                    if (property.Type.ToLower().Equals("int64"))
+                        prop = Int64.Parse(property.DefaultValue);
+                    else
+                    if (property.Type.ToLower().Equals("bool"))
+                        prop = bool.Parse(property.DefaultValue);
+                    else
+                    if (property.Type.ToLower().Equals("float"))
+                        prop = float.Parse(property.DefaultValue, new CultureInfo("EN-en"));
+                    else if (property.Type.ToLower().Equals("double"))
+                        prop = double.Parse(property.DefaultValue, new CultureInfo("EN-en"));
+                    else
+                    if (property.Type.ToLower().Equals("date") || property.Type.ToLower().Equals("datetime"))
+                        prop = DateTime.Parse(property.DefaultValue);
+                    //else
+                    //if (property.Type.ToLower().Equals("enum"))
+                    //    prop = typeof(Enum);
+                }
+
+                if (!string.IsNullOrEmpty(property.Value))
+                {
+                    if (property.Type.ToLower().Equals("int32"))
+                        prop = Int32.Parse(property.Value);
+                    else if (property.Type.ToLower().Equals("int64"))
+                        prop = Int64.Parse(property.Value);
+                    else if (property.Type.ToLower().Equals("bool"))
+                        prop = bool.Parse(property.Value);
+                    else if (property.Type.ToLower().Equals("float"))
+                        prop = float.Parse(property.Value);
+                    else if (property.Type.ToLower().Equals("double"))
+                        prop = double.Parse(property.Value);
+                    else if (property.Type.ToLower().Equals("date") || property.Type.ToLower().Equals("datetime"))
+                        prop = DateTime.Parse(property.Value);
+                    //else
+                    //if (property.Type.ToLower().Equals("enum"))
+                    //    prop = typeof(Enum);
+                }
+
+                PropertiesHandler.GetType().GetProperty(property.Name).SetValue(PropertiesHandler, prop);
+            }
         }
     }
 }
