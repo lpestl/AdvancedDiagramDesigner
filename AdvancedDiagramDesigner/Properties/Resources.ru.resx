@@ -204,6 +204,9 @@
   <data name="Print" xml:space="preserve">
     <value>Печать</value>
   </data>
+  <data name="Properties" xml:space="preserve">
+    <value>Свойства</value>
+  </data>
   <data name="Save" xml:space="preserve">
     <value>Сохранить</value>
   </data>

@@ -5,6 +5,7 @@
         xmlns:c="clr-namespace:DiagramDesigner.Controls"
         xmlns:functionality="clr-namespace:DiagramDesigner.Functionality"
         xmlns:prop="clr-namespace:DiagramDesigner.Properties"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         WindowStartupLocation="CenterScreen"
         Title="Diagram Designer"
         x:Name="DiagramDesignerWindow"
@@ -21,7 +22,9 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="285"/>
                 <ColumnDefinition/>
+                <ColumnDefinition Width="300"/>
             </Grid.ColumnDefinitions>
+
             <!-- Toolbox -->
             <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Margin="0,0,5,0">
                 <StackPanel x:Name="ToolboxesHandle">
@@ -29,13 +32,26 @@
                     <Expander Header="{x:Static prop:Resources.Shapes}" Content="{StaticResource ShapeStencils}" IsExpanded="True"/>
                 </StackPanel>
             </ScrollViewer>
+
             <!-- GridSplitter -->
             <GridSplitter Focusable="False" Width="2" Background="LightGray"
                     VerticalAlignment="Stretch" HorizontalAlignment="Right"/>
+
             <!-- Designer -->
-            <GroupBox Header="{x:Static prop:Resources.Diagram}" Grid.Column="1" Margin="3,0,0,0">
+            <GroupBox Header="{x:Static prop:Resources.Diagram}" Grid.Column="1" Margin="3,0,5,0">
                 <TabControl x:Name="DesignersTabControl" />
             </GroupBox>
+
+            <!-- GridSplitter -->
+            <GridSplitter Focusable="False" Width="2" Background="LightGray" Grid.Column="1"
+                          VerticalAlignment="Stretch" HorizontalAlignment="Right"/>
+
+
+            <Expander Grid.Column="2" Header="{x:Static prop:Resources.Properties}" IsExpanded="True" Margin="3,0,0,0">
+                <xctk:PropertyGrid x:Name="ItemPropertyGrid" 
+                                   AutoGenerateProperties="True">
+                </xctk:PropertyGrid>
+            </Expander>
         </Grid>
     </Grid>
 </Window>

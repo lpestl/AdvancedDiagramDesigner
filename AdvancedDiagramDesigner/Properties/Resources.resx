@@ -204,6 +204,9 @@ Detailed error description:
   <data name="Print" xml:space="preserve">
     <value>Print</value>
   </data>
+  <data name="Properties" xml:space="preserve">
+    <value>Properties</value>
+  </data>
   <data name="Save" xml:space="preserve">
     <value>Save</value>
   </data>
