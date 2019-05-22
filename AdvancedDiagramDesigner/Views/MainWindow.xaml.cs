@@ -57,14 +57,15 @@ namespace DiagramDesigner.Views
 
         private void LanguagesComboBoxOnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            var answer = MessageBox.Show(Properties.Resources.RestartAppMessage, Properties.Resources.RestartApp,
+                MessageBoxButton.YesNo, MessageBoxImage.Question);
             Thread.CurrentThread.CurrentCulture = culturesList[LanguagesComboBox.SelectedIndex];
             Thread.CurrentThread.CurrentUICulture = culturesList[LanguagesComboBox.SelectedIndex];
 
             XElement settings = new XElement("language", culturesList[LanguagesComboBox.SelectedIndex].Name);
             settings.Save("language.xml");
 
-            if (MessageBox.Show(Properties.Resources.RestartAppMessage, Properties.Resources.RestartApp,
-                    MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            if (answer == MessageBoxResult.Yes)
             {
                 System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
                 Application.Current.Shutdown();
