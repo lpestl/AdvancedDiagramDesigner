@@ -202,5 +202,13 @@ namespace DiagramDesigner.Views
                 selectedDesItem.PropertyValueChanged(sender, propertyValueChangedEventArgs);
             }
         }
+
+        private void MainWindow_OnKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Delete)
+            {
+                ApplicationCommands.Delete.Execute(e, ((DesignersTabControl.Items[DesignersTabControl.SelectedIndex] as TabItem)?.Content as DiagramControl)?.Designer);
+            }
+        }
     }
 }

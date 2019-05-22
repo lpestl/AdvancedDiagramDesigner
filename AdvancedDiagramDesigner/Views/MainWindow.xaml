@@ -9,6 +9,7 @@
         WindowStartupLocation="CenterScreen"
         Title="Diagram Designer"
         x:Name="DiagramDesignerWindow"
+        KeyDown="MainWindow_OnKeyDown"
         Height="850" Width="1000">
     <Grid Margin="10">
         <Grid.RowDefinitions>
