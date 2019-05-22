@@ -186,6 +186,9 @@ Detailed error description:
   <data name="Horizontal" xml:space="preserve">
     <value>Horizontal</value>
   </data>
+  <data name="Language" xml:space="preserve">
+    <value>Language:</value>
+  </data>
   <data name="New" xml:space="preserve">
     <value>New</value>
   </data>
@@ -206,6 +209,12 @@ Detailed error description:
   </data>
   <data name="Properties" xml:space="preserve">
     <value>Properties</value>
+  </data>
+  <data name="RestartApp" xml:space="preserve">
+    <value>Restart the application?</value>
+  </data>
+  <data name="RestartAppMessage" xml:space="preserve">
+    <value>To correctly update the localization, you must restart the application. Do you want to do it now?</value>
   </data>
   <data name="Save" xml:space="preserve">
     <value>Save</value>

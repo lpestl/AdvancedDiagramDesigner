@@ -186,6 +186,9 @@
   <data name="Horizontal" xml:space="preserve">
     <value>Выровнять по горизонтали</value>
   </data>
+  <data name="Language" xml:space="preserve">
+    <value>Язык интерфейса:</value>
+  </data>
   <data name="New" xml:space="preserve">
     <value>Создать</value>
   </data>
@@ -206,6 +209,12 @@
   </data>
   <data name="Properties" xml:space="preserve">
     <value>Свойства</value>
+  </data>
+  <data name="RestartApp" xml:space="preserve">
+    <value>Перезапустить приложение?</value>
+  </data>
+  <data name="RestartAppMessage" xml:space="preserve">
+    <value>Для корректного обновления локализации, необходимо перезапустить приложение. Вы хотите сделать это сейчас?</value>
   </data>
   <data name="Save" xml:space="preserve">
     <value>Сохранить</value>
