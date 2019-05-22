@@ -433,6 +433,16 @@ namespace DiagramDesigner.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An unprocessed error has occurred. Please inform the developer about it by taking a screenshot of this window:
+        ///.
+        /// </summary>
+        public static string UnhandledException {
+            get {
+                return ResourceManager.GetString("UnhandledException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Vertical.
         /// </summary>
         public static string Vertical {

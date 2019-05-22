@@ -243,6 +243,10 @@
   <data name="Ungroup" xml:space="preserve">
     <value>Разгруппировать</value>
   </data>
+  <data name="UnhandledException" xml:space="preserve">
+    <value>Произошла необработанная ошибка. Пожалуйста сообщите о ней разработчику, сделав скриншот этого окна:
+</value>
+  </data>
   <data name="Vertical" xml:space="preserve">
     <value>Выровнять по вертикали</value>
   </data>

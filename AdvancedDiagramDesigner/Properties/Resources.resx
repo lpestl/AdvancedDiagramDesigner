@@ -243,6 +243,10 @@ Detailed error description:
   <data name="Ungroup" xml:space="preserve">
     <value>Ungroup</value>
   </data>
+  <data name="UnhandledException" xml:space="preserve">
+    <value>An unprocessed error has occurred. Please inform the developer about it by taking a screenshot of this window:
+</value>
+  </data>
   <data name="Vertical" xml:space="preserve">
     <value>Vertical</value>
   </data>
