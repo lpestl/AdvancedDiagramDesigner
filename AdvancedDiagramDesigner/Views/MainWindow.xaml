@@ -9,11 +9,13 @@
         WindowStartupLocation="CenterScreen"
         Title="Diagram Designer"
         x:Name="DiagramDesignerWindow"
+        KeyDown="MainWindow_OnKeyDown"
         Height="850" Width="1000">
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <ContentControl Content="{StaticResource MyToolbar}"/>
@@ -56,5 +58,24 @@
                 <!--</ScrollViewer>-->
             </Expander>
         </Grid>
+
+        <StatusBar Grid.Row="2" Background="DeepSkyBlue">
+            <StatusBar.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                    </Grid>
+                </ItemsPanelTemplate>
+            </StatusBar.ItemsPanel>
+            <StatusBarItem Grid.Column="0">
+                <TextBlock Text="{x:Static prop:Resources.Language}"></TextBlock>
+            </StatusBarItem>
+            <StatusBarItem Grid.Column="1">
+                <ComboBox x:Name="LanguagesComboBox" Background="DeepSkyBlue"></ComboBox>
+            </StatusBarItem>
+        </StatusBar>
     </Grid>
 </Window>

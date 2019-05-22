@@ -1,23 +1,35 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Globalization;
 using System.IO;
 using System.Runtime.CompilerServices;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
+using System.Windows.Markup;
 using System.Windows.Media.Imaging;
+using System.Xml.Linq;
 using DiagramDesigner.Annotations;
 using DiagramDesigner.Functionality;
+using DiagramDesigner.Properties;
+using Newtonsoft.Json;
 using Xceed.Wpf.Toolkit.PropertyGrid;
 
 namespace DiagramDesigner.Views
 {
     public partial class MainWindow : Window
     {
+        private readonly List<CultureInfo> culturesList = new List<CultureInfo>
+        {
+            new CultureInfo("ru-RU"),
+            new CultureInfo("en-US"),
+        };
+
         public MainWindow()
         {
             this.CommandBindings.Add(new CommandBinding(ApplicationCommands.New, New_Executed));
@@ -25,12 +37,41 @@ namespace DiagramDesigner.Views
 
             InitializeComponent();
 
+            for (var i = 0; i < culturesList.Count; i++)
+            {
+                LanguagesComboBox.Items.Add(culturesList[i].DisplayName);
+                if (Equals(culturesList[i], CultureInfo.CurrentUICulture))
+                {
+                    LanguagesComboBox.SelectedIndex = i;
+                }
+            }
+            LanguagesComboBox.SelectionChanged += LanguagesComboBoxOnSelectionChanged;
+
             var toolboxImporter = new ToolboxImporter(ToolboxesHandle);
             toolboxImporter.Scan();
 
+            ItemPropertyGrid.PropertyValueChanged += ItemPropertyGridOnPropertyValueChanged;
+
             New_Executed(this, null);
         }
-        
+
+        private void LanguagesComboBoxOnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var answer = MessageBox.Show(Properties.Resources.RestartAppMessage, Properties.Resources.RestartApp,
+                MessageBoxButton.YesNo, MessageBoxImage.Question);
+            Thread.CurrentThread.CurrentCulture = culturesList[LanguagesComboBox.SelectedIndex];
+            Thread.CurrentThread.CurrentUICulture = culturesList[LanguagesComboBox.SelectedIndex];
+
+            XElement settings = new XElement("language", culturesList[LanguagesComboBox.SelectedIndex].Name);
+            settings.Save("language.xml");
+
+            if (answer == MessageBoxResult.Yes)
+            {
+                System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
+                Application.Current.Shutdown();
+            }
+        }
+
         #region Application Common Commands
 
         private void New_Executed(object sender, ExecutedRoutedEventArgs e)
@@ -139,7 +180,6 @@ namespace DiagramDesigner.Views
                 newdiagramControl.Designer.SelectionService.CurrentSelection.CollectionChanged +=
                     CurrentSelectionOnCollectionChanged;
             }
-
         }
 
         private void CurrentSelectionOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -149,6 +189,26 @@ namespace DiagramDesigner.Views
 
             if (selectionService != null)
                 ItemPropertyGrid.SelectedObject = selectionService.GetSelectedDesignItem()?.PropertiesHandler;
+        }
+        
+        private void ItemPropertyGridOnPropertyValueChanged(object sender, PropertyValueChangedEventArgs propertyValueChangedEventArgs)
+        {
+            var selectionService =
+                ((DesignersTabControl.Items[DesignersTabControl.SelectedIndex] as TabItem)?.Content as DiagramControl)?.Designer.SelectionService;
+
+            if (selectionService != null)
+            {
+                var selectedDesItem = selectionService.GetSelectedDesignItem();
+                selectedDesItem.PropertyValueChanged(sender, propertyValueChangedEventArgs);
+            }
+        }
+
+        private void MainWindow_OnKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Delete)
+            {
+                ApplicationCommands.Delete.Execute(e, ((DesignersTabControl.Items[DesignersTabControl.SelectedIndex] as TabItem)?.Content as DiagramControl)?.Designer);
+            }
         }
     }
 }

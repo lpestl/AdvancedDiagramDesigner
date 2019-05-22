@@ -262,6 +262,15 @@ namespace DiagramDesigner.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Language:.
+        /// </summary>
+        public static string Language {
+            get {
+                return ResourceManager.GetString("Language", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New.
         /// </summary>
         public static string New {
@@ -321,6 +330,24 @@ namespace DiagramDesigner.Properties {
         public static string Properties {
             get {
                 return ResourceManager.GetString("Properties", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Restart the application?.
+        /// </summary>
+        public static string RestartApp {
+            get {
+                return ResourceManager.GetString("RestartApp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To correctly update the localization, you must restart the application. Do you want to do it now?.
+        /// </summary>
+        public static string RestartAppMessage {
+            get {
+                return ResourceManager.GetString("RestartAppMessage", resourceCulture);
             }
         }
         
@@ -429,6 +456,16 @@ namespace DiagramDesigner.Properties {
         public static string Ungroup {
             get {
                 return ResourceManager.GetString("Ungroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An unprocessed error has occurred. Please inform the developer about it by taking a screenshot of this window:
+        ///.
+        /// </summary>
+        public static string UnhandledException {
+            get {
+                return ResourceManager.GetString("UnhandledException", resourceCulture);
             }
         }
         
