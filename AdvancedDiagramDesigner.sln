@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiagramDesigner", "Advanced
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToolboxDesigner", "ToolboxDesigner\ToolboxDesigner.csproj", "{DE8E724E-B4F5-4D47-8DD5-6B4D019492CD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Protection", "Protection\Protection.csproj", "{A2DBB098-A1E2-48A5-9C12-A5F6FF599B8D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{DE8E724E-B4F5-4D47-8DD5-6B4D019492CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DE8E724E-B4F5-4D47-8DD5-6B4D019492CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DE8E724E-B4F5-4D47-8DD5-6B4D019492CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2DBB098-A1E2-48A5-9C12-A5F6FF599B8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2DBB098-A1E2-48A5-9C12-A5F6FF599B8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2DBB098-A1E2-48A5-9C12-A5F6FF599B8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2DBB098-A1E2-48A5-9C12-A5F6FF599B8D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
