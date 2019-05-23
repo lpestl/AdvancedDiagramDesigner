@@ -17,7 +17,6 @@ using System.Xml.Linq;
 using DiagramDesigner.Annotations;
 using DiagramDesigner.Functionality;
 using DiagramDesigner.Properties;
-using Newtonsoft.Json;
 using Xceed.Wpf.Toolkit.PropertyGrid;
 
 namespace DiagramDesigner.Views

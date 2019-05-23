@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -11,6 +10,7 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
 using System.Xml.Linq;
+using Newtonsoft.Json;
 
 namespace DiagramDesigner
 {

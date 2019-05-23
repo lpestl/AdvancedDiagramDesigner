@@ -5,7 +5,6 @@
   <Application.Resources>
     <ResourceDictionary>
       <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="/PresentationFramework.Aero2;component/themes/Aero2.normalcolor.xaml" />
         <ResourceDictionary Source="Resources/Styles/Shared.xaml"/>
         <ResourceDictionary Source="Resources/Styles/ToolBar.xaml"/>
         <ResourceDictionary Source="Resources/Styles/GroupBox.xaml"/>
