@@ -24,12 +24,7 @@ namespace DiagramDesigner
             AppDomain.CurrentDomain.UnhandledException += OnAppDomainUnhandledException;
             ServicePointManager.DefaultConnectionLimit = 12;
             Dispatcher.UnhandledException += OnDispatcherUnhandledException;
-
-            if (!Protection.ProtectionService.TrialTimeIsValid())
-            {
-                this.Shutdown();
-            }
-
+            
             if (File.Exists("language.xml"))
             {
                 var langXml = XElement.Load("language.xml");

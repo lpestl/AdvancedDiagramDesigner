@@ -234,10 +234,6 @@
     <Resource Include="Resources\Images\Ungroup.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Protection\Protection.csproj">
-      <Project>{a2dbb098-a1e2-48a5-9c12-a5f6ff599b8d}</Project>
-      <Name>Protection</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ToolboxDesigner\ToolboxDesigner.csproj">
       <Project>{de8e724e-b4f5-4d47-8dd5-6b4d019492cd}</Project>
       <Name>ToolboxDesigner</Name>
